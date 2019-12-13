@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styled from 'styled-components';
 
+import Signup from './containers/Signup';
+
 function Index() {
     return (
         <div>
@@ -14,14 +16,6 @@ function Login() {
     return (
         <div>
             <h2>Login</h2>
-        </div>
-    );
-}
-
-function Signup() {
-    return (
-        <div>
-            <h2>Signup</h2>
         </div>
     );
 }
