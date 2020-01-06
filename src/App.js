@@ -1,32 +1,66 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link as RouteLink } from "react-router-dom";
 
 import Signup from './containers/Signup';
+import Login from './containers/Login';
 
 import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
-import { color } from 'styled-system'
-
 import theme from './styles/theme';
+import preset from '@rebass/preset'
 
-const Box = styled.div`
-  ${color}
-`
+import {
+    Box,
+    Card,
+    Image,
+    Heading,
+    Text,
+    Button,
+    Flex,
+    Link
+} from 'rebass/styled-components'
 
 function Index() {
     return (
-        <Box color="black" bg="blue">
-            <h1>Home</h1>
+        <Box
+            sx={{
+                p: 4,
+                color: 'text',
+                bg: 'background',
+                fontFamily: 'body',
+                fontWeight: 'body',
+                lineHeight: 'body',
+            }}>
+            <Heading as='h1' variant='display'>Hello</Heading>
+            <Text mb={4}>This is a social app demo</Text>
+            <Button mr={3}>
+                Login
+            </Button>
+            <Button variant='secondary'>
+                Signup
+            </Button>
         </Box>
     );
 }
 
-function Login() {
+
+function Navbar() {
     return (
-        <div>
-            <h1>Login</h1>
-        </div>
-    );
+        <header>
+            <Flex
+                px={2}
+                py={3}
+                color='white'
+                bg='blue'
+                alignItems='center'>
+                <Text p={2} fontWeight='bold'>Social App</Text>
+                <Box mx='auto' />
+                <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
+                <Link as={RouteLink} to="/login/" color="white" pr={2}>Login</Link>
+                <Link as={RouteLink} to="/signup/" color="white">Signup</Link>
+            </Flex>
+        </header>
+    )
 }
 
 const App = () => {
@@ -34,28 +68,14 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <Router>
                 <div>
-                    <header>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <Link to="/">Home</Link>
-                                </li>
-                                <li>
-                                    <Link to="/login/">Login</Link>
-                                </li>
-                                <li>
-                                    <Link to="/signup/">Signup</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </header>
+                    <Navbar />
 
                     <Route path="/" exact component={Index} />
                     <Route path="/login/" component={Login} />
                     <Route path="/signup/" component={Signup} />
                 </div>
             </Router>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 
