@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link as RouteLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react-router-dom";
 
 import Signup from './containers/Signup';
 import Login from './containers/Login';
@@ -69,10 +69,12 @@ const App = () => {
             <Router>
                 <div>
                     <Navbar />
-
-                    <Route path="/" exact component={Index} />
-                    <Route path="/login/" component={Login} />
-                    <Route path="/signup/" component={Signup} />
+                    <Switch>
+                        <Route path="/" exact component={Index} />
+                        <Route path="/login" exact component={Login} />
+                        <Route path="/signup" exact component={Signup} />
+                        <Route path="*" component={() => "404 not found"} />
+                    </Switch>
                 </div>
             </Router>
         </ThemeProvider >

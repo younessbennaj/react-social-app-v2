@@ -2,15 +2,11 @@ import React, { useEffect } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
-import { connectUser } from '../actions';
+import { signIn } from '../actions';
 
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-//Style
-import styled from "styled-components";
-import preset from '@rebass/preset';
 
 import {
     Box,
@@ -31,7 +27,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ connectUser }) => {
+const LoginForm = ({ signIn, history }) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -46,7 +42,8 @@ const LoginForm = ({ connectUser }) => {
         }),
         onSubmit: values => {
             // alert(JSON.stringify(values, null, 2));
-            connectUser(values);
+            signIn(values, history);
+            // history.push('/');
         },
     });
     return (
@@ -99,20 +96,20 @@ const LoginForm = ({ connectUser }) => {
     );
 };
 
-const Login = ({ users, connectUser }) => {
+const Login = ({ user, signIn, history }) => {
     useEffect(() => {
-        console.log(users);
-    }, [users]);
+        console.log(user);
+    }, [user]);
     return (
-        <LoginForm connectUser={connectUser} />
+        <LoginForm signIn={signIn} history={history} />
     );
 };
 
 function mapStateToProps(state) {
-    const { users } = state;
-    return { users };
+    const { user } = state;
+    return { user };
 }
 
 export default connect(mapStateToProps, {
-    connectUser
+    signIn
 })(Login);

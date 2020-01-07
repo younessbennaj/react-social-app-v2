@@ -4,9 +4,9 @@
 
 import { combineReducers } from 'redux';
 
-import { users } from './users';
+import { user } from './user';
 
 // On map le retour de notre reducer à une variable
 export default combineReducers({
-    users,
+    user,
 });

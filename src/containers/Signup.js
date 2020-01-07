@@ -1,8 +1,12 @@
 import React from 'react';
+
+//Redux 
+import { connect } from 'react-redux';
+import { signUp } from '../actions';
+
+//Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import styled from "styled-components";
-import preset from '@rebass/preset'
 
 import {
     Box,
@@ -23,7 +27,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const SignupForm = () => {
+const SignupForm = ({ signUp, history }) => {
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -48,7 +52,7 @@ const SignupForm = () => {
                 .required('Required'),
         }),
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            signUp(values);
         },
     });
     return (
@@ -145,9 +149,16 @@ const SignupForm = () => {
     );
 };
 
-const Signup = () => {
+const Signup = ({ users, signUp, history }) => {
     return (
-        <SignupForm />
+        <SignupForm signUp={signUp} history={history} />
     );
 };
-export default Signup;
+
+function mapStateToProps(state) {
+    const { users } = state;
+    return { users };
+}
+export default connect(mapStateToProps, {
+    signUp
+})(Signup);
