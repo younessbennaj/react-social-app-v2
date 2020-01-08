@@ -27,7 +27,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ signIn, history }) => {
+const LoginForm = ({ signIn, history, error }) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -90,24 +90,39 @@ const LoginForm = ({ signIn, history }) => {
                             Submit
                         </Button>
                     </Box>
+                    {error ? (
+                        <Box pt={3} px={2}>
+                            <Box sx={{
+                                color: 'red',
+                                bg: '#ffdce0',
+                                border: '1px solid red',
+                                fontSize: 0,
+                                px: 2,
+                                py: 2,
+                                borderRadius: 2,
+                            }}>{error[Object.keys(error)[0]]}</Box>
+                        </Box>
+                    ) : null}
+
                 </Flex>
             </Box>
         </Card>
     );
 };
 
-const Login = ({ user, signIn, history }) => {
+const Login = ({ user, signIn, history, auth }) => {
     useEffect(() => {
         console.log(user);
-    }, [user]);
+        console.log(auth);
+    }, [user, auth]);
     return (
-        <LoginForm signIn={signIn} history={history} />
+        <LoginForm signIn={signIn} history={history} error={auth.error} />
     );
 };
 
 function mapStateToProps(state) {
-    const { user } = state;
-    return { user };
+    const { user, auth } = state;
+    return { user, auth };
 }
 
 export default connect(mapStateToProps, {
