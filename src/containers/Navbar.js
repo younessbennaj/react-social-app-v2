@@ -17,7 +17,6 @@ import {
 } from 'rebass/styled-components'
 
 const AuthenticatedNavbar = ({ authenticated }) => {
-    console.log(authenticated);
     if (authenticated) {
         return (
             <>
@@ -36,7 +35,6 @@ const AuthenticatedNavbar = ({ authenticated }) => {
 }
 
 const Navbar = ({ auth }) => {
-    console.log(auth.authenticated);
     return (
         <header>
             <Flex

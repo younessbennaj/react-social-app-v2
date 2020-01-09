@@ -2,6 +2,7 @@ import React from 'react';
 
 //Redux
 import { connect } from 'react-redux';
+import { signOut } from '../actions'
 
 //Style
 import {
@@ -15,10 +16,11 @@ import {
     Link
 } from 'rebass/styled-components'
 
-const Profile = ({ user, auth }) => {
+const Profile = ({ user, auth, signOut, history }) => {
 
-    for (let key in user.credentials) {
-        console.log(key, user.credentials[key]);
+    const handleClick = () => {
+        signOut(history);
+        console.log('clicked');
     }
 
     return (
@@ -31,6 +33,9 @@ const Profile = ({ user, auth }) => {
                     borderRadius: 8,
                 }}
             />
+            <Button mr={3} onClick={handleClick}>
+                Logout
+            </Button>
         </Box>
 
     );
@@ -42,4 +47,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    signOut
 })(Profile);
