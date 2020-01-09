@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react-router-dom";
 
+import Navbar from './containers/Navbar';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
+import Home from './containers/Home';
+import Profile from './containers/Profile';
 
 import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
@@ -43,25 +46,24 @@ function Index() {
     );
 }
 
-
-function Navbar() {
-    return (
-        <header>
-            <Flex
-                px={2}
-                py={3}
-                color='white'
-                bg='blue'
-                alignItems='center'>
-                <Text p={2} fontWeight='bold'>Social App</Text>
-                <Box mx='auto' />
-                <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
-                <Link as={RouteLink} to="/login/" color="white" pr={2}>Login</Link>
-                <Link as={RouteLink} to="/signup/" color="white">Signup</Link>
-            </Flex>
-        </header>
-    )
-}
+// function Navbar() {
+//     return (
+//         <header>
+//             <Flex
+//                 px={2}
+//                 py={3}
+//                 color='white'
+//                 bg='blue'
+//                 alignItems='center'>
+//                 <Text p={2} fontWeight='bold'>Social App</Text>
+//                 <Box mx='auto' />
+//                 <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
+//                 <Link as={RouteLink} to="/login/" color="white" pr={2}>Login</Link>
+//                 <Link as={RouteLink} to="/signup/" color="white">Signup</Link>
+//             </Flex>
+//         </header>
+//     )
+// }
 
 const App = () => {
     return (
@@ -70,9 +72,10 @@ const App = () => {
                 <div>
                     <Navbar />
                     <Switch>
-                        <Route path="/" exact component={Index} />
+                        <Route path="/" exact component={Home} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
+                        <Route path="/profile" exact component={Profile} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
                 </div>

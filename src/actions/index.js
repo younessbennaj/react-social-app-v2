@@ -22,8 +22,9 @@ export const signIn = (data, history) => async dispatch => {
     if (response) {
         const FBIdToken = `Bearer ${response.data.token}`;
         localStorage.setItem('FBIdToken', FBIdToken);
+        //Set authorization header with jwt token
         instance.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData());
+        dispatch(getUserData(history));
         dispatch({ type: actions.AUTH_SUCCESS });
         // history.push('/');
     }
@@ -34,10 +35,15 @@ export const signIn = (data, history) => async dispatch => {
 
 }
 
-export const getUserData = () => async dispatch => {
+export const signOut = () => {
+    localStorage.removeItem('FBIdToken');
+}
+
+export const getUserData = (history) => async dispatch => {
     let [response, responseErr] = await handle(instance.get('/user'));
     if (response) {
         dispatch({ type: actions.SET_USER, payload: response.data });
+        history.push('/');
     }
     if (responseErr) console.error(responseErr.response);
 }

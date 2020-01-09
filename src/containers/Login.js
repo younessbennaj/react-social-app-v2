@@ -8,6 +8,8 @@ import { signIn } from '../actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import styled from 'styled-components';
+
 import {
     Box,
     Card,
@@ -26,6 +28,21 @@ import {
     Radio,
     Checkbox,
 } from '@rebass/forms/styled-components'
+
+//Error Message Component 
+
+const ErrorMessage = styled(Box)({
+    color: 'red',
+    border: '1px solid red',
+    borderRadius: '2px',
+})
+
+ErrorMessage.defaultProps = {
+    bg: '#ffdce0',
+    fontSize: 0,
+    px: 2,
+    py: 2,
+};
 
 const LoginForm = ({ signIn, history, error }) => {
     const formik = useFormik({
@@ -92,15 +109,7 @@ const LoginForm = ({ signIn, history, error }) => {
                     </Box>
                     {error ? (
                         <Box pt={3} px={2}>
-                            <Box sx={{
-                                color: 'red',
-                                bg: '#ffdce0',
-                                border: '1px solid red',
-                                fontSize: 0,
-                                px: 2,
-                                py: 2,
-                                borderRadius: 2,
-                            }}>{error[Object.keys(error)[0]]}</Box>
+                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
                         </Box>
                     ) : null}
 
