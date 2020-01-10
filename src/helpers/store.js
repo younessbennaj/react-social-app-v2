@@ -9,7 +9,6 @@ import rootReducer from "../reducers";
 // );
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-console.log(localStorage.getItem('FBIdToken'));
 export default createStore(
     rootReducer,
     composeEnhancer(applyMiddleware(thunk)),

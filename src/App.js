@@ -9,6 +9,8 @@ import Login from './containers/Login';
 import Home from './containers/Home';
 import Profile from './containers/Profile';
 
+//Hoc 
+import requireAuth from './hoc/requiresAuth';
 
 //Style
 import styled from 'styled-components'
@@ -55,7 +57,7 @@ const App = () => {
                         <Route path="/" exact component={Home} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
-                        <Route path="/profile" exact component={Profile} />
+                        <Route path="/profile" exact component={requireAuth(Profile)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
                 </div>

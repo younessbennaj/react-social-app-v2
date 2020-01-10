@@ -121,8 +121,6 @@ const LoginForm = ({ signIn, history, error }) => {
 
 const Login = ({ user, signIn, history, auth }) => {
     useEffect(() => {
-        console.log(user);
-        console.log(auth);
     }, [user, auth]);
     return (
         <LoginForm signIn={signIn} history={history} error={auth.error} />

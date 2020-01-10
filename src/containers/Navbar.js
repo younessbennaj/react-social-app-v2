@@ -20,15 +20,15 @@ const AuthenticatedNavbar = ({ authenticated }) => {
     if (authenticated) {
         return (
             <>
-                <Link as={RouteLink} to="/profile/" color="white" pr={2}>Profile</Link>
-                <Link as={RouteLink} to="/logout/" color="white">Logout</Link>
+                <Link as={RouteLink} to="/profile" color="white" pr={2}>Profile</Link>
+                <Link as={RouteLink} to="/logout" color="white">Logout</Link>
             </>
         )
     } else {
         return (
             <>
-                <Link as={RouteLink} to="/login/" color="white" pr={2}>Login</Link>
-                <Link as={RouteLink} to="/signup/" color="white">Signup</Link>
+                <Link as={RouteLink} to="/login" color="white" pr={2}>Login</Link>
+                <Link as={RouteLink} to="/signup" color="white">Signup</Link>
             </>
         )
     }
