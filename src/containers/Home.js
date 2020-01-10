@@ -44,7 +44,7 @@ const AuthenticatedHome = ({ user }) => {
             <Heading
                 fontSize={[5, 6, 7]}
                 color='blue'>
-                Hello {user.credentials.handle} !
+                Hello {user.credentials.firstName} {user.credentials.lastName}!
             </Heading>
 
             <h2>You're logged in with React!!</h2>

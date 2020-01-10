@@ -5,8 +5,21 @@ const instance = axios.create({
     baseURL: 'http://localhost:5000/my-tcc-project-66a43/europe-west1/api',
 });
 
-export const signUp = (data) => async dispatch => {
+export const signUp = (data, history) => async dispatch => {
+    console.log(data);
+    let [response, responseErr] = await handle(instance.post('/signup', data));
+    if (response) {
+        const FBIdToken = `Bearer ${response.data.token}`;
+        localStorage.setItem('FBIdToken', FBIdToken);
+        instance.defaults.headers.common['Authorization'] = FBIdToken;
+        dispatch(getUserData(instance, history));
+        dispatch({ type: actions.AUTH_SUCCESS });
+        history.push('/');
+    }
 
+    if (responseErr) {
+        console.error(responseErr.response.data);
+    }
 }
 
 const handle = (promise) => {
@@ -26,7 +39,7 @@ export const signIn = (data, history) => async dispatch => {
         instance.defaults.headers.common['Authorization'] = FBIdToken;
         dispatch(getUserData(instance, history));
         dispatch({ type: actions.AUTH_SUCCESS });
-        // history.push('/');
+        history.push('/');
     }
 
     if (responseErr) {
@@ -37,7 +50,7 @@ export const signIn = (data, history) => async dispatch => {
 
 export const signOut = (history) => {
     localStorage.removeItem('FBIdToken');
-    history.push('/');
+    history.push('/login');
     return {
         type: actions.UNAUTH_SUCCESS
     }
@@ -47,7 +60,6 @@ export const getUserData = (instance, history) => async dispatch => {
     let [response, responseErr] = await handle(instance.get('/user'));
     if (response) {
         dispatch({ type: actions.SET_USER, payload: response.data });
-        history.push('/');
     }
     if (responseErr) console.error(responseErr.response);
 }

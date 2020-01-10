@@ -52,7 +52,7 @@ const SignupForm = ({ signUp, history }) => {
                 .required('Required'),
         }),
         onSubmit: values => {
-            signUp(values);
+            signUp(values, history);
         },
     });
     return (
@@ -91,7 +91,7 @@ const SignupForm = ({ signUp, history }) => {
                             <Box color="red">{formik.errors.lastName}</Box>
                         ) : null}
                     </Box>
-                    <Box px={2}>
+                    {/* <Box px={2}>
                         <Label htmlFor='location'>Gender</Label>
                         <Select
                             id='gender'
@@ -100,7 +100,7 @@ const SignupForm = ({ signUp, history }) => {
                             <option>Male</option>
                             <option>Female</option>
                         </Select>
-                    </Box>
+                    </Box> */}
                     <Box px={2}>
                         <Label htmlFor='email'>Email</Label>
                         <Input
