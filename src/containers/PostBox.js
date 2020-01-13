@@ -45,11 +45,12 @@ const PostBox = ({ addPost }) => {
     return (
         <Card
             width={[1, 2 / 3, 1 / 2]}
+            bg='white'
             sx={{
                 mx: 'auto',
                 px: 3,
                 borderRadius: 2,
-                boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
+                // boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
             }}>
             <Box
                 as='form'

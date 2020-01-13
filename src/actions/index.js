@@ -70,7 +70,15 @@ export const addPost = data => async dispatch => {
     // instance.defaults.headers.common['Authorization'] = localStorage.getItem('FBIdToken');
     let [response, responseErr] = await handle(axios.post('/post', data));
     if (response) {
-        console.log(response.data)
+        dispatch({ type: actions.ADD_POST, payload: response.data })
     }
     if (responseErr) console.error(responseErr.response);
-} 
+}
+
+export const getPosts = data => async dispatch => {
+    let [response, responseErr] = await handle(axios.get('/posts'));
+    if (response) {
+        dispatch({ type: actions.GET_POSTS, payload: response.data })
+    }
+    if (responseErr) console.error(responseErr.response);
+}

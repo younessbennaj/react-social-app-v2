@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PostBox from './PostBox';
 
 //Redux
 import { connect } from 'react-redux';
+import { getPosts } from '../actions';
 
 //Style
 import {
@@ -40,9 +41,17 @@ const UnauthenticatedHome = () => {
     )
 }
 
-const AuthenticatedHome = ({ user }) => {
+const AuthenticatedHome = ({ user, data, getPosts }) => {
+
+    useEffect(() => {
+        getPosts();
+    }, []);
+
+    useEffect(() => {
+    }, [data]);
+
     return (
-        <Box>
+        <Box bg="#F6F6F6">
             <Heading
                 fontSize={[5, 6, 7]}
                 color='blue'>
@@ -53,16 +62,37 @@ const AuthenticatedHome = ({ user }) => {
 
             <PostBox />
 
+            <Card
+                width={[1, 2 / 3, 1 / 2]}
+                bg="white"
+                sx={{
+                    mx: 'auto',
+                    my: 2,
+                    px: 3,
+                    borderRadius: 2,
+                    // boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
+                }}>
+                <Box>
+                    <ul>
+                        {data.posts.map(post => {
+                            return (
+                                <li key={post.postId}>{post.body}</li>
+                            )
+                        })}
+                    </ul>
+                </Box>
+            </Card>
+
         </Box>
     );
 }
 
-const Home = ({ user, auth }) => {
+const Home = ({ user, auth, data, getPosts }) => {
 
     return (
         <Box>
             {auth.authenticated ? (
-                <AuthenticatedHome user={user} />
+                <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
             ) : (
                     <UnauthenticatedHome />
                 )}
@@ -72,9 +102,10 @@ const Home = ({ user, auth }) => {
 }
 
 function mapStateToProps(state) {
-    const { user, auth } = state;
-    return { user, auth };
+    const { user, auth, data } = state;
+    return { user, auth, data };
 }
 
 export default connect(mapStateToProps, {
+    getPosts
 })(Home);
