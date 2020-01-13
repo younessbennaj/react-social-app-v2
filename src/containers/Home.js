@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
+
+import PostBox from './PostBox';
 
 //Redux
 import { connect } from 'react-redux';
+import { getPosts } from '../actions';
 
 //Style
+import styled from 'styled-components';
+
 import {
     Box,
     Card,
@@ -38,38 +43,80 @@ const UnauthenticatedHome = () => {
     )
 }
 
-const AuthenticatedHome = ({ user }) => {
+const AuthenticatedHome = ({ user, data, getPosts }) => {
+
+    useEffect(() => {
+        getPosts();
+    }, []);
+
+    useEffect(() => {
+    }, [data]);
+
     return (
-        <Box>
+        <Fragment>
             <Heading
+                textAlign="center"
                 fontSize={[5, 6, 7]}
                 color='blue'>
-                Hello {user.credentials.firstName} {user.credentials.lastName}!
+                Hello {user.credentials.firstName} {user.credentials.lastName} !
             </Heading>
 
-            <h2>You're logged in with React!!</h2>
-        </Box>
+            <Heading
+                as='h2'
+                textAlign="center"
+            >
+                You're logged in.
+            </Heading>
+
+            <PostBox />
+
+            <Card
+                width={[1, 2 / 3, 1 / 2]}
+                bg="white"
+                sx={{
+                    mx: 'auto',
+                    my: 3,
+                    p: 3,
+                    borderRadius: 2
+                }}>
+                <Box>
+                    <ul>
+                        {data.posts.map(post => {
+                            return (
+                                <li key={post.postId}>{post.body}</li>
+                            )
+                        })}
+                    </ul>
+                </Box>
+            </Card>
+
+        </Fragment>
     );
 }
 
-const Home = ({ user, auth }) => {
+const HomeContainer = styled(Box)`
+    height: 100vh
+`;
+
+const Home = ({ user, auth, data, getPosts }) => {
 
     return (
-        <Box>
+        <HomeContainer bg="#F6F6F6">
             {auth.authenticated ? (
-                <AuthenticatedHome user={user} />
+                <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
             ) : (
                     <UnauthenticatedHome />
                 )}
-        </Box>
+        </HomeContainer>
 
     );
 }
 
 function mapStateToProps(state) {
-    const { user, auth } = state;
-    return { user, auth };
+    const { user, auth, data } = state;
+    return { user, auth, data };
 }
 
 export default connect(mapStateToProps, {
+    getPosts
 })(Home);

@@ -6,9 +6,11 @@ import { combineReducers } from 'redux';
 
 import { auth } from './auth'
 import { user } from './user';
+import { data } from './data';
 
 // On map le retour de notre reducer à une variable
 export default combineReducers({
     auth,
-    user
+    user,
+    data
 });
