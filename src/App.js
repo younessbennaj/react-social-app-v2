@@ -1,14 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link as RouteLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react-router-dom";
+import axios from 'axios';
 
+//Containers
+import Navbar from './containers/Navbar';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
+import Home from './containers/Home';
+import Profile from './containers/Profile';
 
+//Hoc 
+import requireAuth from './hoc/requiresAuth';
+
+//Style
 import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme';
 import preset from '@rebass/preset'
-
 import {
     Box,
     Card,
@@ -20,47 +28,23 @@ import {
     Link
 } from 'rebass/styled-components'
 
-function Index() {
-    return (
-        <Box
-            sx={{
-                p: 4,
-                color: 'text',
-                bg: 'background',
-                fontFamily: 'body',
-                fontWeight: 'body',
-                lineHeight: 'body',
-            }}>
-            <Heading as='h1' variant='display'>Hello</Heading>
-            <Text mb={4}>This is a social app demo</Text>
-            <Button mr={3}>
-                Login
-            </Button>
-            <Button variant='secondary'>
-                Signup
-            </Button>
-        </Box>
-    );
-}
+//Redux
+import store from './helpers/store';
+import * as actions from './actions/actionTypes';
+import { getUserData } from './actions';
 
+//axios 
+const instance = axios.create({
+    baseURL: 'http://localhost:5000/my-tcc-project-66a43/europe-west1/api',
+});
 
-function Navbar() {
-    return (
-        <header>
-            <Flex
-                px={2}
-                py={3}
-                color='white'
-                bg='blue'
-                alignItems='center'>
-                <Text p={2} fontWeight='bold'>Social App</Text>
-                <Box mx='auto' />
-                <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
-                <Link as={RouteLink} to="/login/" color="white" pr={2}>Login</Link>
-                <Link as={RouteLink} to="/signup/" color="white">Signup</Link>
-            </Flex>
-        </header>
-    )
+const token = localStorage.getItem('FBIdToken');
+
+//Persisting login state
+if (token) {
+    store.dispatch({ type: actions.AUTH_SUCCESS });
+    instance.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData(instance));
 }
 
 const App = () => {
@@ -69,10 +53,13 @@ const App = () => {
             <Router>
                 <div>
                     <Navbar />
-
-                    <Route path="/" exact component={Index} />
-                    <Route path="/login/" component={Login} />
-                    <Route path="/signup/" component={Signup} />
+                    <Switch>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/login" exact component={Login} />
+                        <Route path="/signup" exact component={Signup} />
+                        <Route path="/profile" exact component={requireAuth(Profile)} />
+                        <Route path="*" component={() => "404 not found"} />
+                    </Switch>
                 </div>
             </Router>
         </ThemeProvider >

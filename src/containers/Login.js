@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
-import { connectUser } from '../actions';
+import { signIn } from '../actions';
 
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-//Style
-import styled from "styled-components";
-import preset from '@rebass/preset';
+import styled from 'styled-components';
 
 import {
     Box,
@@ -31,7 +29,22 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ connectUser }) => {
+//Error Message Component 
+
+const ErrorMessage = styled(Box)({
+    color: 'red',
+    border: '1px solid red',
+    borderRadius: '2px',
+})
+
+ErrorMessage.defaultProps = {
+    bg: '#ffdce0',
+    fontSize: 0,
+    px: 2,
+    py: 2,
+};
+
+const LoginForm = ({ signIn, history, error }) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -46,7 +59,8 @@ const LoginForm = ({ connectUser }) => {
         }),
         onSubmit: values => {
             // alert(JSON.stringify(values, null, 2));
-            connectUser(values);
+            signIn(values, history);
+            // history.push('/');
         },
     });
     return (
@@ -93,26 +107,31 @@ const LoginForm = ({ connectUser }) => {
                             Submit
                         </Button>
                     </Box>
+                    {error ? (
+                        <Box pt={3} px={2}>
+                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
+                        </Box>
+                    ) : null}
+
                 </Flex>
             </Box>
         </Card>
     );
 };
 
-const Login = ({ users, connectUser }) => {
+const Login = ({ user, signIn, history, auth }) => {
     useEffect(() => {
-        console.log(users);
-    }, [users]);
+    }, [user, auth]);
     return (
-        <LoginForm connectUser={connectUser} />
+        <LoginForm signIn={signIn} history={history} error={auth.error} />
     );
 };
 
 function mapStateToProps(state) {
-    const { users } = state;
-    return { users };
+    const { user, auth } = state;
+    return { user, auth };
 }
 
 export default connect(mapStateToProps, {
-    connectUser
+    signIn
 })(Login);
