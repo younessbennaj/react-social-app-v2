@@ -48,6 +48,7 @@ const PostBox = ({ addPost }) => {
             bg='white'
             sx={{
                 mx: 'auto',
+                my: 3,
                 px: 3,
                 borderRadius: 2,
                 // boxShadow: '0 0 16px rgba(0, 0, 0, .25)',

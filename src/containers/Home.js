@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import PostBox from './PostBox';
 
@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { getPosts } from '../actions';
 
 //Style
+import styled from 'styled-components';
+
 import {
     Box,
     Card,
@@ -51,14 +53,20 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
     }, [data]);
 
     return (
-        <Box bg="#F6F6F6">
+        <Fragment>
             <Heading
+                textAlign="center"
                 fontSize={[5, 6, 7]}
                 color='blue'>
                 Hello {user.credentials.firstName} {user.credentials.lastName} !
             </Heading>
 
-            <h2>You're logged in with React!!</h2>
+            <Heading
+                as='h2'
+                textAlign="center"
+            >
+                You're logged in.
+            </Heading>
 
             <PostBox />
 
@@ -67,10 +75,9 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                 bg="white"
                 sx={{
                     mx: 'auto',
-                    my: 2,
-                    px: 3,
-                    borderRadius: 2,
-                    // boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
+                    my: 3,
+                    p: 3,
+                    borderRadius: 2
                 }}>
                 <Box>
                     <ul>
@@ -83,20 +90,24 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                 </Box>
             </Card>
 
-        </Box>
+        </Fragment>
     );
 }
+
+const HomeContainer = styled(Box)`
+    height: 100vh
+`;
 
 const Home = ({ user, auth, data, getPosts }) => {
 
     return (
-        <Box>
+        <HomeContainer bg="#F6F6F6">
             {auth.authenticated ? (
                 <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
             ) : (
                     <UnauthenticatedHome />
                 )}
-        </Box>
+        </HomeContainer>
 
     );
 }
