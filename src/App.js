@@ -34,17 +34,17 @@ import * as actions from './actions/actionTypes';
 import { getUserData } from './actions';
 
 //axios 
-const instance = axios.create({
-    baseURL: 'http://localhost:5000/my-tcc-project-66a43/europe-west1/api',
-});
+
+axios.defaults.baseURL =
+    'http://localhost:5000/my-tcc-project-66a43/europe-west1/api';
 
 const token = localStorage.getItem('FBIdToken');
 
 //Persisting login state
 if (token) {
     store.dispatch({ type: actions.AUTH_SUCCESS });
-    instance.defaults.headers.common['Authorization'] = token;
-    store.dispatch(getUserData(instance));
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
 }
 
 const App = () => {

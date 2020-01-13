@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PostBox from './PostBox';
+
 //Redux
 import { connect } from 'react-redux';
 
@@ -44,10 +46,13 @@ const AuthenticatedHome = ({ user }) => {
             <Heading
                 fontSize={[5, 6, 7]}
                 color='blue'>
-                Hello {user.credentials.firstName} {user.credentials.lastName}!
+                Hello {user.credentials.firstName} {user.credentials.lastName} !
             </Heading>
 
             <h2>You're logged in with React!!</h2>
+
+            <PostBox />
+
         </Box>
     );
 }

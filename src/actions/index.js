@@ -1,18 +1,16 @@
 import axios from "axios";
 import * as actions from './actionTypes';
 
-const instance = axios.create({
-    baseURL: 'http://localhost:5000/my-tcc-project-66a43/europe-west1/api',
-});
+//Authentication
 
 export const signUp = (data, history) => async dispatch => {
     console.log(data);
-    let [response, responseErr] = await handle(instance.post('/signup', data));
+    let [response, responseErr] = await handle(axios.post('/signup', data));
     if (response) {
         const FBIdToken = `Bearer ${response.data.token}`;
         localStorage.setItem('FBIdToken', FBIdToken);
-        instance.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData(instance, history));
+        axios.defaults.headers.common['Authorization'] = FBIdToken;
+        dispatch(getUserData(history));
         dispatch({ type: actions.AUTH_SUCCESS });
         history.push('/');
     }
@@ -30,14 +28,14 @@ const handle = (promise) => {
 
 export const signIn = (data, history) => async dispatch => {
 
-    let [response, responseErr] = await handle(instance.post('/login', data));
+    let [response, responseErr] = await handle(axios.post('/login', data));
 
     if (response) {
         const FBIdToken = `Bearer ${response.data.token}`;
         localStorage.setItem('FBIdToken', FBIdToken);
         //Set authorization header with jwt token
-        instance.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData(instance, history));
+        axios.defaults.headers.common['Authorization'] = FBIdToken;
+        dispatch(getUserData(history));
         dispatch({ type: actions.AUTH_SUCCESS });
         history.push('/');
     }
@@ -56,11 +54,23 @@ export const signOut = (history) => {
     }
 }
 
-export const getUserData = (instance, history) => async dispatch => {
-    let [response, responseErr] = await handle(instance.get('/user'));
+//USER
+
+export const getUserData = (history) => async dispatch => {
+    let [response, responseErr] = await handle(axios.get('/user'));
     if (response) {
         dispatch({ type: actions.SET_USER, payload: response.data });
     }
     if (responseErr) console.error(responseErr.response);
 }
 
+//POST
+
+export const addPost = data => async dispatch => {
+    // instance.defaults.headers.common['Authorization'] = localStorage.getItem('FBIdToken');
+    let [response, responseErr] = await handle(axios.post('/post', data));
+    if (response) {
+        console.log(response.data)
+    }
+    if (responseErr) console.error(responseErr.response);
+} 
