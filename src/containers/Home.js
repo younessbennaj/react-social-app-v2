@@ -20,6 +20,9 @@ import {
     Link
 } from 'rebass/styled-components'
 
+//Components
+import PostDetails from '../components/PostDetails';
+
 const UnauthenticatedHome = () => {
     return (
         <Box
@@ -50,6 +53,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
     }, []);
 
     useEffect(() => {
+        console.log(data.posts);
     }, [data]);
 
     return (
@@ -83,7 +87,9 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                     <ul>
                         {data.posts.map(post => {
                             return (
-                                <li key={post.postId}>{post.body}</li>
+                                <li key={post.postId}>
+                                    <PostDetails post={post} />
+                                </li>
                             )
                         })}
                     </ul>
