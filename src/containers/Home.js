@@ -58,29 +58,15 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
 
     return (
         <Fragment>
-            <Heading
-                textAlign="center"
-                fontSize={[5, 6, 7]}
-                color='blue'>
-                Hello {user.credentials.firstName} {user.credentials.lastName} !
-            </Heading>
-
-            <Heading
-                as='h2'
-                textAlign="center"
-            >
-                You're logged in.
-            </Heading>
-
-            <PostBox />
+            <Box pb={3}>
+                <PostBox />
+            </Box>
 
             <Card
                 width={[1, 2 / 3, 1 / 2]}
                 bg="white"
                 sx={{
                     mx: 'auto',
-                    mt: 3,
-                    p: 3,
                     borderRadius: 2
                 }}>
                 <Box>
@@ -109,7 +95,10 @@ const HomeContainer = styled(Box)`
 const Home = ({ user, auth, data, getPosts }) => {
 
     return (
-        <HomeContainer bg="#F6F6F6">
+        <HomeContainer
+            bg="#F6F6F6"
+            p={3}
+        >
             {auth.authenticated ? (
                 <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
             ) : (
