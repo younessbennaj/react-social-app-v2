@@ -2,6 +2,8 @@ import React from 'react';
 
 import differenceInHours from 'date-fns/differenceInHours';
 import parseISO from 'date-fns/parseISO';
+import format from 'date-fns/format';
+import differenceInMinutes from 'date-fns/differenceInMinutes'
 
 //Style 
 
@@ -27,24 +29,53 @@ const PostDetails = ({ post }) => {
     const getDateDiff = (ISOdate) => {
         const moment = new Date();
         const someday = parseISO(ISOdate);
-        var result = differenceInHours(
+        let result = differenceInHours(
             moment,
             someday
         )
-        return result;
+
+        if (result == 0) {
+
+            result = differenceInMinutes(
+                moment,
+                someday
+            );
+
+            return `${result} min`
+
+        }
+        if (result >= '24') {
+            return format(someday, 'd LLL')
+        } else {
+            return `${result}h`;
+        }
     }
 
     return (
-        <Flex bg="#F6F6F6">
+        <Flex bg="navy" p={3}>
             <Image
                 src={post.userImage}
                 variant='avatar'
+                minWidth='50px'
             />
-            <Box>
-                <Heading fontSize={2}>{post.userFirstName} {post.userLastName}</Heading>
+            <Box color="white" flexGrow="1" px={2}>
+                <Flex
+                    alignItems='baseline'
+                    justifyContent='flex-end'
+
+                >
+                    <Text
+                        fontSize={2}
+                        fontWeight="heading"
+                        mr="auto"
+                    >
+                        {post.userFirstName} {post.userLastName}
+                    </Text>
+                    <Text
+                        fontSize={1}
+                    >{getDateDiff(post.createdAt)}</Text>
+                </Flex>
                 <Text fontSize={1}>{post.body}</Text>
-                <span>{getDateDiff(post.createdAt)}h</span>
-                {/* <time datetime={post.createdAt}></time> */}
             </Box>
         </Flex>
     );

@@ -38,8 +38,6 @@ export default createGlobalStyle`
     }
     
     li, a, button {
-        font-weight: 500;
-        font-size: 1.6rem;
         text-decoration: none;
         color: #4b4b4b;
     }

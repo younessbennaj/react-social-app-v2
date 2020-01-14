@@ -79,7 +79,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                 bg="white"
                 sx={{
                     mx: 'auto',
-                    my: 3,
+                    mt: 3,
                     p: 3,
                     borderRadius: 2
                 }}>
@@ -88,7 +88,9 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                         {data.posts.map(post => {
                             return (
                                 <li key={post.postId}>
-                                    <PostDetails post={post} />
+                                    <Box mb={2}>
+                                        <PostDetails post={post} />
+                                    </Box>
                                 </li>
                             )
                         })}
@@ -101,7 +103,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
 }
 
 const HomeContainer = styled(Box)`
-    height: 100vh
+   
 `;
 
 const Home = ({ user, auth, data, getPosts }) => {

@@ -59,10 +59,10 @@ const PostBox = ({ addPost }) => {
                 py={3}>
                 <Flex mx={-2} mb={3} flexDirection="column">
                     <Box px={2}>
-                        <Label htmlFor="firstName">First Name</Label>
                         <Textarea
                             id='body'
                             name="body"
+                            placeholder="What's new ?"
                             {...formik.getFieldProps('body')}
                         />
                         {formik.touched.body && formik.errors.body ? (
