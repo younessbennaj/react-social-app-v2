@@ -48,5 +48,14 @@ export default {
             color: 'white',
             bg: 'navy',
         },
+    },
+    variants: {
+        avatar: {
+            display: 'inline-block',
+            width: '50px',
+            height: '50px',
+            p: 1,
+            borderRadius: '50%',
+        }
     }
 }

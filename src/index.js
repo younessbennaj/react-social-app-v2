@@ -10,7 +10,7 @@ import reducers from './reducers';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
         <GlobalStyles />
+        <App />
     </Provider>,
     document.getElementById('root'));

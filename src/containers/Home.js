@@ -20,6 +20,9 @@ import {
     Link
 } from 'rebass/styled-components'
 
+//Components
+import PostDetails from '../components/PostDetails';
+
 const UnauthenticatedHome = () => {
     return (
         <Box
@@ -50,6 +53,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
     }, []);
 
     useEffect(() => {
+        console.log(data.posts);
     }, [data]);
 
     return (
@@ -75,7 +79,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                 bg="white"
                 sx={{
                     mx: 'auto',
-                    my: 3,
+                    mt: 3,
                     p: 3,
                     borderRadius: 2
                 }}>
@@ -83,7 +87,11 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                     <ul>
                         {data.posts.map(post => {
                             return (
-                                <li key={post.postId}>{post.body}</li>
+                                <li key={post.postId}>
+                                    <Box mb={2}>
+                                        <PostDetails post={post} />
+                                    </Box>
+                                </li>
                             )
                         })}
                     </ul>
@@ -95,7 +103,7 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
 }
 
 const HomeContainer = styled(Box)`
-    height: 100vh
+   
 `;
 
 const Home = ({ user, auth, data, getPosts }) => {
