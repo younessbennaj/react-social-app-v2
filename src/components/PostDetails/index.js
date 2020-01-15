@@ -24,7 +24,6 @@ const PostDetails = ({ post }) => {
     const getDateDiff = (ISOdate) => {
         const moment = new Date();
         const someday = parseISO(ISOdate);
-        console.log(someday);
         let result = differenceInHours(
             moment,
             someday

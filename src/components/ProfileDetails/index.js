@@ -14,33 +14,37 @@ import {
 } from 'rebass/styled-components'
 
 const ProfileDetails = ({ user }) => {
-    // console.log(user.location);
+
     const getDate = (date) => {
         let someday = parseISO(date);
         return format(someday, 'LLLL yyyy');
     }
-    // if (user.createdAt) {
-    //     let joinDate = parseISO(user.createdAt);
-    //     console.log(format(someday, 'LLLL yyyy'));
-    // }
-    // console.log(format(someday, 'MM/dd/yyyy'));
+
+    const handleClick = () => {
+        console.log('edit profile');
+    }
 
     return (
         <Card
             sx={{
                 p: 4,
                 color: 'text',
-                bg: 'background',
+                bg: 'white',
                 fontFamily: 'body',
                 fontWeight: 'body',
                 lineHeight: 'body',
+                textAlign: 'center'
             }}
         >
             <Image width="100px" src={user.imageUrl}></Image>
             <Heading>{user.firstName} {user.lastName}</Heading>
             <Text>{user.bio}</Text>
-            {/* <Text>{format(parseISO(user.location), 'LLLL yyyy')}</Text> */}
-            {/* <Text>Join Social App in {getDate(user.createdAt)}</Text> */}
+            <Text>{user.location}</Text>
+            <Text>{user.website}</Text>
+            <Text>Join Social App in {getDate(user.createdAt)}</Text>
+            <Button mt={3} onClick={handleClick}>
+                Edit Profile
+            </Button>
         </Card>
     );
 }

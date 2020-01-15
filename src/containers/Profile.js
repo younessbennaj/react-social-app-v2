@@ -28,7 +28,7 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
     }, [loading])
 
     return (
-        <Box>
+        <Box bg="#F6F6F6">
 
             {loading ? (
                 <Text textAlign="center">Loading...</Text>
@@ -37,7 +37,7 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
                         <ProfileDetails user={credentials} />
                         <Button mr={3} onClick={handleClick}>
                             Logout
-            </Button>
+                        </Button>
                     </Box>
                 )}
         </Box >
