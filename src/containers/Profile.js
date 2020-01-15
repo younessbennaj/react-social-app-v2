@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
@@ -7,40 +7,40 @@ import { signOut } from '../actions'
 //Style
 import {
     Box,
-    Card,
     Image,
-    Heading,
     Text,
     Button,
-    Flex,
-    Link
 } from 'rebass/styled-components'
 
 //Components
 import ProfileDetails from '../components/ProfileDetails';
 
-const Profile = ({ user, auth, signOut, history }) => {
+const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => {
+
 
     const handleClick = () => {
         signOut(history);
         console.log('clicked');
     }
 
+    useEffect(() => {
+        console.log(loading);
+    }, [loading])
+
     return (
         <Box>
-            <ProfileDetails user={user.credentials} />
-            {/* <h1>Profile</h1>
-            <Image
-                src={user.credentials.imageUrl}
-                sx={{
-                    width: ['200px', '300px'],
-                    borderRadius: 8,
-                }}
-            /> */}
-            <Button mr={3} onClick={handleClick}>
-                Logout
+
+            {loading ? (
+                <Text textAlign="center">Loading...</Text>
+            ) : (
+                    <Box>
+                        <ProfileDetails user={credentials} />
+                        <Button mr={3} onClick={handleClick}>
+                            Logout
             </Button>
-        </Box>
+                    </Box>
+                )}
+        </Box >
 
     );
 }

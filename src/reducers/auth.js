@@ -1,6 +1,7 @@
 import * as actions from '../actions/actionTypes';
 
 const initialState = {
+    loading: false,
     authenticated: false,
     error: null
 }
@@ -8,11 +9,18 @@ const initialState = {
 export const auth = (state = initialState, { payload, type }) => {
 
     switch (type) {
+        case actions.AUTH_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
         case actions.AUTH_SUCCESS: {
             return {
                 ...state,
                 authenticated: true,
-                error: false
+                error: false,
+                loading: false
             }
             break;
         };

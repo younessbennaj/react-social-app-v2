@@ -7,12 +7,9 @@ import differenceInMinutes from 'date-fns/differenceInMinutes'
 
 //Style 
 
-import styled from 'styled-components';
-
 import {
     Box,
     Image,
-    Heading,
     Text,
     Flex
 } from 'rebass/styled-components'
