@@ -12,7 +12,11 @@ import {
     Button,
 } from 'rebass/styled-components'
 
+//Components
+import ProfileDetails from '../components/ProfileDetails';
+
 const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => {
+
 
     const handleClick = () => {
         signOut(history);
@@ -24,25 +28,19 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
     }, [loading])
 
     return (
-        <Box>
+        <Box bg="#F6F6F6">
+
             {loading ? (
                 <Text textAlign="center">Loading...</Text>
             ) : (
                     <Box>
-                        <h1>Profile</h1>
-                        <Image
-                            src={credentials.imageUrl}
-                            sx={{
-                                width: ['200px', '300px'],
-                                borderRadius: 8,
-                            }}
-                        />
+                        <ProfileDetails user={credentials} />
                         <Button mr={3} onClick={handleClick}>
                             Logout
-                    </Button>
+                        </Button>
                     </Box>
                 )}
-        </Box>
+        </Box >
 
     );
 }
