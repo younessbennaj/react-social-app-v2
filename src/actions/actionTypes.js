@@ -3,12 +3,15 @@
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const UNAUTH_SUCCESS = 'UNAUTH_SUCCESS';
+export const AUTH_START = 'AUTH_START';
 
 //USER 
 
 export const SET_USER = 'SET_USER';
+export const LOADING_USER = 'LOADING_USER';
 
-//POST
+//DATA
 
+export const LOADING_DATA = 'LOADING_DATA';
 export const ADD_POST = 'ADD_POST';
 export const GET_POSTS = 'GET_POSTS';
