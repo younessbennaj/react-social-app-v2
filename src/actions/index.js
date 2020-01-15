@@ -27,6 +27,7 @@ const handle = (promise) => {
 //Authentication
 
 export const signUp = (data, history) => async dispatch => {
+    dispatch({ type: actions.AUTH_START })
     let [response, responseErr] = await handle(axios.post('/signup', data));
     if (response) {
         const FBIdToken = `Bearer ${response.data.token}`;
@@ -43,6 +44,7 @@ export const signUp = (data, history) => async dispatch => {
 }
 
 export const signIn = (data, history) => async dispatch => {
+    dispatch({ type: actions.AUTH_START })
     dispatch({ type: actions.LOADING_USER });
 
     let [response, responseErr] = await handle(axios.post('/login', data));

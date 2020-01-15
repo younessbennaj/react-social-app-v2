@@ -44,7 +44,10 @@ ErrorMessage.defaultProps = {
     py: 2,
 };
 
-const LoginForm = ({ signIn, history, error }) => {
+const LoginForm = ({ signIn, history, error, auth: { loading } }) => {
+    useEffect(() => {
+        console.log(loading);
+    }, [loading])
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -112,9 +115,10 @@ const LoginForm = ({ signIn, history, error }) => {
                             <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
                         </Box>
                     ) : null}
-
                 </Flex>
+                {loading ? (<Text>Loading...</Text>) : null}
             </Box>
+
         </Card>
     );
 };
@@ -123,7 +127,7 @@ const Login = ({ user, signIn, history, auth }) => {
     useEffect(() => {
     }, [user, auth]);
     return (
-        <LoginForm signIn={signIn} history={history} error={auth.error} />
+        <LoginForm auth={auth} signIn={signIn} history={history} error={auth.error} />
     );
 };
 
