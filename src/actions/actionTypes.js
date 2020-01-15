@@ -8,7 +8,8 @@ export const UNAUTH_SUCCESS = 'UNAUTH_SUCCESS';
 
 export const SET_USER = 'SET_USER';
 
-//POST
+//DATA
 
+export const LOADING_DATA = 'LOADING_DATA';
 export const ADD_POST = 'ADD_POST';
 export const GET_POSTS = 'GET_POSTS';

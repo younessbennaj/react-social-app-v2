@@ -46,15 +46,11 @@ const UnauthenticatedHome = () => {
     )
 }
 
-const AuthenticatedHome = ({ user, data, getPosts }) => {
+const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
     useEffect(() => {
         getPosts();
     }, []);
-
-    useEffect(() => {
-        console.log(data.posts);
-    }, [data]);
 
     return (
         <Fragment>
@@ -69,19 +65,23 @@ const AuthenticatedHome = ({ user, data, getPosts }) => {
                     mx: 'auto',
                     borderRadius: 2
                 }}>
-                <Box>
-                    <ul>
-                        {data.posts.map(post => {
-                            return (
-                                <li key={post.postId}>
-                                    <Box mb={2}>
-                                        <PostDetails post={post} />
-                                    </Box>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </Box>
+                {loading ? (
+                    <Text textAlign="center">Loading...</Text>
+                ) : (
+                        <Box>
+                            <ul>
+                                {posts.map(post => {
+                                    return (
+                                        <li key={post.postId}>
+                                            <Box mb={2}>
+                                                <PostDetails post={post} />
+                                            </Box>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </Box>
+                    )}
             </Card>
 
         </Fragment>

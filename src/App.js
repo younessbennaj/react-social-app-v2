@@ -42,6 +42,7 @@ const token = localStorage.getItem('FBIdToken');
 
 //Persisting login state
 if (token) {
+    //On dispatch directement une action en utilisant store.dispatch
     store.dispatch({ type: actions.AUTH_SUCCESS });
     axios.defaults.headers.common['Authorization'] = token;
     store.dispatch(getUserData());

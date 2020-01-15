@@ -129,6 +129,7 @@ const Login = ({ user, signIn, history, auth }) => {
 
 function mapStateToProps(state) {
     const { user, auth } = state;
+    //expected to return an object
     return { user, auth };
 }
 
