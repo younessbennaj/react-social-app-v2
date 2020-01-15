@@ -16,6 +16,9 @@ import {
     Link
 } from 'rebass/styled-components'
 
+//Components
+import ProfileDetails from '../components/ProfileDetails';
+
 const Profile = ({ user, auth, signOut, history }) => {
 
     const handleClick = () => {
@@ -25,14 +28,15 @@ const Profile = ({ user, auth, signOut, history }) => {
 
     return (
         <Box>
-            <h1>Profile</h1>
+            <ProfileDetails user={user.credentials} />
+            {/* <h1>Profile</h1>
             <Image
                 src={user.credentials.imageUrl}
                 sx={{
                     width: ['200px', '300px'],
                     borderRadius: 8,
                 }}
-            />
+            /> */}
             <Button mr={3} onClick={handleClick}>
                 Logout
             </Button>

@@ -11,11 +11,9 @@ import styled from 'styled-components';
 
 import {
     Box,
-    Card,
     Image,
     Heading,
     Text,
-    Button,
     Flex
 } from 'rebass/styled-components'
 
@@ -29,6 +27,7 @@ const PostDetails = ({ post }) => {
     const getDateDiff = (ISOdate) => {
         const moment = new Date();
         const someday = parseISO(ISOdate);
+        console.log(someday);
         let result = differenceInHours(
             moment,
             someday
