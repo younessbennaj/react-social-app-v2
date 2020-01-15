@@ -43,6 +43,7 @@ export const signUp = (data, history) => async dispatch => {
 }
 
 export const signIn = (data, history) => async dispatch => {
+    dispatch({ type: actions.LOADING_USER });
 
     let [response, responseErr] = await handle(axios.post('/login', data));
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import PostBox from './PostBox';
 
@@ -48,9 +48,14 @@ const UnauthenticatedHome = () => {
 
 const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
+
+    useEffect(() => {
+    }, [posts]);
+
     useEffect(() => {
         getPosts();
     }, []);
+
 
     return (
         <Fragment>

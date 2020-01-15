@@ -7,11 +7,7 @@ import { connect } from 'react-redux';
 
 import {
     Box,
-    Card,
-    Image,
-    Heading,
     Text,
-    Button,
     Flex,
     Link
 } from 'rebass/styled-components'
