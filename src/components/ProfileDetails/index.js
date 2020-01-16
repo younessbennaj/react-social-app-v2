@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Link as RouteLink } from "react-router-dom";
+import EditProfile from '../../containers/EditProfile';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 
@@ -10,10 +11,11 @@ import {
     Heading,
     Text,
     Button,
-    Flex
+    Flex,
+    Link
 } from 'rebass/styled-components'
 
-const ProfileDetails = ({ user }) => {
+const ProfileDetails = ({ user, openModal }) => {
 
     const getDate = (date) => {
         let someday = parseISO(date);
@@ -21,7 +23,7 @@ const ProfileDetails = ({ user }) => {
     }
 
     const handleClick = () => {
-        console.log('edit profile');
+        openModal();
     }
 
     return (
