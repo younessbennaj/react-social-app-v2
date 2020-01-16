@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 //Redux
@@ -31,13 +31,22 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const EditProfile = ({ editUserDetails, closeModal }) => {
+const EditProfile = ({ user: { credentials }, editUserDetails, closeModal }) => {
+
+    //During the first rendering bio, location and website of credentials will
+    //be undefined.
+    //Because of that, the input field will become uncontrolled.
+    //Once we revceive this property (async api call), our state will be updated 
+    //and credentials in our props too. 
+    //And at that time the input field gets converted into a controlled component;
+    // that's why you are getting the error: 'A component is changing an uncontrolled input of type text 
+    //to be controlled.
+    //Solution: We define an empty string as default value for bio, location and website.
+    const { bio = '', location = '', website = '' } = credentials;
+
     const formik = useFormik({
-        initialValues: {
-            bio: '',
-            location: '',
-            website: '',
-        },
+        initialValues: { bio, location, website },
+        enableReinitialize: true,
         validationSchema: Yup.object({
             bio: Yup.string()
                 .max(160, 'Must be 160 characters or less'),
@@ -49,8 +58,9 @@ const EditProfile = ({ editUserDetails, closeModal }) => {
         onSubmit: values => {
             editUserDetails(values);
             closeModal();
-        },
+        }
     });
+
     return (
         <Box
             as='form'
@@ -60,6 +70,7 @@ const EditProfile = ({ editUserDetails, closeModal }) => {
                 <Box px={2}>
                     <Label htmlFor='bio'>Bio</Label>
                     <Input
+                        value={formik.values.bio}
                         id='bio'
                         name='bio'
                         placeholder='Add biography'
@@ -108,7 +119,12 @@ const EditProfile = ({ editUserDetails, closeModal }) => {
     );
 }
 
+const mapStateToProps = (state) => {
+    const { user } = state;
+    return { user };
+}
 
-export default connect(null, {
+
+export default connect(mapStateToProps, {
     editUserDetails
 })(EditProfile);

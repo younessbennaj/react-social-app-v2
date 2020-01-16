@@ -85,7 +85,9 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
                         </Button> */}
                     </Box>
                 )}
-
+            <Button mr={3} onClick={handleClick}>
+                Logout
+                        </Button>
         </Box >
 
     );
