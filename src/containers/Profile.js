@@ -56,12 +56,8 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
         setShow(true);
     }
 
-    useEffect(() => {
-        console.log(loading);
-    }, [loading])
-
     return (
-        <Box bg="#F6F6F6">
+        <Box>
             <Modal show={show}>
                 <MainModal
                     sx={{
