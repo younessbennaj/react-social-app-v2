@@ -16,6 +16,7 @@ import styled from "styled-components";
 
 //Components
 import ProfileDetails from '../components/ProfileDetails';
+import EditProfile from '../containers/EditProfile';
 
 const Modal = styled.div`
 display: ${props => props.show ? "block" : "none"}; 
@@ -27,9 +28,10 @@ height: 100%;
 background: rgba(0, 0, 0, 0.6);
 `
 
-const EditProfile = styled(Box)`
+const MainModal = styled(Box)`
 position:fixed;
 background: white;
+padding: 20px;
 width: 80%;
 height: auto;
 top:50%;
@@ -44,16 +46,13 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
 
     const handleClick = () => {
         signOut(history);
-        console.log('clicked');
     }
 
     const closeModal = () => {
-        console.log('closed');
         setShow(false);
     }
 
     const openModal = () => {
-        console.log('open');
         setShow(true);
     }
 
@@ -63,9 +62,8 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
 
     return (
         <Box bg="#F6F6F6">
-
             <Modal show={show}>
-                <EditProfile
+                <MainModal
                     sx={{
                         p: 1,
                         borderRadius: 2,
@@ -73,8 +71,9 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
                     }}
                 >
                     <Text>Edit Profile</Text>
+                    <EditProfile />
                     <Button onClick={closeModal}>Close</Button>
-                </EditProfile>
+                </MainModal>
             </Modal>
 
             {loading ? (
@@ -90,6 +89,7 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
                         </Button> */}
                     </Box>
                 )}
+
         </Box >
 
     );
