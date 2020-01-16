@@ -44,7 +44,6 @@ const token = localStorage.getItem('FBIdToken');
 if (token) {
     //On dispatch directement une action en utilisant store.dispatch
     store.dispatch({ type: actions.AUTH_SUCCESS });
-    store.dispatch({ type: actions.LOADING_USER });
     axios.defaults.headers.common['Authorization'] = token;
     store.dispatch(getUserData());
 }

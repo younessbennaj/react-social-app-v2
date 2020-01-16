@@ -54,7 +54,7 @@ export const signIn = (data, history) => async dispatch => {
         localStorage.setItem('FBIdToken', FBIdToken);
         //Set authorization header with jwt token
         axios.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData(history));
+        dispatch(getUserData());
         dispatch({ type: actions.AUTH_SUCCESS });
         history.push('/');
     }
@@ -75,12 +75,25 @@ export const signOut = (history) => {
 
 //USER
 
-export const getUserData = (history) => async dispatch => {
+export const getUserData = () => async dispatch => {
+    dispatch({ type: actions.LOADING_USER });
     let [response, responseErr] = await handle(axios.get('/user'));
     if (response) {
         dispatch({ type: actions.SET_USER, payload: response.data });
     }
     if (responseErr) console.error(responseErr.response);
+}
+
+export const editUserDetails = (data) => async dispatch => {
+    dispatch({ type: actions.LOADING_USER });
+    let [response, responseErr] = await handle(axios.post('/user', data));
+    if (response) {
+        dispatch(getUserData());
+    }
+
+    if (responseErr) {
+        console.log(responseErr.response)
+    }
 }
 
 //DATA

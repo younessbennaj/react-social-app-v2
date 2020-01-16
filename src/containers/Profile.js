@@ -71,7 +71,7 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
                     }}
                 >
                     <Text>Edit Profile</Text>
-                    <EditProfile />
+                    <EditProfile closeModal={closeModal} />
                     <Button onClick={closeModal}>Close</Button>
                 </MainModal>
             </Modal>

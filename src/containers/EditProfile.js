@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+//Redux
+import { editUserDetails } from '../actions'
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -28,23 +31,24 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const EditProfile = () => {
+const EditProfile = ({ editUserDetails, closeModal }) => {
     const formik = useFormik({
         initialValues: {
             bio: '',
             location: '',
-            siteweb: '',
+            website: '',
         },
         validationSchema: Yup.object({
             bio: Yup.string()
                 .max(160, 'Must be 160 characters or less'),
             location: Yup.string()
                 .max(30, 'Must be 30 characters or less'),
-            siteweb: Yup.string()
+            website: Yup.string().url()
                 .max(100, 'Must be 100 characters or less')
         }),
         onSubmit: values => {
-            console.log(values);
+            editUserDetails(values);
+            closeModal();
         },
     });
     return (
@@ -78,21 +82,21 @@ const EditProfile = () => {
                     ) : null}
                 </Box>
                 <Box px={2}>
-                    <Label htmlFor='siteweb'>Siteweb</Label>
+                    <Label htmlFor='website'>website</Label>
                     <Input
-                        id='siteweb'
-                        name='siteweb'
-                        placeholder='Add siteweb'
-                        {...formik.getFieldProps('siteweb')}
+                        id='website'
+                        name='website'
+                        placeholder='Add website'
+                        {...formik.getFieldProps('website')}
                     />
-                    {formik.touched.siteweb && formik.errors.siteweb ? (
-                        <Box color="red">{formik.errors.siteweb}</Box>
+                    {formik.touched.website && formik.errors.website ? (
+                        <Box color="red">{formik.errors.website}</Box>
                     ) : null}
                 </Box>
                 <Box pt={3} px={2} ml='auto'>
                     <Button type="submit">
                         Submit
-                        </Button>
+                    </Button>
                 </Box>
                 {/* {error ? (
                     <Box pt={3} px={2}>
@@ -104,4 +108,7 @@ const EditProfile = () => {
     );
 }
 
-export default EditProfile;
+
+export default connect(null, {
+    editUserDetails
+})(EditProfile);
