@@ -24,7 +24,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const CommentBox = ({ closeModal, addComment }) => {
+const CommentBox = ({ closeModal, addComment, postId }) => {
     const formik = useFormik({
         initialValues: {
             body: ''
@@ -34,7 +34,8 @@ const CommentBox = ({ closeModal, addComment }) => {
                 .max(145, 'Must be 145 characters or less')
         }),
         onSubmit: (values, { resetForm }) => {
-            addComment(values);
+
+            addComment(values, postId);
             resetForm();
             closeModal();
         },

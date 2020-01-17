@@ -71,12 +71,13 @@ transform: translate(-50%,-50%);
 const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
     const [show, setShow] = useState(false);
-
+    const [currentPostId, setCurrentPostId] = useState('');
     const closeModal = () => {
         setShow(false);
     }
 
-    const openModal = () => {
+    const openModal = (postId) => {
+        setCurrentPostId(postId);
         setShow(true);
     }
 
@@ -99,7 +100,7 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
                     }}
                 >
                     <Text>Comment</Text>
-                    <CommentBox closeModal={closeModal} />
+                    <CommentBox postId={currentPostId} closeModal={closeModal} />
                     <Button onClick={closeModal}>Close</Button>
                 </MainModal>
             </Modal>

@@ -25,6 +25,13 @@ export const data = (state = initialState, { payload, type }) => {
                 posts: [payload, ...state.posts]
             }
             break;
+        case actions.ADD_COMMENT:
+
+            // return {
+            //     ...state,
+            //     posts: [payload, ...state.posts]
+            // }
+            break;
         default:
             break;
     }
