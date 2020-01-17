@@ -31,8 +31,6 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-import ImageUpload from '../components/ImageUpload';
-
 const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editUserImage }) => {
 
     //During the first rendering bio, location and website of credentials will
@@ -47,10 +45,9 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
     const { bio = '', location = '', website = '', imageUrl = '' } = credentials;
 
     const formik = useFormik({
-        initialValues: { bio, location, website, imageUrl: '' },
+        initialValues: { bio, location, website },
         enableReinitialize: true,
         validationSchema: Yup.object({
-            imageUrl: Yup.mixed(),
             bio: Yup.string()
                 .max(160, 'Must be 160 characters or less'),
             location: Yup.string()
@@ -59,12 +56,19 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
                 .max(100, 'Must be 100 characters or less')
         }),
         onSubmit: values => {
-            // const {bio, location, website} = values;
-            const formData = new FormData();
-            formData.append('image', file, file.name);
-            editUserImage(formData);
-            // ;            editUserDetails({bio, location, website});
-            //             closeModal();
+            // 
+
+            //Edit profile image 
+            if (file) {
+                console.log('edit image');
+                const formData = new FormData();
+                formData.append('image', file, file.name);
+                editUserImage(formData);
+            }
+
+            //Edit profile details
+            editUserDetails(values)
+            closeModal();
         }
     });
 
@@ -109,9 +113,6 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
                         hidden="hidden"
                     />
                     <Button onClick={editProfileImage}>Upload Image</Button>
-                    {/* {formik.touched.imageUrl && formik.errors.imageUrl ? (
-                        <Box color="red">{formik.errors.imageUrl}</Box>
-                    ) : null} */}
                 </Box>
                 <Box px={2}>
                     <Label htmlFor='bio'>Bio</Label>
