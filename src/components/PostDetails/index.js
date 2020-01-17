@@ -11,14 +11,9 @@ import {
     Box,
     Image,
     Text,
-    Flex
+    Flex,
+    Link
 } from 'rebass/styled-components'
-
-// const PostDate = () => {
-//     return (
-
-//     )
-// }
 
 const PostDetails = ({ post }) => {
     const getDateDiff = (ISOdate) => {
@@ -36,14 +31,22 @@ const PostDetails = ({ post }) => {
                 someday
             );
 
-            return `${result} min`
+            return `${result} min ago`
 
         }
         if (result >= '24') {
             return format(someday, 'd LLL')
         } else {
-            return `${result}h`;
+            return `${result}h ago`;
         }
+    }
+
+    const handleComment = () => {
+        console.log('comment');
+    }
+
+    const handleLike = () => {
+        console.log('comment');
     }
 
     return (
@@ -68,9 +71,15 @@ const PostDetails = ({ post }) => {
                     </Text>
                     <Text
                         fontSize={1}
-                    >{getDateDiff(post.createdAt)}</Text>
+                    >{getDateDiff(post.createdAt)}
+                    </Text>
+
                 </Flex>
                 <Text fontSize={1}>{post.body}</Text>
+                <Flex p={2} justifyContent='space-around'>
+                    <Link onClick={handleComment} color="white" href="#">comment</Link>
+                    <Link onClick={handleLike} color="white" href="#">like</Link>
+                </Flex>
             </Box>
         </Flex>
     );
