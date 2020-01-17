@@ -151,7 +151,7 @@ const SignupForm = ({ signUp, history }) => {
 
 const Signup = ({ users, signUp, history }) => {
     return (
-        <SignupForm signUp={signUp} history={history} />
+        <SignupForm history={history} signUp={signUp} />
     );
 };
 
