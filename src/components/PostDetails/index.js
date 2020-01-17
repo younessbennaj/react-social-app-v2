@@ -77,8 +77,8 @@ const PostDetails = ({ post }) => {
                 </Flex>
                 <Text fontSize={1}>{post.body}</Text>
                 <Flex p={2} justifyContent='space-around'>
-                    <Link onClick={handleComment} color="white" href="#">comment</Link>
-                    <Link onClick={handleLike} color="white" href="#">like</Link>
+                    <Link onClick={handleComment} color="white" href="#">comment ({post.commentCount})</Link>
+                    <Link onClick={handleLike} color="white" href="#">like ({post.likeCount})</Link>
                 </Flex>
             </Box>
         </Flex>
