@@ -15,7 +15,7 @@ import {
     Link
 } from 'rebass/styled-components'
 
-const PostDetails = ({ post }) => {
+const PostDetails = ({ post, openModal }) => {
     const getDateDiff = (ISOdate) => {
         const moment = new Date();
         const someday = parseISO(ISOdate);
@@ -42,7 +42,7 @@ const PostDetails = ({ post }) => {
     }
 
     const handleComment = () => {
-        console.log('comment');
+        openModal();
     }
 
     const handleLike = () => {

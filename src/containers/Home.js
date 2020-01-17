@@ -22,6 +22,7 @@ import {
 
 //Components
 import PostDetails from '../components/PostDetails';
+import CommentBox from '../components/CommentBox';
 
 const UnauthenticatedHome = () => {
     return (
@@ -46,8 +47,38 @@ const UnauthenticatedHome = () => {
     )
 }
 
+const Modal = styled.div`
+display: ${props => props.show ? "block" : "none"}; 
+position: fixed;
+top: 0;
+left: 0;
+width:100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.6);
+`
+
+const MainModal = styled(Box)`
+position:fixed;
+background: white;
+padding: 20px;
+width: 80%;
+height: auto;
+top:50%;
+left:50%;
+transform: translate(-50%,-50%);
+`
+
 const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
+    const [show, setShow] = useState(false);
+
+    const closeModal = () => {
+        setShow(false);
+    }
+
+    const openModal = () => {
+        setShow(true);
+    }
 
     useEffect(() => {
     }, [posts]);
@@ -59,6 +90,20 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
     return (
         <Fragment>
+            <Modal show={show}>
+                <MainModal
+                    sx={{
+                        p: 1,
+                        borderRadius: 2,
+                        boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
+                    }}
+                >
+                    <Text>Comment</Text>
+                    <CommentBox closeModal={closeModal} />
+                    <Button onClick={closeModal}>Close</Button>
+                </MainModal>
+            </Modal>
+
             <Box pb={3}>
                 <PostBox />
             </Box>
@@ -79,7 +124,7 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
                                     return (
                                         <li key={post.postId}>
                                             <Box mb={2}>
-                                                <PostDetails post={post} />
+                                                <PostDetails openModal={openModal} post={post} />
                                             </Box>
                                         </li>
                                     )

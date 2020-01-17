@@ -127,3 +127,11 @@ export const getPosts = data => async dispatch => {
     }
     if (responseErr) console.error(responseErr.response);
 }
+
+export const addComment = data => async dispatch => {
+    let [response, responseErr] = await handle(axios.post('/post/vOSjj7VFfFpzzDA6tDVN/comment', data));
+    if (response) {
+        console.log(response);
+    }
+    if (responseErr) console.error(responseErr.response);
+}
