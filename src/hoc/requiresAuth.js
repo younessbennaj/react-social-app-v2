@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { history } from '../helpers/history'
 // import { push } from 'react-router-redux';
 
 export default function (ComposedComponent) {
@@ -15,7 +14,7 @@ export default function (ComposedComponent) {
         }
 
         _checkAndRedirect() {
-            const { authenticated } = this.props;
+            const { authenticated, history } = this.props;
 
             if (!authenticated) {
                 history.push('/login');
