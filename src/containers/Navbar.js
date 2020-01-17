@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { Link as RouteLink } from "react-router-dom";
+import { history } from '../helpers/history'
 
 //Redux
 import { connect } from 'react-redux';
+import { signOut } from '../actions'
 
 import {
     Box,
@@ -12,12 +14,17 @@ import {
     Link
 } from 'rebass/styled-components'
 
-const AuthenticatedNavbar = ({ authenticated }) => {
+const AuthenticatedNavbar = ({ authenticated, signOut }) => {
+
+    const handleClick = () => {
+        signOut(history);
+    }
+
     if (authenticated) {
         return (
             <>
                 <Link as={RouteLink} to="/profile" color="white" pr={2}>Profile</Link>
-                <Link as={RouteLink} to="/logout" color="white">Logout</Link>
+                <Link onClick={handleClick} color="white">Logout</Link>
             </>
         )
     } else {
@@ -30,7 +37,7 @@ const AuthenticatedNavbar = ({ authenticated }) => {
     }
 }
 
-const Navbar = ({ auth }) => {
+const Navbar = ({ auth, signOut }) => {
     return (
         <header>
             <Flex
@@ -42,7 +49,7 @@ const Navbar = ({ auth }) => {
                 <Text p={2} fontWeight='bold'>Social App</Text>
                 <Box mx='auto' />
                 <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
-                <AuthenticatedNavbar authenticated={auth.authenticated} />
+                <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} />
             </Flex>
         </header>
     );
@@ -54,4 +61,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    signOut
 })(Navbar);

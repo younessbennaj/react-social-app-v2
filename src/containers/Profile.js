@@ -40,13 +40,9 @@ transform: translate(-50%,-50%);
 `
 
 
-const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => {
+const Profile = ({ user: { credentials, loading }, auth }) => {
 
     const [show, setShow] = useState(false);
-
-    const handleClick = () => {
-        signOut(history);
-    }
 
     const closeModal = () => {
         setShow(false);
@@ -77,17 +73,8 @@ const Profile = ({ user: { credentials, loading }, auth, signOut, history }) => 
             ) : (
                     <Box>
                         <ProfileDetails openModal={openModal} user={credentials} />
-                        <Button mr={3} onClick={handleClick}>
-                            Logout
-                        </Button>
-                        {/* <Button mr={3} onClick={openModal}>
-                            Open
-                        </Button> */}
                     </Box>
                 )}
-            <Button mr={3} onClick={handleClick}>
-                Logout
-                        </Button>
         </Box >
 
     );

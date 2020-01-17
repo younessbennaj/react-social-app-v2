@@ -44,7 +44,7 @@ ErrorMessage.defaultProps = {
     py: 2,
 };
 
-const LoginForm = ({ signIn, history, error, auth: { loading } }) => {
+const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
     useEffect(() => {
         console.log(loading);
     }, [loading])
@@ -61,9 +61,7 @@ const LoginForm = ({ signIn, history, error, auth: { loading } }) => {
                 .required('Required'),
         }),
         onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
             signIn(values, history);
-            // history.push('/');
         },
     });
     return (
@@ -123,11 +121,11 @@ const LoginForm = ({ signIn, history, error, auth: { loading } }) => {
     );
 };
 
-const Login = ({ user, signIn, history, auth }) => {
+const Login = ({ user, signIn, auth, history }) => {
     useEffect(() => {
     }, [user, auth]);
     return (
-        <LoginForm auth={auth} signIn={signIn} history={history} error={auth.error} />
+        <LoginForm history={history} auth={auth} signIn={signIn} error={auth.error} />
     );
 };
 

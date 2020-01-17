@@ -33,7 +33,7 @@ export const signUp = (data, history) => async dispatch => {
         const FBIdToken = `Bearer ${response.data.token}`;
         localStorage.setItem('FBIdToken', FBIdToken);
         axios.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData(history));
+        dispatch(getUserData());
         dispatch({ type: actions.AUTH_SUCCESS });
         history.push('/');
     }
