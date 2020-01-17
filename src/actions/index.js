@@ -96,6 +96,18 @@ export const editUserDetails = (data) => async dispatch => {
     }
 }
 
+export const editUserImage = (data) => async dispatch => {
+    let [response, responseErr] = await handle(axios.post('/user/image', data));
+    if (response) {
+        // dispatch(getUserData());
+        console.log(response);
+    }
+
+    if (responseErr) {
+        console.log(responseErr.response)
+    }
+}
+
 //DATA
 
 export const addPost = data => async dispatch => {

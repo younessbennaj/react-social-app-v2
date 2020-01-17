@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 //Redux
-import { editUserDetails } from '../actions'
+import { editUserDetails, editUserImage } from '../actions'
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -33,7 +33,7 @@ import {
 
 import ImageUpload from '../components/ImageUpload';
 
-const EditProfile = ({ user: { credentials }, editUserDetails, closeModal }) => {
+const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editUserImage }) => {
 
     //During the first rendering bio, location and website of credentials will
     //be undefined.
@@ -60,7 +60,9 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal }) => 
         }),
         onSubmit: values => {
             // const {bio, location, website} = values;
-            console.log(values)
+            const formData = new FormData();
+            formData.append('image', file, file.name);
+            editUserImage(formData);
             // ;            editUserDetails({bio, location, website});
             //             closeModal();
         }
@@ -170,5 +172,6 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    editUserDetails
+    editUserDetails,
+    editUserImage
 })(EditProfile);
