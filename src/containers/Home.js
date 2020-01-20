@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
-import PostBox from './PostBox';
+import PostBox from '../components/PostBox';
 
 //Redux
 import { connect } from 'react-redux';
@@ -147,7 +147,6 @@ const Home = ({ user, auth, data, getPosts }) => {
 
     return (
         <HomeContainer
-            bg="#F6F6F6"
             p={3}
         >
             {auth.authenticated ? (
