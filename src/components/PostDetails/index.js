@@ -15,7 +15,7 @@ import {
     Link
 } from 'rebass/styled-components'
 
-const PostDetails = ({ post }) => {
+const PostDetails = ({ post, openModal }) => {
     const getDateDiff = (ISOdate) => {
         const moment = new Date();
         const someday = parseISO(ISOdate);
@@ -41,8 +41,8 @@ const PostDetails = ({ post }) => {
         }
     }
 
-    const handleComment = () => {
-        console.log('comment');
+    const handleComment = (postId) => {
+        openModal(postId);
     }
 
     const handleLike = () => {
@@ -77,7 +77,7 @@ const PostDetails = ({ post }) => {
                 </Flex>
                 <Text fontSize={1}>{post.body}</Text>
                 <Flex p={2} justifyContent='space-around'>
-                    <Link onClick={handleComment} color="white" href="#">comment ({post.commentCount})</Link>
+                    <Link onClick={() => handleComment(post.postId)} color="white" href="#">comment ({post.commentCount})</Link>
                     <Link onClick={handleLike} color="white" href="#">like ({post.likeCount})</Link>
                 </Flex>
             </Box>
