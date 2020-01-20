@@ -5,8 +5,13 @@ import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 
-//Style 
+//Icon 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
+
+//Style 
+import styled from "styled-components";
 import {
     Box,
     Image,
@@ -14,6 +19,14 @@ import {
     Flex,
     Link
 } from 'rebass/styled-components'
+
+const ContentContainer = styled(Box)`
+    border: 1px solid #e0e0e0;
+    border-radius: 0px 8px 8px 8px;
+    padding: 12px;
+    flexGrow: 1;
+    box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
+`
 
 const PostDetails = ({ post, openModal }) => {
     const getDateDiff = (ISOdate) => {
@@ -50,13 +63,14 @@ const PostDetails = ({ post, openModal }) => {
     }
 
     return (
-        <Flex bg="navy" p={3}>
+        <Flex p={3}>
             <Image
                 src={post.userImage}
                 variant='avatar'
                 minWidth='50px'
+                mr={3}
             />
-            <Box color="white" flexGrow="1" px={2}>
+            <ContentContainer flexGrow="1">
                 <Flex
                     alignItems='baseline'
                     justifyContent='flex-end'
@@ -71,16 +85,26 @@ const PostDetails = ({ post, openModal }) => {
                     </Text>
                     <Text
                         fontSize={1}
-                    >{getDateDiff(post.createdAt)}
+                    ><FontAwesomeIcon icon={faClock} /> {getDateDiff(post.createdAt)}
                     </Text>
 
                 </Flex>
-                <Text fontSize={1}>{post.body}</Text>
-                <Flex p={2} justifyContent='space-around'>
-                    <Link onClick={() => handleComment(post.postId)} color="white" href="#">comment ({post.commentCount})</Link>
-                    <Link onClick={handleLike} color="white" href="#">like ({post.likeCount})</Link>
+                <Text fontSize={2} py={3}>{post.body}</Text>
+                <Flex py={2} >
+                    <Link pr={3} onClick={handleLike} href="#">
+                        <Flex alignItems="center" fontSize={2}>
+                            <FontAwesomeIcon icon={faHeart} />
+                            <Text px={2}>{post.likeCount}</Text>
+                        </Flex>
+                    </Link>
+                    <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
+                        <Flex alignItems="center" fontSize={2}>
+                            <FontAwesomeIcon icon={faComment} />
+                            <Text px={2}>{post.commentCount}</Text>
+                        </Flex>
+                    </Link>
                 </Flex>
-            </Box>
+            </ContentContainer>
         </Flex>
     );
 }
