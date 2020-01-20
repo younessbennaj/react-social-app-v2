@@ -6,9 +6,9 @@ import PostDetails from './';
 
 export const post = {
     body: "This is my first time here",
-    commentCount: 0,
+    commentCount: 25,
     createdAt: "2020-01-13T16:24:26.110Z",
-    likeCount: 0,
+    likeCount: 34,
     postId: "ioewoXIrXuBUr0n1r5rX",
     userFirstName: "jack",
     userImage: "https://firebasestorage.googleapis.com/v0/b/my-tcc-project-66a43.appspot.com/o/no-img.png?alt=media",
