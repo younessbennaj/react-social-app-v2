@@ -27,10 +27,17 @@ export const data = (state = initialState, { payload, type }) => {
             break;
         case actions.ADD_COMMENT:
 
-            // return {
-            //     ...state,
-            //     posts: [payload, ...state.posts]
-            // }
+            let posts = state.posts.map((post) => {
+                return post.postId === payload.postId ?
+                    { ...post, commentCount: post.commentCount + 1 }
+                    : post;
+            });
+
+            return {
+                ...state,
+                posts
+            }
+
             break;
         default:
             break;

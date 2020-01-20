@@ -46,7 +46,6 @@ ErrorMessage.defaultProps = {
 
 const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
     useEffect(() => {
-        console.log(loading);
     }, [loading])
     const formik = useFormik({
         initialValues: {
