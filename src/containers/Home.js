@@ -23,6 +23,10 @@ import {
 //Components
 import PostDetails from '../components/PostDetails';
 import CommentBox from '../components/CommentBox';
+import Modal from '../components/UI/Modal';
+
+//Layout
+import { Container, ContentContainer } from '../hoc/layout/element';
 
 const UnauthenticatedHome = () => {
     return (
@@ -46,27 +50,6 @@ const UnauthenticatedHome = () => {
         </Box>
     )
 }
-
-const Modal = styled.div`
-display: ${props => props.show ? "block" : "none"}; 
-position: fixed;
-top: 0;
-left: 0;
-width:100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.6);
-`
-
-const MainModal = styled(Box)`
-position:fixed;
-background: white;
-padding: 20px;
-width: 80%;
-height: auto;
-top:50%;
-left:50%;
-transform: translate(-50%,-50%);
-`
 
 const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
 
@@ -92,30 +75,14 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
     return (
         <Fragment>
             <Modal show={show}>
-                <MainModal
-                    sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
-                    }}
-                >
-                    <Text>Comment</Text>
-                    <CommentBox postId={currentPostId} closeModal={closeModal} />
-                    <Button onClick={closeModal}>Close</Button>
-                </MainModal>
+                <Text>Comment</Text>
+                <CommentBox postId={currentPostId} closeModal={closeModal} />
+                <Button onClick={closeModal}>Close</Button>
             </Modal>
-
-            <Box pb={3}>
-                <PostBox />
-            </Box>
-
-            <Card
-                width={[1, 2 / 3, 1 / 2]}
-                bg="white"
-                sx={{
-                    mx: 'auto',
-                    borderRadius: 2
-                }}>
+            <ContentContainer>
+                <Box pb={3}>
+                    <PostBox />
+                </Box>
                 {loading ? (
                     <Text textAlign="center">Loading...</Text>
                 ) : (
@@ -133,20 +100,16 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
                             </ul>
                         </Box>
                     )}
-            </Card>
+            </ContentContainer>
 
         </Fragment>
     );
 }
 
-const HomeContainer = styled(Box)`
-   
-`;
-
 const Home = ({ user, auth, data, getPosts }) => {
 
     return (
-        <HomeContainer
+        <Container
             p={3}
         >
             {auth.authenticated ? (
@@ -154,7 +117,7 @@ const Home = ({ user, auth, data, getPosts }) => {
             ) : (
                     <UnauthenticatedHome />
                 )}
-        </HomeContainer>
+        </Container>
 
     );
 }

@@ -17,28 +17,18 @@ import styled from "styled-components";
 //Components
 import ProfileDetails from '../components/ProfileDetails';
 import EditProfile from '../containers/EditProfile';
+import Modal from '../components/UI/Modal';
 
-const Modal = styled.div`
-display: ${props => props.show ? "block" : "none"}; 
-position: fixed;
-top: 0;
-left: 0;
-width:100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.6);
-`
+//Layout
+import { Container, ContentContainer } from '../hoc/layout/element'
 
-const MainModal = styled(Box)`
-position:fixed;
-background: white;
-padding: 20px;
-width: 80%;
-height: auto;
-top:50%;
-left:50%;
-transform: translate(-50%,-50%);
-`
+const ProfileContainer = styled(Box)`
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin: 0 auto;
+    box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 
+`;
 
 const Profile = ({ user: { credentials, loading }, auth }) => {
 
@@ -53,30 +43,23 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
     }
 
     return (
-        <Box>
+        <Container p={3}>
             <Modal show={show}>
-                <MainModal
-                    sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
-                    }}
-                >
-                    <Text>Edit Profile</Text>
-                    <EditProfile closeModal={closeModal} />
-                    <Button onClick={closeModal}>Close</Button>
-                </MainModal>
+                <Text>Edit Profile</Text>
+                <EditProfile closeModal={closeModal} />
+                <Button onClick={closeModal}>Close</Button>
             </Modal>
 
-            {loading ? (
-                <Text textAlign="center">Loading...</Text>
-            ) : (
-                    <Box>
-                        <ProfileDetails openModal={openModal} user={credentials} />
-                    </Box>
-                )}
-        </Box >
-
+            <ContentContainer>
+                {loading ? (
+                    <Text textAlign="center">Loading...</Text>
+                ) : (
+                        <Box>
+                            <ProfileDetails openModal={openModal} user={credentials} />
+                        </Box>
+                    )}
+            </ContentContainer>
+        </Container >
     );
 }
 

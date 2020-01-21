@@ -55,43 +55,33 @@ const PostBox = ({ addPost, user: { credentials } }) => {
         },
     });
     return (
-        <Card
-            width={[1, 2 / 3, 1 / 2]}
-            bg='white'
-            sx={{
-                mx: 'auto',
-                px: 3,
-                borderRadius: 2,
-                // boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
-            }}>
-            <Box
-                as='form'
-                onSubmit={formik.handleSubmit}
-                py={3}>
-                <Flex mx={-2} mb={3} flexDirection="column">
-                    <Box px={2}>
-                        <Flex alignItems='center' py={3}>
-                            <Image variant='avatar' minWidth='50px' src={credentials.imageUrl} />
-                            <Text fontWeight="bold" pl={3}>{credentials.firstName} {credentials.lastName}</Text>
-                        </Flex>
-                        <PostInput
-                            id='body'
-                            name="body"
-                            placeholder="What's on your mind?"
-                            {...formik.getFieldProps('body')}
-                        />
-                        {formik.touched.body && formik.errors.body ? (
-                            <Box color="red">{formik.errors.body}</Box>
-                        ) : null}
-                    </Box>
-                    <Box pt={3} px={2} ml='auto'>
-                        <PostButton type="submit">
-                            Add Post
+        <Box
+            as='form'
+            onSubmit={formik.handleSubmit}
+            py={3}>
+            <Flex mx={-2} mb={3} flexDirection="column">
+                <Box px={2}>
+                    <Flex alignItems='center' py={3}>
+                        <Image variant='avatar' minWidth='50px' src={credentials.imageUrl} />
+                        <Text fontWeight="bold" pl={3}>{credentials.firstName} {credentials.lastName}</Text>
+                    </Flex>
+                    <PostInput
+                        id='body'
+                        name="body"
+                        placeholder="What's on your mind?"
+                        {...formik.getFieldProps('body')}
+                    />
+                    {formik.touched.body && formik.errors.body ? (
+                        <Box color="red">{formik.errors.body}</Box>
+                    ) : null}
+                </Box>
+                <Box pt={3} px={2} ml='auto'>
+                    <PostButton type="submit">
+                        Add Post
                         </PostButton>
-                    </Box>
-                </Flex>
-            </Box>
-        </Card>
+                </Box>
+            </Flex>
+        </Box>
     );
 };
 
