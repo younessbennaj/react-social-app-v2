@@ -23,9 +23,9 @@ export default function (ComposedComponent) {
 
         render() {
             return (
-                <div>
+                <>
                     {this.props.authenticated ? <ComposedComponent {...this.props} /> : null}
-                </div>
+                </>
             );
         }
     }
