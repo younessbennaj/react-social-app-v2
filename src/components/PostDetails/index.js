@@ -23,7 +23,7 @@ import {
 const ContentContainer = styled(Box)`
     border: 1px solid #e0e0e0;
     border-radius: 0px 8px 8px 8px;
-    padding: 12px;
+    padding: 20px;
     flexGrow: 1;
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `

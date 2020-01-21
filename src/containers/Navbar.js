@@ -7,12 +7,30 @@ import { history } from '../helpers/history'
 import { connect } from 'react-redux';
 import { signOut } from '../actions'
 
+//Style
+import styled from 'styled-components';
 import {
     Box,
     Text,
     Flex,
     Link
 } from 'rebass/styled-components'
+
+const NavbarWrapper = styled(Flex)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+`;
+
+NavbarWrapper.defaultProps = {
+    px: 2,
+    py: 3,
+    color: 'white',
+    bg: 'blue',
+    alignItems: 'center'
+}
 
 const AuthenticatedNavbar = ({ authenticated, signOut }) => {
 
@@ -39,19 +57,25 @@ const AuthenticatedNavbar = ({ authenticated, signOut }) => {
 
 const Navbar = ({ auth, signOut }) => {
     return (
-        <header>
-            <Flex
-                px={2}
-                py={3}
-                color='white'
-                bg='blue'
-                alignItems='center'>
-                <Text p={2} fontWeight='bold'>Social App</Text>
-                <Box mx='auto' />
-                <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
-                <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} />
-            </Flex>
-        </header>
+        // <NavbarWrapper>
+        //     <Flex
+        //         px={2}
+        //         py={3}
+        //         color='white'
+        //         bg='blue'
+        //         alignItems='center'>
+        //         <Text p={2} fontWeight='bold'>Social App</Text>
+        //         <Box mx='auto' />
+        //         <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
+        //         <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} />
+        //     </Flex>
+        // </NavbarWrapper>
+        <NavbarWrapper as="header">
+            <Text p={2} fontWeight='bold'>Social App</Text>
+            <Box mx='auto' />
+            <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
+            <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} />
+        </NavbarWrapper>
     );
 }
 

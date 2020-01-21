@@ -12,6 +12,9 @@ import Profile from './containers/Profile';
 //Hoc 
 import requireAuth from './hoc/requiresAuth';
 
+//Layout
+import Layout from './hoc/layout/Layout';
+
 //Style
 import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
@@ -52,8 +55,8 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <Router>
-                <div>
-                    <Navbar />
+                <Layout>
+                    {/* <Navbar /> */}
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/login" exact component={Login} />
@@ -61,7 +64,7 @@ const App = () => {
                         <Route path="/profile" exact component={requireAuth(Profile)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
-                </div>
+                </Layout>
             </Router>
         </ThemeProvider >
     );
