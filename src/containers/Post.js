@@ -21,6 +21,10 @@ import differenceInMinutes from 'date-fns/differenceInMinutes'
 //Layout
 import { Container, ContentContainer } from '../hoc/layout/element'
 
+//Component
+import Modal from '../components/UI/Modal';
+import CommentBox from '../components/CommentBox';
+
 //Style 
 import styled from 'styled-components';
 import {
@@ -51,6 +55,7 @@ const ReturnButton = styled(Link)`
 `
 
 const Post = ({ match, getPost, post, loading }) => {
+
     const getDate = (date) => {
         let someday = parseISO(date);
         return format(someday, 'h:m a . d LLL yyyy');
@@ -81,21 +86,28 @@ const Post = ({ match, getPost, post, loading }) => {
         }
     }
 
-    // const [date, setDate] = useState();
+    const [show, setShow] = useState(false);
+    const [currentPostId, setCurrentPostId] = useState('');
+
+    const closeModal = () => {
+        setShow(false);
+    }
+
+    const openModal = (postId) => {
+        setCurrentPostId(postId);
+        setShow(true);
+    }
 
     useEffect(() => {
         getPost(match.params.id)
     }, [match.params.id]);
 
-    // useEffect(() => {
-    //     if (post.createdAt) {
-
-    //     }
-    // }, [post])
-
     return (
         <Container>
             <ContentContainer>
+                <Modal show={show}>
+                    <CommentBox closeModal={closeModal} postId={currentPostId} />
+                </Modal>
                 {loading ? (<Text>Loading...</Text>) : (
                     <Flex py={3} flexDirection="column">
                         <Flex py={3}>
@@ -130,6 +142,21 @@ const Post = ({ match, getPost, post, loading }) => {
                         <Text fontSize={2} py={2}>
                             {post.createdAt ? getDate(post.createdAt) : null}
                         </Text>
+
+                        <Flex py={3}>
+                            <Link pr={3} href="#">
+                                <Flex alignItems="center" fontSize={2}>
+                                    <FontAwesomeIcon icon={faHeart} />
+                                    <Text px={2}>{post.likeCount}</Text>
+                                </Flex>
+                            </Link>
+                            <Link pr={3} href="#" onClick={() => openModal(post.postId)}>
+                                <Flex alignItems="center" fontSize={2}>
+                                    <FontAwesomeIcon icon={faComment} />
+                                    <Text px={2}>{post.commentCount}</Text>
+                                </Flex>
+                            </Link>
+                        </Flex>
 
                         <Flex flexDirection="column" py={2} px={3} sx={{
                             borderTop: '1px solid #e6e6e6'
