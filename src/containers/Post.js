@@ -7,16 +7,12 @@ import { getPost } from '../actions'
 //React Router
 import { Link as RouterLink } from 'react-router-dom';
 
-//Icon 
+//Date helper
+import { getDifferenceDate, getFullDate } from '../helpers/date'
 
+//Icon 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faComment, faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-
-//Date Fns
-import differenceInHours from 'date-fns/differenceInHours';
-import parseISO from 'date-fns/parseISO';
-import format from 'date-fns/format';
-import differenceInMinutes from 'date-fns/differenceInMinutes'
 
 //Layout
 import { Container, ContentContainer } from '../hoc/layout/element'
@@ -55,36 +51,6 @@ const ReturnButton = styled(Link)`
 `
 
 const Post = ({ match, getPost, post, loading }) => {
-
-    const getDate = (date) => {
-        let someday = parseISO(date);
-        return format(someday, 'h:m a . d LLL yyyy');
-    }
-
-    const getCommentDate = (date) => {
-        const moment = new Date();
-        const someday = parseISO(date);
-        let result = differenceInHours(
-            moment,
-            someday
-        )
-
-        if (result == 0) {
-
-            result = differenceInMinutes(
-                moment,
-                someday
-            );
-
-            return `${result} min ago`
-
-        }
-        if (result >= '24') {
-            return format(someday, 'd LLL')
-        } else {
-            return `${result}h ago`;
-        }
-    }
 
     const [show, setShow] = useState(false);
     const [currentPostId, setCurrentPostId] = useState('');
@@ -140,7 +106,7 @@ const Post = ({ match, getPost, post, loading }) => {
                         <Text fontSize={3} py={3}>{post.body}</Text>
 
                         <Text fontSize={2} py={2}>
-                            {post.createdAt ? getDate(post.createdAt) : null}
+                            {post.createdAt ? getFullDate(post.createdAt) : null}
                         </Text>
 
                         <Flex py={3}>
@@ -183,7 +149,7 @@ const Post = ({ match, getPost, post, loading }) => {
                                         <Text
                                             fontSize={1}
                                             ml="auto"
-                                        >{getCommentDate(post.createdAt)}
+                                        >{getDifferenceDate(comment.createdAt)}
                                         </Text>
                                     </Flex>
                                 )

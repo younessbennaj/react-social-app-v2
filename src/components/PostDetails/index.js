@@ -1,14 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-//Date Fns
-import differenceInHours from 'date-fns/differenceInHours';
-import parseISO from 'date-fns/parseISO';
-import format from 'date-fns/format';
-import differenceInMinutes from 'date-fns/differenceInMinutes'
-
+//Date helper
+import { getDifferenceDate } from '../../helpers/date'
 //Icon 
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
 
@@ -31,30 +26,6 @@ const ContentContainer = styled(Box)`
 `
 
 const PostDetails = ({ post, openModal }) => {
-    const getDateDiff = (ISOdate) => {
-        const moment = new Date();
-        const someday = parseISO(ISOdate);
-        let result = differenceInHours(
-            moment,
-            someday
-        )
-
-        if (result == 0) {
-
-            result = differenceInMinutes(
-                moment,
-                someday
-            );
-
-            return `${result} min ago`
-
-        }
-        if (result >= '24') {
-            return format(someday, 'd LLL')
-        } else {
-            return `${result}h ago`;
-        }
-    }
 
     const handleComment = (postId) => {
         openModal(postId);
@@ -88,7 +59,7 @@ const PostDetails = ({ post, openModal }) => {
                         </Text>
                         <Text
                             fontSize={1}
-                        ><FontAwesomeIcon icon={faClock} /> {getDateDiff(post.createdAt)}
+                        ><FontAwesomeIcon icon={faClock} /> {getDifferenceDate(post.createdAt)}
                         </Text>
 
                     </Flex>
