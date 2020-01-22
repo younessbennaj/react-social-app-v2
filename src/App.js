@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react
 import axios from 'axios';
 
 //Containers
-import Navbar from './containers/Navbar';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
 import Home from './containers/Home';
 import Profile from './containers/Profile';
+import Post from './containers/Post';
 
 //Hoc 
 import requireAuth from './hoc/requiresAuth';
@@ -56,12 +56,12 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <Router>
                 <Layout>
-                    {/* <Navbar /> */}
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
                         <Route path="/profile" exact component={requireAuth(Profile)} />
+                        <Route path="/post/:id" exact component={requireAuth(Post)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
                 </Layout>

@@ -22,6 +22,8 @@ export default {
         white: '#fff',
         blue: '#007ce0',
         navy: '#004175',
+        lightGrey: '#e0e0e0',
+        grey: '#b0b0b0'
     },
     fonts: {
         body: 'system-ui, sans-serif',
@@ -54,6 +56,15 @@ export default {
             display: 'inline-block',
             width: '50px',
             height: '50px',
+            minWidth: '50px',
+            p: 1,
+            borderRadius: '50%',
+        },
+        avatarLg: {
+            display: 'inline-block',
+            width: '70px',
+            height: '70px',
+            minWidth: '70px',
             p: 1,
             borderRadius: '50%',
         }
