@@ -6,6 +6,8 @@ const initialState = {
     post: {}
 };
 
+let posts;
+
 export const data = (state = initialState, { payload, type }) => {
     switch (type) {
         case actions.LOADING_DATA:
@@ -35,7 +37,7 @@ export const data = (state = initialState, { payload, type }) => {
             break;
         case actions.ADD_COMMENT:
 
-            let posts = state.posts.map((post) => {
+            posts = state.posts.map((post) => {
                 return post.postId === payload.postId ?
                     { ...post, commentCount: post.commentCount + 1 }
                     : post;
@@ -53,6 +55,16 @@ export const data = (state = initialState, { payload, type }) => {
                 posts
             }
 
+            break;
+        case actions.ADD_LIKE:
+            console.log(payload.postId);
+            posts = state.posts.map((post) => {
+                return post.postId === payload.postId ? payload : post;
+            });
+            return {
+                ...state,
+                posts
+            }
             break;
         default:
             break;

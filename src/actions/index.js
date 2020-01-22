@@ -144,3 +144,12 @@ export const addComment = (data, postId) => async dispatch => {
     }
     if (responseErr) console.error(responseErr.response);
 }
+
+export const addLike = (postId) => async dispatch => {
+    let [response, responseErr] = await handle(axios.post(`/post/${postId}/like`));
+    if (response) {
+        dispatch({ type: actions.ADD_LIKE, payload: response.data })
+    }
+
+    if (responseErr) console.error(responseErr.response);
+}

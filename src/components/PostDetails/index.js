@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
+//Redux
+import { connect } from 'react-redux';
+import { addLike } from '../../actions'
 //Date helper
 import { getDifferenceDate } from '../../helpers/date'
 //Icon 
@@ -25,14 +28,15 @@ const ContentContainer = styled(Box)`
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
-const PostDetails = ({ post, openModal }) => {
+const PostDetails = ({ post, openModal, addLike }) => {
 
     const handleComment = (postId) => {
         openModal(postId);
     }
 
-    const handleLike = () => {
-        console.log('comment');
+    const handleLike = (e) => {
+        e.preventDefault();
+        addLike(post.postId);
     }
 
     return (
@@ -84,4 +88,6 @@ const PostDetails = ({ post, openModal }) => {
     );
 }
 
-export default PostDetails;
+export default connect(null, {
+    addLike
+})(PostDetails);
