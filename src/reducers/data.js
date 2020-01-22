@@ -41,8 +41,15 @@ export const data = (state = initialState, { payload, type }) => {
                     : post;
             });
 
+            let post = {
+                ...state.post,
+                comments: [...state.post.comments, payload.comment],
+                commentCount: state.post.commentCount + 1
+            };
+
             return {
                 ...state,
+                post,
                 posts
             }
 

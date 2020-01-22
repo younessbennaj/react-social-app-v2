@@ -140,7 +140,7 @@ export const addComment = (data, postId) => async dispatch => {
     let [response, responseErr] = await handle(axios.post(`/post/${postId}/comment`, data));
     if (response) {
         console.log(response.data);
-        dispatch({ type: actions.ADD_COMMENT, payload: { data, postId } })
+        dispatch({ type: actions.ADD_COMMENT, payload: { comment: response.data, postId } })
     }
     if (responseErr) console.error(responseErr.response);
 }
