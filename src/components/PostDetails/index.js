@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
+//Date Fns
 import differenceInHours from 'date-fns/differenceInHours';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
@@ -24,7 +26,7 @@ const ContentContainer = styled(Box)`
     border: 1px solid #e0e0e0;
     border-radius: 0px 8px 8px 8px;
     padding: 20px;
-    flexGrow: 1;
+    flex-grow: 1;
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
@@ -71,25 +73,27 @@ const PostDetails = ({ post, openModal }) => {
                 mr={3}
             />
             <ContentContainer flexGrow="1">
-                <Flex
-                    alignItems='baseline'
-                    justifyContent='flex-end'
+                <RouterLink to={`/post/${post.postId}`}>
+                    <Flex
+                        alignItems='baseline'
+                        justifyContent='flex-end'
 
-                >
-                    <Text
-                        fontSize={2}
-                        fontWeight="heading"
-                        mr="auto"
                     >
-                        {post.userFirstName} {post.userLastName}
-                    </Text>
-                    <Text
-                        fontSize={1}
-                    ><FontAwesomeIcon icon={faClock} /> {getDateDiff(post.createdAt)}
-                    </Text>
+                        <Text
+                            fontSize={2}
+                            fontWeight="heading"
+                            mr="auto"
+                        >
+                            {post.userFirstName} {post.userLastName}
+                        </Text>
+                        <Text
+                            fontSize={1}
+                        ><FontAwesomeIcon icon={faClock} /> {getDateDiff(post.createdAt)}
+                        </Text>
 
-                </Flex>
-                <Text fontSize={2} py={3}>{post.body}</Text>
+                    </Flex>
+                    <Text fontSize={2} py={3}>{post.body}</Text>
+                </RouterLink>
                 <Flex py={2} >
                     <Link pr={3} onClick={handleLike} href="#">
                         <Flex alignItems="center" fontSize={2}>

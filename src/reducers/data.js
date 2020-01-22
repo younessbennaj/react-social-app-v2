@@ -2,7 +2,8 @@ import * as actions from '../actions/actionTypes';
 
 const initialState = {
     loading: false,
-    posts: []
+    posts: [],
+    post: {}
 };
 
 export const data = (state = initialState, { payload, type }) => {
@@ -16,6 +17,13 @@ export const data = (state = initialState, { payload, type }) => {
             return {
                 ...state,
                 posts: [...payload],
+                loading: false
+            }
+            break;
+        case actions.GET_POST:
+            return {
+                ...state,
+                post: { ...payload },
                 loading: false
             }
             break;

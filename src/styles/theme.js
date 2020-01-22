@@ -54,6 +54,15 @@ export default {
             display: 'inline-block',
             width: '50px',
             height: '50px',
+            minWidth: '50px',
+            p: 1,
+            borderRadius: '50%',
+        },
+        avatarLg: {
+            display: 'inline-block',
+            width: '70px',
+            height: '70px',
+            minWidth: '70px',
             p: 1,
             borderRadius: '50%',
         }
