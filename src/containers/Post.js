@@ -4,10 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getPost } from '../actions'
 
+//React Router
+import { Link as RouterLink } from 'react-router-dom';
+
 //Icon 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faComment, faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 //Date Fns
 import differenceInHours from 'date-fns/differenceInHours';
@@ -24,7 +27,8 @@ import {
     Box,
     Image,
     Flex,
-    Text
+    Text,
+    Link
 } from 'rebass/styled-components'
 
 const PostContainer = styled(Box)`
@@ -33,6 +37,17 @@ const PostContainer = styled(Box)`
     padding: 20px;
     flex-grow: 1;
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
+`
+
+const ReturnButton = styled(Link)`
+    display: flex;
+    align-items: center;
+    color: #b0b0b0;
+    font-size: 18px;
+
+    &&:hover {
+        text-decoration: underline;
+    }
 `
 
 const Post = ({ match, getPost, post, loading }) => {
@@ -83,6 +98,16 @@ const Post = ({ match, getPost, post, loading }) => {
             <ContentContainer>
                 {loading ? (<Text>Loading...</Text>) : (
                     <Flex py={3} flexDirection="column">
+                        <Flex py={3}>
+                            <ReturnButton
+                                as={RouterLink}
+                                href="#"
+                                to="/"
+                            >
+                                <FontAwesomeIcon icon={faArrowLeft} />
+                                <Text fontSize={3} pl={2}>Back</Text>
+                            </ReturnButton>
+                        </Flex>
                         <Flex
                             alignItems="center"
                         >
@@ -122,8 +147,11 @@ const Post = ({ match, getPost, post, loading }) => {
                                             mr={3}
                                         />
                                         <Flex flexDirection="column">
-                                            <Text color="blue">{comment.userFirstName} {comment.userLastName}</Text>
+                                            <Link color="blue" href="#">
+                                                <Text>{comment.userFirstName} {comment.userLastName}</Text>
+                                            </Link>
                                             <Text>{comment.body}</Text>
+
                                         </Flex>
                                         <Text
                                             fontSize={1}

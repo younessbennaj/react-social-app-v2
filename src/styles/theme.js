@@ -22,6 +22,8 @@ export default {
         white: '#fff',
         blue: '#007ce0',
         navy: '#004175',
+        lightGrey: '#e0e0e0',
+        grey: '#b0b0b0'
     },
     fonts: {
         body: 'system-ui, sans-serif',
