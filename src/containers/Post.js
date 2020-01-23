@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
-import { getPost } from '../actions'
+import { getPost, addLike, addUnlike } from '../actions'
 
 //React Router
 import { Link as RouterLink } from 'react-router-dom';
@@ -20,6 +20,7 @@ import { Container, ContentContainer } from '../hoc/layout/element'
 //Component
 import Modal from '../components/UI/Modal';
 import CommentBox from '../components/CommentBox';
+import LikeButton from '../components/LikeButton';
 
 //Style 
 import styled from 'styled-components';
@@ -50,7 +51,7 @@ const ReturnButton = styled(Link)`
     }
 `
 
-const Post = ({ match, getPost, post, loading }) => {
+const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
 
     const [show, setShow] = useState(false);
     const [currentPostId, setCurrentPostId] = useState('');
@@ -110,12 +111,22 @@ const Post = ({ match, getPost, post, loading }) => {
                         </Text>
 
                         <Flex py={3}>
-                            <Link pr={3} href="#">
-                                <Flex alignItems="center" fontSize={2}>
-                                    <FontAwesomeIcon icon={faHeart} />
-                                    <Text px={2}>{post.likeCount}</Text>
-                                </Flex>
-                            </Link>
+                            <LikeButton post={post} />
+                            {/* {liked ? (
+                                <Link pr={3} onClick={handleUnlike} href="#">
+                                    <Flex alignItems="center" fontSize={2}>
+                                        <FontAwesomeIcon color="red" icon={faHeart} />
+                                        <Text px={2}>{post.likeCount}</Text>
+                                    </Flex>
+                                </Link>
+                            ) : (
+                                    <Link pr={3} onClick={handleLike} href="#">
+                                        <Flex alignItems="center" fontSize={2}>
+                                            <FontAwesomeIcon icon={faHeart} />
+                                            <Text px={2}>{post.likeCount}</Text>
+                                        </Flex>
+                                    </Link>
+                                )} */}
                             <Link pr={3} href="#" onClick={() => openModal(post.postId)}>
                                 <Flex alignItems="center" fontSize={2}>
                                     <FontAwesomeIcon icon={faComment} />
@@ -164,10 +175,13 @@ const Post = ({ match, getPost, post, loading }) => {
 }
 
 const mapStateToProps = (state) => {
+    const { user } = state;
     const { post, loading } = state.data;
-    return { post, loading };
+    return { post, loading, user };
 }
 
 export default connect(mapStateToProps, {
-    getPost
+    getPost,
+    addLike,
+    addUnlike
 })(Post);

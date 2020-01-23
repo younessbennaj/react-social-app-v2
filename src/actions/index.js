@@ -131,7 +131,6 @@ export const getPost = postId => async dispatch => {
     dispatch({ type: actions.LOADING_DATA });
     let [response, responseErr] = await handle(axios.get(`/post/${postId}`));
     if (response) {
-        console.log(response.data);
         dispatch({ type: actions.GET_POST, payload: response.data })
     }
 }
@@ -139,16 +138,15 @@ export const getPost = postId => async dispatch => {
 export const addComment = (data, postId) => async dispatch => {
     let [response, responseErr] = await handle(axios.post(`/post/${postId}/comment`, data));
     if (response) {
-        console.log(response.data);
         dispatch({ type: actions.ADD_COMMENT, payload: { comment: response.data, postId } })
     }
     if (responseErr) console.error(responseErr.response);
 }
 
 export const addLike = (postId) => async dispatch => {
+
     let [response, responseErr] = await handle(axios.post(`/post/${postId}/like`));
     if (response) {
-        console.log(response.data);
         dispatch({ type: actions.ADD_LIKE, payload: response.data })
     }
 

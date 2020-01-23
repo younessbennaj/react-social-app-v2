@@ -7,6 +7,7 @@ const initialState = {
 };
 
 let posts;
+let post;
 
 export const data = (state = initialState, { payload, type }) => {
     switch (type) {
@@ -43,7 +44,7 @@ export const data = (state = initialState, { payload, type }) => {
                     : post;
             });
 
-            let post = {
+            post = {
                 ...state.post,
                 comments: [...state.post.comments, payload.comment],
                 commentCount: state.post.commentCount + 1
@@ -60,18 +61,24 @@ export const data = (state = initialState, { payload, type }) => {
             posts = state.posts.map((post) => {
                 return post.postId === payload.postId ? payload : post;
             });
+
+            post = { ...state.post, likeCount: state.post.likeCount + 1 };
             return {
                 ...state,
-                posts
+                posts,
+                post
             }
             break;
         case actions.ADD_UNLIKE:
             posts = state.posts.map((post) => {
                 return post.postId === payload.postId ? payload : post;
             });
+
+            post = { ...state.post, likeCount: state.post.likeCount - 1 };
             return {
                 ...state,
-                posts
+                posts,
+                post
             }
             break;
         default:
