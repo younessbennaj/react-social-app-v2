@@ -44,7 +44,10 @@ const CommentBox = ({ closeModal, addComment, postId }) => {
         <Box
             as='form'
             onSubmit={formik.handleSubmit}
-            py={3}>
+        >
+            <Flex justifyContent="center">
+                <Text p={3} fontWeight="bold" fontSize={3}>Add a comment</Text>
+            </Flex>
             <Flex mx={-2} mb={3} flexDirection="column">
                 <Box px={2}>
                     <Textarea
@@ -52,6 +55,7 @@ const CommentBox = ({ closeModal, addComment, postId }) => {
                         name="body"
                         placeholder="Post your comment"
                         {...formik.getFieldProps('body')}
+                        borderRadius="8px"
                     />
                     {formik.touched.body && formik.errors.body ? (
                         <Box color="red">{formik.errors.body}</Box>

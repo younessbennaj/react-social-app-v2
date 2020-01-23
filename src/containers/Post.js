@@ -94,7 +94,7 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                         >
                             <Image
                                 src={post.userImage}
-                                variant='avatarLg'
+                                variant='avatarMd'
                                 mr={3}
                             />
                             <Text

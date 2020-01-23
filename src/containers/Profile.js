@@ -47,7 +47,6 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
     return (
         <Container p={3}>
             <Modal show={show} ref={childRef}>
-                <Text>Edit Profile</Text>
                 <EditProfile closeModal={childRef} />
             </Modal>
 

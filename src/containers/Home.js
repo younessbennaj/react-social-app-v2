@@ -80,7 +80,6 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
     return (
         <Fragment>
             <Modal show={show} ref={childRef}>
-                <Text>Comment</Text>
                 <CommentBox postId={currentPostId} closeModal={childRef} />
             </Modal>
             <ContentContainer>
