@@ -66,8 +66,8 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
             }
 
             //Edit profile details
-            editUserDetails(values)
-            closeModal();
+            editUserDetails(values);
+            closeModal.current.closeModal();
         }
     });
 

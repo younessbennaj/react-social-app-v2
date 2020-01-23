@@ -23,7 +23,7 @@ const ProfileDetails = ({ user, openModal }) => {
     }
 
     const handleClick = () => {
-        openModal();
+        openModal.current.openModal();
     }
 
     return (

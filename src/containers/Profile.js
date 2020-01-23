@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
@@ -42,12 +42,13 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
         setShow(true);
     }
 
+    const childRef = useRef();
+
     return (
         <Container p={3}>
-            <Modal show={show}>
+            <Modal show={show} ref={childRef}>
                 <Text>Edit Profile</Text>
-                <EditProfile closeModal={closeModal} />
-                <Button onClick={closeModal}>Close</Button>
+                <EditProfile closeModal={childRef} />
             </Modal>
 
             <ContentContainer>
@@ -55,7 +56,7 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
                     <Text textAlign="center">Loading...</Text>
                 ) : (
                         <Box>
-                            <ProfileDetails openModal={openModal} user={credentials} />
+                            <ProfileDetails openModal={childRef} user={credentials} />
                         </Box>
                     )}
             </ContentContainer>
