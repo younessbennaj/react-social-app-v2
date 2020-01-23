@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
+//Redux
+import { connect } from 'react-redux';
+import { addLike, addUnlike } from '../../actions'
 //Date helper
 import { getDifferenceDate } from '../../helpers/date'
 //Icon 
@@ -25,15 +28,40 @@ const ContentContainer = styled(Box)`
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
-const PostDetails = ({ post, openModal }) => {
+const PostDetails = ({ post, openModal, addLike, addUnlike, user }) => {
 
     const handleComment = (postId) => {
         openModal(postId);
     }
 
-    const handleLike = () => {
-        console.log('comment');
+    const [liked, setLiked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        addLike(post.postId);
     }
+
+    const handleUnlike = (e) => {
+        e.preventDefault();
+        addUnlike(post.postId);
+    }
+
+    const isLiked = (like, post) => {
+        if (like.postId == post.postId) {
+            setLiked(true);
+        } else {
+            setLiked(false);
+        }
+    }
+
+    useEffect(() => {
+    }, [user.likes])
+
+    useEffect(() => {
+        user.likes.map(like => {
+            isLiked(like, post)
+        })
+    }, [user, post]);
 
     return (
         <Flex p={3}>
@@ -66,12 +94,22 @@ const PostDetails = ({ post, openModal }) => {
                     <Text fontSize={2} py={3}>{post.body}</Text>
                 </RouterLink>
                 <Flex py={2} >
-                    <Link pr={3} onClick={handleLike} href="#">
-                        <Flex alignItems="center" fontSize={2}>
-                            <FontAwesomeIcon icon={faHeart} />
-                            <Text px={2}>{post.likeCount}</Text>
-                        </Flex>
-                    </Link>
+                    {liked ? (
+                        <Link pr={3} onClick={handleUnlike} href="#">
+                            <Flex alignItems="center" fontSize={2}>
+                                <FontAwesomeIcon color="red" icon={faHeart} />
+                                <Text px={2}>{post.likeCount}</Text>
+                            </Flex>
+                        </Link>
+                    ) : (
+                            <Link pr={3} onClick={handleLike} href="#">
+                                <Flex alignItems="center" fontSize={2}>
+                                    <FontAwesomeIcon icon={faHeart} />
+                                    <Text px={2}>{post.likeCount}</Text>
+                                </Flex>
+                            </Link>
+                        )}
+
                     <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
                         <Flex alignItems="center" fontSize={2}>
                             <FontAwesomeIcon icon={faComment} />
@@ -84,4 +122,12 @@ const PostDetails = ({ post, openModal }) => {
     );
 }
 
-export default PostDetails;
+const mapStateToProps = (state) => {
+    const { user } = state;
+    return { user };
+}
+
+export default connect(mapStateToProps, {
+    addLike,
+    addUnlike
+})(PostDetails);

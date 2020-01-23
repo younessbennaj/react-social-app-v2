@@ -26,6 +26,29 @@ export const user = (state = initialState, { payload, type }) => {
             }
             break;
         }
+        case actions.ADD_LIKE: {
+            const { userFirstName, userLastName, postId } = payload;
+            const like = {
+                userFirstName,
+                userLastName,
+                postId
+            }
+            return {
+                ...state,
+                likes: [...state.likes, like]
+            }
+        }
+        case actions.ADD_UNLIKE: {
+
+            const likes = state.likes.filter(like => {
+                return like.postId !== payload.postId;
+            });
+
+            return {
+                ...state,
+                likes: [...likes]
+            }
+        }
         default:
             break;
     }
