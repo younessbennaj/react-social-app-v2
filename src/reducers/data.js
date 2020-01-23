@@ -57,7 +57,15 @@ export const data = (state = initialState, { payload, type }) => {
 
             break;
         case actions.ADD_LIKE:
-            console.log(payload.postId);
+            posts = state.posts.map((post) => {
+                return post.postId === payload.postId ? payload : post;
+            });
+            return {
+                ...state,
+                posts
+            }
+            break;
+        case actions.ADD_UNLIKE:
             posts = state.posts.map((post) => {
                 return post.postId === payload.postId ? payload : post;
             });

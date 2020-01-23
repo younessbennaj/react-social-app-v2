@@ -148,7 +148,17 @@ export const addComment = (data, postId) => async dispatch => {
 export const addLike = (postId) => async dispatch => {
     let [response, responseErr] = await handle(axios.post(`/post/${postId}/like`));
     if (response) {
+        console.log(response.data);
         dispatch({ type: actions.ADD_LIKE, payload: response.data })
+    }
+
+    if (responseErr) console.error(responseErr.response);
+}
+
+export const addUnlike = (postId) => async dispatch => {
+    let [response, responseErr] = await handle(axios.post(`/post/${postId}/unlike`));
+    if (response) {
+        dispatch({ type: actions.ADD_UNLIKE, payload: response.data })
     }
 
     if (responseErr) console.error(responseErr.response);

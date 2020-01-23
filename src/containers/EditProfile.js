@@ -60,7 +60,6 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
 
             //Edit profile image 
             if (file) {
-                console.log('edit image');
                 const formData = new FormData();
                 formData.append('image', file, file.name);
                 editUserImage(formData);
