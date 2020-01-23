@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 
 import PostBox from '../components/PostBox';
 
@@ -59,9 +59,12 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
         setShow(false);
     }
 
-    const openModal = (postId) => {
+    // const openModal = (postId) => {
+    //     setShow(true);
+    // }
+
+    const setPostId = (postId) => {
         setCurrentPostId(postId);
-        setShow(true);
     }
 
     useEffect(() => {
@@ -71,13 +74,14 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
         getPosts();
     }, []);
 
+    const childRef = useRef();
+
 
     return (
         <Fragment>
-            <Modal show={show}>
+            <Modal show={show} ref={childRef}>
                 <Text>Comment</Text>
-                <CommentBox postId={currentPostId} closeModal={closeModal} />
-                <Button onClick={closeModal}>Close</Button>
+                <CommentBox postId={currentPostId} closeModal={childRef} />
             </Modal>
             <ContentContainer>
                 <Box pb={3}>
@@ -92,7 +96,7 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
                                     return (
                                         <li key={post.postId}>
                                             <Box mb={2}>
-                                                <PostDetails openModal={openModal} post={post} />
+                                                <PostDetails show={show} openModal={childRef} setPostId={setPostId} post={post} />
                                             </Box>
                                         </li>
                                     )

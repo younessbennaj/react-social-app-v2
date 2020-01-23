@@ -37,7 +37,7 @@ const CommentBox = ({ closeModal, addComment, postId }) => {
 
             addComment(values, postId);
             resetForm();
-            closeModal();
+            closeModal.current.closeModal();
         },
     });
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
@@ -69,11 +69,13 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
         getPost(match.params.id)
     }, [match.params.id]);
 
+    const childRef = useRef();
+
     return (
         <Container>
             <ContentContainer>
-                <Modal show={show}>
-                    <CommentBox closeModal={closeModal} postId={currentPostId} />
+                <Modal show={show} ref={childRef}>
+                    <CommentBox closeModal={childRef} postId={currentPostId} />
                 </Modal>
                 {loading ? (<Text>Loading...</Text>) : (
                     <Flex py={3} flexDirection="column">
