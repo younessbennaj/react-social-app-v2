@@ -10,6 +10,8 @@ import { getDifferenceDate } from '../../helpers/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
 
+//Component 
+import LikeButton from '../LikeButton';
 //Style 
 import styled from "styled-components";
 import {
@@ -33,35 +35,6 @@ const PostDetails = ({ post, openModal, addLike, addUnlike, user }) => {
     const handleComment = (postId) => {
         openModal(postId);
     }
-
-    const [liked, setLiked] = useState(false);
-
-    const handleLike = (e) => {
-        e.preventDefault();
-        addLike(post.postId);
-    }
-
-    const handleUnlike = (e) => {
-        e.preventDefault();
-        addUnlike(post.postId);
-    }
-
-    const isLiked = (like, post) => {
-        if (like.postId == post.postId) {
-            setLiked(true);
-        } else {
-            setLiked(false);
-        }
-    }
-
-    useEffect(() => {
-    }, [user.likes])
-
-    useEffect(() => {
-        user.likes.map(like => {
-            isLiked(like, post)
-        })
-    }, [user, post]);
 
     return (
         <Flex p={3}>
@@ -94,22 +67,7 @@ const PostDetails = ({ post, openModal, addLike, addUnlike, user }) => {
                     <Text fontSize={2} py={3}>{post.body}</Text>
                 </RouterLink>
                 <Flex py={2} >
-                    {liked ? (
-                        <Link pr={3} onClick={handleUnlike} href="#">
-                            <Flex alignItems="center" fontSize={2}>
-                                <FontAwesomeIcon color="red" icon={faHeart} />
-                                <Text px={2}>{post.likeCount}</Text>
-                            </Flex>
-                        </Link>
-                    ) : (
-                            <Link pr={3} onClick={handleLike} href="#">
-                                <Flex alignItems="center" fontSize={2}>
-                                    <FontAwesomeIcon icon={faHeart} />
-                                    <Text px={2}>{post.likeCount}</Text>
-                                </Flex>
-                            </Link>
-                        )}
-
+                    <LikeButton post={post} />
                     <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
                         <Flex alignItems="center" fontSize={2}>
                             <FontAwesomeIcon icon={faComment} />
