@@ -17,6 +17,7 @@ import {
 //Icon 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { unwatchFile } from 'fs';
 const LikeButton = ({ post, user, addLike, addUnlike }) => {
 
     const [liked, setLiked] = useState(false);
@@ -63,7 +64,7 @@ const LikeButton = ({ post, user, addLike, addUnlike }) => {
                     <Link pr={3} onClick={handleLike} href="#">
                         <Flex alignItems="center" fontSize={2}>
                             <FontAwesomeIcon icon={faHeart} />
-                            <Text px={2}>{post.likeCount}</Text>
+                            <Text px={2}>{typeof post.likeCount === 'number' ? post.likeCount.toString() : null}</Text>
                         </Flex>
                     </Link>
                 )}
