@@ -39,7 +39,7 @@ import { getUserData } from './actions';
 //axios 
 
 axios.defaults.baseURL =
-    'http://localhost:5000/my-tcc-project-66a43/europe-west1/api';
+    'https://europe-west1-my-tcc-project-66a43.cloudfunctions.net/api';
 
 const token = localStorage.getItem('FBIdToken');
 

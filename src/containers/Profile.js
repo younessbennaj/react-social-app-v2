@@ -18,6 +18,7 @@ import styled from "styled-components";
 import ProfileDetails from '../components/ProfileDetails';
 import EditProfile from '../containers/EditProfile';
 import Modal from '../components/UI/Modal';
+import ProfileSkeleton from '../components/ProfileSkeleton';
 
 //Layout
 import { Container, ContentContainer } from '../hoc/layout/element'
@@ -52,7 +53,7 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
 
             <ContentContainer>
                 {loading ? (
-                    <Text textAlign="center">Loading...</Text>
+                    <ProfileSkeleton />
                 ) : (
                         <Box>
                             <ProfileDetails openModal={childRef} user={credentials} />

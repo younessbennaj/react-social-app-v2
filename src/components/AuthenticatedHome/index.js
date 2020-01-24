@@ -5,6 +5,7 @@ import PostDetails from '../PostDetails';
 import CommentBox from '../CommentBox';
 import Modal from '../UI/Modal';
 import PostBox from '../PostBox';
+import PostSkeleton from '../PostSkeleton';
 
 //Layout
 import { ContentContainer } from '../../hoc/layout/element';
@@ -47,7 +48,19 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
                     <PostBox />
                 </Box>
                 {loading ? (
-                    <Text textAlign="center">Loading...</Text>
+                    <Box>
+                        <ul>
+                            <li>
+                                <PostSkeleton />
+                            </li>
+                            <li>
+                                <PostSkeleton />
+                            </li>
+                            <li>
+                                <PostSkeleton />
+                            </li>
+                        </ul>
+                    </Box>
                 ) : (
                         <Box>
                             <ul>
