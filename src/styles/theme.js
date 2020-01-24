@@ -51,6 +51,21 @@ export default {
             bg: 'navy',
         },
     },
+    text: {
+        mainTitle: {
+            fontSize: '50px',
+            p: 3,
+        },
+        title: {
+            fontSize: '40px',
+            lineHeight: '40px',
+            p: 3
+        },
+        subTitle: {
+            fontSize: '30px',
+            p: 2
+        }
+    },
     variants: {
         avatar: {
             display: 'inline-block',

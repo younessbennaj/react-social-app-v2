@@ -8,6 +8,9 @@ import { signUp } from '../actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//Components
+import { FormContainer } from '../hoc/layout/element'
+
 import {
     Box,
     Card,
@@ -56,21 +59,15 @@ const SignupForm = ({ signUp, history }) => {
         },
     });
     return (
-        <Card
-            width={[1, 2 / 3, 1 / 2]}
-            sx={{
-                mx: 'auto',
-                px: 3,
-                borderRadius: 2,
-                boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
-            }}>
+        <FormContainer>
             <Box
                 as='form'
                 onSubmit={formik.handleSubmit}
                 py={3}>
+                <Text textAlign='center' variant="title">Signup</Text>
                 <Flex mx={-2} mb={3} flexDirection="column">
-                    <Box px={2}>
-                        <Label htmlFor="firstName">First Name</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor="firstName">First Name</Label>
                         <Input
                             id='firstName'
                             name="firstName"
@@ -80,8 +77,8 @@ const SignupForm = ({ signUp, history }) => {
                             <Box color="red">{formik.errors.firstName}</Box>
                         ) : null}
                     </Box>
-                    <Box px={2}>
-                        <Label htmlFor="lastName">Last Name</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor="lastName">Last Name</Label>
                         <Input
                             id='lastName'
                             name="lastName"
@@ -91,18 +88,8 @@ const SignupForm = ({ signUp, history }) => {
                             <Box color="red">{formik.errors.lastName}</Box>
                         ) : null}
                     </Box>
-                    {/* <Box px={2}>
-                        <Label htmlFor='location'>Gender</Label>
-                        <Select
-                            id='gender'
-                            name='gender'
-                            defaultValue='Gender'>
-                            <option>Male</option>
-                            <option>Female</option>
-                        </Select>
-                    </Box> */}
-                    <Box px={2}>
-                        <Label htmlFor='email'>Email</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor='email'>Email</Label>
                         <Input
                             id='email'
                             name='email'
@@ -114,8 +101,8 @@ const SignupForm = ({ signUp, history }) => {
                             <Box color="red">{formik.errors.email}</Box>
                         ) : null}
                     </Box>
-                    <Box px={2}>
-                        <Label htmlFor='name'>Password</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor='name'>Password</Label>
                         <Input
                             id='password'
                             name='password'
@@ -126,8 +113,8 @@ const SignupForm = ({ signUp, history }) => {
                             <Box color="red">{formik.errors.password}</Box>
                         ) : null}
                     </Box>
-                    <Box px={2}>
-                        <Label htmlFor='name'>Confirm Password</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor='name'>Confirm Password</Label>
                         <Input
                             id='confirmPassword'
                             name='confirmPassword'
@@ -145,7 +132,7 @@ const SignupForm = ({ signUp, history }) => {
                     </Box>
                 </Flex>
             </Box>
-        </Card>
+        </FormContainer>
     );
 };
 

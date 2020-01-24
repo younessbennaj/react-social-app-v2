@@ -22,3 +22,26 @@ ContentContainer.defaultProps = {
     width: [1, 2 / 3, 1 / 2],
     px: 4,
 }
+
+export const FormContainer = styled(Box)`
+    box-shadow: 0 0 16px rgba(0, 0, 0, .25);
+    border-radius: 8px;
+`
+
+FormContainer.defaultProps = {
+    width: [1, 2 / 3, 1 / 2],
+    mx: 'auto',
+    px: 4,
+    borderRadius: '8px',
+}
+
+export const StyledInputContainer = styled(Box)`
+    padding: 8px;
+    label: {
+
+    }
+`;
+
+StyledInputContainer.defaultProps = {
+    p: 2
+}
