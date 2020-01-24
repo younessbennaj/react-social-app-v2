@@ -10,6 +10,9 @@ import * as Yup from 'yup';
 
 import styled from 'styled-components';
 
+//Components
+import { FormContainer } from '../hoc/layout/element'
+
 import {
     Box,
     Card,
@@ -64,21 +67,15 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
         },
     });
     return (
-        <Card
-            width={[1, 2 / 3, 1 / 2]}
-            sx={{
-                mx: 'auto',
-                px: 3,
-                borderRadius: 2,
-                boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
-            }}>
+        <FormContainer>
             <Box
                 as='form'
                 onSubmit={formik.handleSubmit}
                 py={3}>
+                <Text textAlign='center' variant="title">Login</Text>
                 <Flex mx={-2} mb={3} flexDirection="column">
-                    <Box px={2}>
-                        <Label htmlFor='email'>Email</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor='email'>Email</Label>
                         <Input
                             id='email'
                             name='email'
@@ -90,8 +87,8 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
                             <Box color="red">{formik.errors.email}</Box>
                         ) : null}
                     </Box>
-                    <Box px={2}>
-                        <Label htmlFor='name'>Password</Label>
+                    <Box p={2}>
+                        <Label py={1} htmlFor='name'>Password</Label>
                         <Input
                             id='password'
                             name='password'
@@ -115,8 +112,7 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
                 </Flex>
                 {loading ? (<Text>Loading...</Text>) : null}
             </Box>
-
-        </Card>
+        </FormContainer>
     );
 };
 
