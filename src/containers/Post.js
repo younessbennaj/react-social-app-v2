@@ -21,6 +21,7 @@ import { Container, ContentContainer } from '../hoc/layout/element'
 import Modal from '../components/UI/Modal';
 import CommentBox from '../components/CommentBox';
 import LikeButton from '../components/LikeButton';
+import PostDetailsSkeleton from '../components/PostDetailsSkeleton';
 
 //Style 
 import styled from 'styled-components';
@@ -77,99 +78,86 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                 <Modal show={show} ref={childRef}>
                     <CommentBox closeModal={childRef} postId={currentPostId} />
                 </Modal>
-                {loading ? (<Text>Loading...</Text>) : (
-                    <Flex py={3} flexDirection="column">
-                        <Flex py={3}>
-                            <ReturnButton
-                                as={RouterLink}
-                                href="#"
-                                to="/"
+                {loading ? (
+                    <PostDetailsSkeleton />
+                ) : (
+                        <Flex py={3} flexDirection="column">
+                            <Flex py={3}>
+                                <ReturnButton
+                                    as={RouterLink}
+                                    href="#"
+                                    to="/"
+                                >
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                    <Text fontSize={3} pl={2}>Back</Text>
+                                </ReturnButton>
+                            </Flex>
+                            <Flex
+                                alignItems="center"
                             >
-                                <FontAwesomeIcon icon={faArrowLeft} />
-                                <Text fontSize={3} pl={2}>Back</Text>
-                            </ReturnButton>
-                        </Flex>
-                        <Flex
-                            alignItems="center"
-                        >
-                            <Image
-                                src={post.userImage}
-                                variant='avatarMd'
-                                mr={3}
-                            />
-                            <Text
-                                fontSize={3}
-                                fontWeight="heading"
-                                mr="auto"
-                            >
-                                {post.userFirstName} {post.userLastName}
+                                <Image
+                                    src={post.userImage}
+                                    variant='avatarMd'
+                                    mr={3}
+                                />
+                                <Text
+                                    fontSize={3}
+                                    fontWeight="heading"
+                                    mr="auto"
+                                >
+                                    {post.userFirstName} {post.userLastName}
+                                </Text>
+                            </Flex>
+
+                            <Text fontSize={3} py={3}>{post.body}</Text>
+
+                            <Text fontSize={2} py={2}>
+                                {post.createdAt ? getFullDate(post.createdAt) : null}
                             </Text>
-                        </Flex>
 
-                        <Text fontSize={3} py={3}>{post.body}</Text>
-
-                        <Text fontSize={2} py={2}>
-                            {post.createdAt ? getFullDate(post.createdAt) : null}
-                        </Text>
-
-                        <Flex py={3}>
-                            <LikeButton post={post} />
-                            {/* {liked ? (
-                                <Link pr={3} onClick={handleUnlike} href="#">
+                            <Flex py={3}>
+                                <LikeButton post={post} />
+                                <Link pr={3} href="#" onClick={() => openModal(post.postId)}>
                                     <Flex alignItems="center" fontSize={2}>
-                                        <FontAwesomeIcon color="red" icon={faHeart} />
-                                        <Text px={2}>{post.likeCount}</Text>
+                                        <FontAwesomeIcon icon={faComment} />
+                                        <Text px={2}>{post.commentCount}</Text>
                                     </Flex>
                                 </Link>
-                            ) : (
-                                    <Link pr={3} onClick={handleLike} href="#">
-                                        <Flex alignItems="center" fontSize={2}>
-                                            <FontAwesomeIcon icon={faHeart} />
-                                            <Text px={2}>{post.likeCount}</Text>
-                                        </Flex>
-                                    </Link>
-                                )} */}
-                            <Link pr={3} href="#" onClick={() => openModal(post.postId)}>
-                                <Flex alignItems="center" fontSize={2}>
-                                    <FontAwesomeIcon icon={faComment} />
-                                    <Text px={2}>{post.commentCount}</Text>
-                                </Flex>
-                            </Link>
-                        </Flex>
+                            </Flex>
 
-                        <Flex flexDirection="column" py={2} px={3} sx={{
-                            borderTop: '1px solid #e6e6e6'
-                        }}>
-                            {post.comments ? post.comments.map(comment => {
-                                return (
-                                    <Flex
-                                        key={comment.createdAt}
-                                        justifyContent='flex-start'
-                                        p={2}
-                                    >
-                                        <Image
-                                            src={comment.userImage}
-                                            variant='avatar'
-                                            mr={3}
-                                        />
-                                        <Flex flexDirection="column">
-                                            <Link color="blue" href="#">
-                                                <Text>{comment.userFirstName} {comment.userLastName}</Text>
-                                            </Link>
-                                            <Text>{comment.body}</Text>
+                            <Flex flexDirection="column" py={2} px={3} sx={{
+                                borderTop: '1px solid #e6e6e6'
+                            }}>
+                                {post.comments ? post.comments.map(comment => {
+                                    return (
+                                        <Flex
+                                            key={comment.createdAt}
+                                            justifyContent='flex-start'
+                                            p={2}
+                                        >
+                                            <Image
+                                                src={comment.userImage}
+                                                variant='avatar'
+                                                mr={3}
+                                            />
+                                            <Flex flexDirection="column">
+                                                <Link color="blue" href="#">
+                                                    <Text>{comment.userFirstName} {comment.userLastName}</Text>
+                                                </Link>
+                                                <Text>{comment.body}</Text>
 
+                                            </Flex>
+                                            <Text
+                                                fontSize={1}
+                                                ml="auto"
+                                            >{getDifferenceDate(comment.createdAt)}
+                                            </Text>
                                         </Flex>
-                                        <Text
-                                            fontSize={1}
-                                            ml="auto"
-                                        >{getDifferenceDate(comment.createdAt)}
-                                        </Text>
-                                    </Flex>
-                                )
-                            }) : null}
+                                    )
+                                }) : null}
+                            </Flex>
                         </Flex>
-                    </Flex>
-                )}
+                    )}
 
             </ContentContainer>
         </Container>
