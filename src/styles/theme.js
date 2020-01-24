@@ -60,11 +60,19 @@ export default {
             p: 1,
             borderRadius: '50%',
         },
-        avatarLg: {
+        avatarMd: {
             display: 'inline-block',
             width: '70px',
             height: '70px',
             minWidth: '70px',
+            p: 1,
+            borderRadius: '50%',
+        },
+        avatarLg: {
+            display: 'inline-block',
+            width: '100px',
+            height: '100px',
+            minWidth: '100px',
             p: 1,
             borderRadius: '50%',
         }

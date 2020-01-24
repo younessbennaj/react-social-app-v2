@@ -30,10 +30,11 @@ const ContentContainer = styled(Box)`
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
-const PostDetails = ({ post, openModal, addLike, addUnlike, user }) => {
+const PostDetails = ({ post, openModal, setPostId, addLike, addUnlike, user }) => {
 
     const handleComment = (postId) => {
-        openModal(postId);
+        setPostId(postId);
+        openModal.current.openModal()
     }
 
     return (
@@ -71,7 +72,7 @@ const PostDetails = ({ post, openModal, addLike, addUnlike, user }) => {
                     <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
                         <Flex alignItems="center" fontSize={2}>
                             <FontAwesomeIcon icon={faComment} />
-                            <Text px={2}>{post.commentCount}</Text>
+                            <Text px={2}>{typeof post.commentCount === 'number' ? post.commentCount.toString() : null}</Text>
                         </Flex>
                     </Link>
                 </Flex>

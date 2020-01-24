@@ -66,8 +66,8 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
             }
 
             //Edit profile details
-            editUserDetails(values)
-            closeModal();
+            editUserDetails(values);
+            closeModal.current.closeModal();
         }
     });
 
@@ -102,8 +102,13 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
         >
             <Flex mx={-2} mb={3} flexDirection="column">
                 {/* <ImageUpload /> */}
-                <Box px={2}>
-                    <Image width="100px" src={imagePreviewUrl} />
+                <Flex justifyContent="center">
+                    <Text p={3} fontWeight="bold" fontSize={3}>Edit Profile</Text>
+                </Flex>
+                <Flex px={2} justifyContent="center">
+                    <Link href="#" onClick={editProfileImage}>
+                        <Image variant="avatarLg" width="100px" src={imagePreviewUrl} />
+                    </Link>
                     <input
                         id='imageUrl'
                         name='imageUrl'
@@ -111,9 +116,9 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
                         onChange={handleImageChange}
                         hidden="hidden"
                     />
-                    <Button onClick={editProfileImage}>Upload Image</Button>
-                </Box>
-                <Box px={2}>
+                    {/* <Button onClick={editProfileImage}>Upload Image</Button> */}
+                </Flex>
+                <Box p={2}>
                     <Label htmlFor='bio'>Bio</Label>
                     <Input
                         value={formik.values.bio}
@@ -126,7 +131,7 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
                         <Box color="red">{formik.errors.bio}</Box>
                     ) : null}
                 </Box>
-                <Box px={2}>
+                <Box p={2}>
                     <Label htmlFor='location'>Location</Label>
                     <Input
                         id='location'
@@ -138,7 +143,7 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
                         <Box color="red">{formik.errors.location}</Box>
                     ) : null}
                 </Box>
-                <Box px={2}>
+                <Box p={2}>
                     <Label htmlFor='website'>website</Label>
                     <Input
                         id='website'

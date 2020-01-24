@@ -4,6 +4,12 @@ import EditProfile from '../../containers/EditProfile';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 
+import styled from 'styled-components';
+
+//Icon 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapMarker, faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+
 import {
     Box,
     Card,
@@ -15,6 +21,12 @@ import {
     Link
 } from 'rebass/styled-components'
 
+const StyledLink = styled(Link)`
+    &&:hover {
+        text-decoration: underline;
+    }
+`
+
 const ProfileDetails = ({ user, openModal }) => {
 
     const getDate = (date) => {
@@ -23,7 +35,7 @@ const ProfileDetails = ({ user, openModal }) => {
     }
 
     const handleClick = () => {
-        openModal();
+        openModal.current.openModal();
     }
 
     return (
@@ -38,12 +50,12 @@ const ProfileDetails = ({ user, openModal }) => {
                 textAlign: 'center'
             }}
         >
-            <Image width="100px" src={user.imageUrl}></Image>
-            <Heading>{user.firstName} {user.lastName}</Heading>
-            <Text>{user.bio}</Text>
-            <Text>{user.location}</Text>
-            <Text>{user.website}</Text>
-            <Text>Join Social App in {getDate(user.createdAt)}</Text>
+            <Image variant="avatarLg" src={user.imageUrl}></Image>
+            <Heading p={2}>{user.firstName} {user.lastName}</Heading>
+            <Text p={2}><FontAwesomeIcon icon={faGlobeEurope} /> {user.location}</Text>
+            <Text p={2} fontSize="20px" color="grey">{user.bio}</Text>
+            <StyledLink p={2} color="blue" href="#">{user.website}</StyledLink>
+            <Text p={2}>Join Social App in {getDate(user.createdAt)}</Text>
             <Button mt={3} onClick={handleClick}>
                 Edit Profile
             </Button>
