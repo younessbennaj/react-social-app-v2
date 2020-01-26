@@ -19,8 +19,8 @@ export const ContentContainer = styled(Box)`
 
 ContentContainer.defaultProps = {
     p: 0,
-    width: [1, 2 / 3, 1 / 2],
-    px: 4,
+    width: [1, 2 / 3, 2 / 3],
+    px: [0, 4],
 }
 
 export const FormContainer = styled(Box)`
@@ -37,9 +37,6 @@ FormContainer.defaultProps = {
 
 export const StyledInputContainer = styled(Box)`
     padding: 8px;
-    label: {
-
-    }
 `;
 
 StyledInputContainer.defaultProps = {

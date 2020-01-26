@@ -22,6 +22,8 @@ import {
     Link
 } from 'rebass/styled-components'
 
+const PostContainer = styled(Flex)``
+
 const ContentContainer = styled(Box)`
     border: 1px solid #e0e0e0;
     border-radius: 0px 8px 8px 8px;
@@ -38,12 +40,13 @@ const PostDetails = ({ post, openModal, setPostId, addLike, addUnlike, user }) =
     }
 
     return (
-        <Flex p={3}>
+        <Flex p={3} flexDirection={["column", "row"]}>
             <Image
                 src={post.userImage}
                 variant='avatar'
                 minWidth='50px'
                 mr={3}
+                mb={[2, 0]}
             />
             <ContentContainer flexGrow="1">
                 <RouterLink to={`/post/${post.postId}`}>
@@ -53,7 +56,7 @@ const PostDetails = ({ post, openModal, setPostId, addLike, addUnlike, user }) =
 
                     >
                         <Text
-                            fontSize={2}
+                            fontSize={[1, 2]}
                             fontWeight="heading"
                             mr="auto"
                         >
@@ -65,12 +68,12 @@ const PostDetails = ({ post, openModal, setPostId, addLike, addUnlike, user }) =
                         </Text>
 
                     </Flex>
-                    <Text fontSize={2} py={3}>{post.body}</Text>
+                    <Text fontSize={[1, 2]} py={3}>{post.body}</Text>
                 </RouterLink>
                 <Flex py={2} >
                     <LikeButton post={post} />
                     <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
-                        <Flex alignItems="center" fontSize={2}>
+                        <Flex alignItems="center" fontSize={[1, 2]}>
                             <FontAwesomeIcon icon={faComment} />
                             <Text px={2}>{typeof post.commentCount === 'number' ? post.commentCount.toString() : null}</Text>
                         </Flex>
