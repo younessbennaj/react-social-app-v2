@@ -8,42 +8,40 @@ import { faMapMarker, faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 
 import {
-    Box,
-    Card,
-    Image,
-    Heading,
-    Text
+    Box
 } from 'rebass/styled-components'
 
-const PlaceHolder = styled.div`
-    width: 200px;
-    height: 15px;
-    background-color: grey;
-`
+const SkeletonContainer = styled.div`
+height: 430px;
+background-image: radial-gradient(circle 45px, #ccc 100%, transparent),
+linear-gradient(#ccc, #ccc),
+linear-gradient(#ccc, #ccc),
+linear-gradient(#ccc, #ccc),
+linear-gradient(#ccc, #ccc),
+linear-gradient(#fff, #fff);
 
-// PlaceHolder.defaultProps = {
-//     bg: 'grey'
-// }
+background-size: 
+    100px 100px,
+    400px 40px,
+    400px 20px,
+    400px 20px,
+    400px 20px,
+    100% 100%;
+
+background-position: 
+    50% 24px, 
+    50% 140px, 
+    50% 200px, 
+    50% 240px, 
+    50% 280px, 
+    0 0;
+background-repeat: no-repeat;
+`
 
 const ProfileSkeleton = () => {
     return (
-        <Card
-            sx={{
-                p: 4,
-                color: 'text',
-                bg: 'white',
-                fontFamily: 'body',
-                fontWeight: 'body',
-                lineHeight: 'body',
-                textAlign: 'center'
-            }}
-        >
-            <Image variant="avatarLg" src={NoImg}></Image>
-            <Heading p={2}></Heading>
-            <Text p={2}><FontAwesomeIcon icon={faGlobeEurope} /><span></span></Text>
-            <Text p={2} fontSize="20px" color="grey">-</Text>
-            <Text p={2}>-</Text>
-        </Card>
+        <SkeletonContainer>
+        </SkeletonContainer>
     );
 }
 
