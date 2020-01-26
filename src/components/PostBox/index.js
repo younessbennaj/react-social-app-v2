@@ -58,7 +58,7 @@ const PostBox = ({ addPost, user: { credentials } }) => {
         <Box
             as='form'
             onSubmit={formik.handleSubmit}
-            py={3}>
+            p={3}>
             <Flex mx={-2} mb={3} flexDirection="column">
                 <Box px={2}>
                     <Flex alignItems='center' py={3}>

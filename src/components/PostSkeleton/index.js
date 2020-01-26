@@ -22,12 +22,13 @@ const ContentContainer = styled(Box)`
 
 const PostSkeleton = () => {
     return (
-        <Flex p={3}>
+        <Flex p={3} flexDirection={['column', 'row']}>
             <Image
                 src={NoImg}
                 variant='avatar'
                 minWidth='50px'
                 mr={3}
+                mb={[2, 0]}
             />
             <ContentContainer flexGrow="1">
                 {/* <RouterLink to={`/post/${post.postId}`}>

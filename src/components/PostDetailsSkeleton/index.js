@@ -30,7 +30,7 @@ const ReturnButton = styled(Link)`
 const PostDetailsSkeleton = () => {
     return (
 
-        <Flex height='400px' py={3} flexDirection="column">
+        <Flex height='400px' p={3} flexDirection="column">
             <Flex py={3}>
                 <ReturnButton
                     href="#"

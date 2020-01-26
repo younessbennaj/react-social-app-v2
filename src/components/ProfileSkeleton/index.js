@@ -22,10 +22,10 @@ linear-gradient(#fff, #fff);
 
 background-size: 
     100px 100px,
-    400px 40px,
-    400px 20px,
-    400px 20px,
-    400px 20px,
+    50% 40px,
+    50% 20px,
+    50% 20px,
+    50% 20px,
     100% 100%;
 
 background-position: 

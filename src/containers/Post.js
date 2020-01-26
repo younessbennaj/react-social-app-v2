@@ -81,7 +81,7 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                 {loading ? (
                     <PostDetailsSkeleton />
                 ) : (
-                        <Flex py={3} flexDirection="column">
+                        <Flex p={3} flexDirection="column">
                             <Flex py={3}>
                                 <ReturnButton
                                     as={RouterLink}
@@ -89,7 +89,7 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                                     to="/"
                                 >
                                     <FontAwesomeIcon icon={faArrowLeft} />
-                                    <Text fontSize={3} pl={2}>Back</Text>
+                                    <Text fontSize={[2, 3]} pl={2}>Back</Text>
                                 </ReturnButton>
                             </Flex>
                             <Flex
@@ -101,7 +101,7 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                                     mr={3}
                                 />
                                 <Text
-                                    fontSize={3}
+                                    fontSize={[2, 3]}
                                     fontWeight="heading"
                                     mr="auto"
                                 >
@@ -109,16 +109,16 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                                 </Text>
                             </Flex>
 
-                            <Text fontSize={3} py={3}>{post.body}</Text>
+                            <Text fontSize={[2, 3]} py={3}>{post.body}</Text>
 
-                            <Text fontSize={2} py={2}>
+                            <Text fontSize={[1, 2]} py={2}>
                                 {post.createdAt ? getFullDate(post.createdAt) : null}
                             </Text>
 
-                            <Flex py={3}>
+                            <Flex py={3} fontSize={[1, 2]}>
                                 <LikeButton post={post} />
                                 <Link pr={3} href="#" onClick={() => openModal(post.postId)}>
-                                    <Flex alignItems="center" fontSize={2}>
+                                    <Flex alignItems="center">
                                         <FontAwesomeIcon icon={faComment} />
                                         <Text px={2}>{post.commentCount}</Text>
                                     </Flex>
@@ -142,9 +142,9 @@ const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
                                             />
                                             <Flex flexDirection="column">
                                                 <Link color="blue" href="#">
-                                                    <Text>{comment.userFirstName} {comment.userLastName}</Text>
+                                                    <Text fontSize={[1, 2]}>{comment.userFirstName} {comment.userLastName}</Text>
                                                 </Link>
-                                                <Text>{comment.body}</Text>
+                                                <Text fontSize={[1, 2]} >{comment.body}</Text>
 
                                             </Flex>
                                             <Text
