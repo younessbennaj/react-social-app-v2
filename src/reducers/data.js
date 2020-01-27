@@ -48,7 +48,7 @@ export const data = (state = initialState, { payload, type }) => {
 
             post = {
                 ...state.post,
-                comments: [...state.post.comments, payload.comment],
+                comments: [payload.comment, ...state.post.comments],
                 commentCount: state.post.commentCount + 1
             };
 
