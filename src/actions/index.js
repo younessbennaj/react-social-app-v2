@@ -67,7 +67,7 @@ export const signIn = (data, history) => async dispatch => {
 
 export const signOut = (history) => {
     localStorage.removeItem('FBIdToken');
-    history.push('/login');
+    window.location.href = '/';
     return {
         type: actions.UNAUTH_SUCCESS
     }

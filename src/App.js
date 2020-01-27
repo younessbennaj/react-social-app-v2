@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react-router-dom";
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 //Containers
 import Signup from './containers/Signup';
@@ -34,7 +35,7 @@ import {
 //Redux
 import store from './helpers/store';
 import * as actions from './actions/actionTypes';
-import { getUserData } from './actions';
+import { getUserData, signOut } from './actions';
 
 //axios 
 
@@ -45,10 +46,15 @@ const token = localStorage.getItem('FBIdToken');
 
 //Persisting login state
 if (token) {
-    //On dispatch directement une action en utilisant store.dispatch
-    store.dispatch({ type: actions.AUTH_SUCCESS });
-    axios.defaults.headers.common['Authorization'] = token;
-    store.dispatch(getUserData());
+    const decodedToken = jwtDecode(token);
+    if (decodedToken.exp * 1000 < Date.now()) {
+        store.dispatch(signOut());
+    } else {
+        //On dispatch directement une action en utilisant store.dispatch
+        store.dispatch({ type: actions.AUTH_SUCCESS });
+        axios.defaults.headers.common['Authorization'] = token;
+        store.dispatch(getUserData());
+    }
 }
 
 const App = () => {
