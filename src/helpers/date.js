@@ -24,8 +24,8 @@ export const getDifferenceDate = (date) => {
             someday
         );
 
-        return `${result} min ago`
-
+        if (result <= 0) return 'now'
+        else return `${result} min ago`
     }
     if (result >= '24') {
         return format(someday, 'd LLL')
