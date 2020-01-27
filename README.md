@@ -1,6 +1,4 @@
-#Redux App Boilerplate 
-
-###Setup
+https://social-app-younessbennaj.herokuapp.com/
 
 - ```create-react-app``` to set up our build system;
 - ***React***, a rendering library;
