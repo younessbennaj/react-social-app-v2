@@ -57,19 +57,6 @@ const AuthenticatedNavbar = ({ authenticated, signOut }) => {
 
 const Navbar = ({ auth, signOut }) => {
     return (
-        // <NavbarWrapper>
-        //     <Flex
-        //         px={2}
-        //         py={3}
-        //         color='white'
-        //         bg='blue'
-        //         alignItems='center'>
-        //         <Text p={2} fontWeight='bold'>Social App</Text>
-        //         <Box mx='auto' />
-        //         <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
-        //         <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} />
-        //     </Flex>
-        // </NavbarWrapper>
         <NavbarWrapper as="header">
             <Text p={2} fontWeight='bold'>Social App</Text>
             <Box mx='auto' />
