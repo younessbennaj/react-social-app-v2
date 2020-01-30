@@ -9,7 +9,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 //Components
-import { FormContainer } from '../hoc/layout/element'
+import { FormContainer } from '../hoc/layout/element';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 import {
     Box,
@@ -30,7 +31,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const SignupForm = ({ signUp, history }) => {
+const SignupForm = ({ signUp, history, error }) => {
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -130,21 +131,26 @@ const SignupForm = ({ signUp, history }) => {
                             Submit
                         </Button>
                     </Box>
+                    {error ? (
+                        <Box pt={3} px={2}>
+                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
+                        </Box>
+                    ) : null}
                 </Flex>
             </Box>
         </FormContainer>
     );
 };
 
-const Signup = ({ users, signUp, history }) => {
+const Signup = ({ users, signUp, history, auth }) => {
     return (
-        <SignupForm history={history} signUp={signUp} />
+        <SignupForm history={history} signUp={signUp} error={auth.error} />
     );
 };
 
 function mapStateToProps(state) {
-    const { users } = state;
-    return { users };
+    const { users, auth } = state;
+    return { users, auth };
 }
 export default connect(mapStateToProps, {
     signUp
