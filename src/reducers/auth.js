@@ -27,6 +27,7 @@ export const auth = (state = initialState, { payload, type }) => {
         case actions.AUTH_FAIL: {
             return {
                 ...state,
+                loading: false,
                 error: payload
             }
         }

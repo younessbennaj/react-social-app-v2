@@ -40,6 +40,7 @@ export const signUp = (data, history) => async dispatch => {
 
     if (responseErr) {
         console.error(responseErr.response.data);
+        dispatch({ type: actions.AUTH_FAIL, payload: responseErr.response.data });
     }
 }
 
