@@ -1,12 +1,11 @@
-https://social-app-younessbennaj.herokuapp.com/
+# Réseau social avec Authentification 
 
-- ```create-react-app``` to set up our build system;
-- ***React***, a rendering library;
-- ***Redux***, the redux library;
-- ***react-redux***, Integration layer between react and redux;
-- ***axios***, Help us make network request;
-- ***redux-thunk*** Middleware to helps us make requests in a redux application
-- ***Webpack***, a build tool; 
-- ***Jest***, a testing tool;
-- ***React Storybook***, a UI component harness;
-- ***styled-components***, to style React component;
+Ce projet consiste en une simple application type réseau social. L'utilisateur à la possibilité d'ajouter un post, de liker un post ou d'en commenter un. Les posts des utilisateurs sont sauvegardé dans le Firestore. L'application utilise Firebase comme système d'authentification. Il est également possible de mettre à jour le profile de l'utilisateur et d'obtenir des détails sur le post. 
+
+### [Voir la version live](https://social-app-younessbennaj.herokuapp.com/)
+
+- ***React***
+- ***Redux***
+- ***styled-components***
+- ***Firebase/Firestore***
+- ***Formik***
