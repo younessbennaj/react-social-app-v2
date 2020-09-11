@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 
 //Containers
 import Signup from './containers/Signup';
-import Login from './containers/Login';
+import Login from './components/Login';
 import Home from './containers/Home';
 import Profile from './containers/Profile';
 import Post from './containers/Post';

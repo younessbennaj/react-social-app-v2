@@ -9,8 +9,8 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 
 //Components
-import { FormContainer } from '../hoc/layout/element';
-import { ErrorMessage } from '../components/ErrorMessage';
+import { FormContainer } from '../../hoc/layout/element';
+import { ErrorMessage } from '../ErrorMessage';
 
 import {
     Box,
@@ -24,8 +24,9 @@ import {
     Input
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ history }) => {
+const Login = ({ history }) => {
 
+    //UI State
     const [error, setError] = useState();
 
     const formik = useFormik({
@@ -47,6 +48,7 @@ const LoginForm = ({ history }) => {
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
                 }, error => {
+                    console.log(error);
                     setError(error.response.data.general);
                 })
         },
@@ -97,12 +99,6 @@ const LoginForm = ({ history }) => {
                 </Flex>
             </Box>
         </FormContainer>
-    );
-};
-
-const Login = ({ history }) => {
-    return (
-        <LoginForm />
     );
 };
 
