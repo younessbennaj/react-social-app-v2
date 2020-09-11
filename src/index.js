@@ -9,8 +9,11 @@ import App from './App';
 import reducers from './reducers';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <GlobalStyles />
-        <App />
-    </Provider>,
-    document.getElementById('root'));
+    // <Provider store={store}>
+    //     <GlobalStyles />
+    //     <App />
+    // </Provider>,
+    <div>
+        <h1>Hello World !</h1>
+    </div>
+    , document.getElementById('root'));

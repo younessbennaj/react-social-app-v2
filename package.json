@@ -30,7 +30,7 @@
   "scripts": {
     "start": "node server.js",
     "local": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
@@ -55,6 +55,8 @@
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-links": "^5.1.9",
     "@storybook/addons": "^5.1.9",
-    "@storybook/react": "^5.1.9"
+    "@storybook/react": "^5.1.9",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
