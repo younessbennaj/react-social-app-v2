@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import axios from "axios";
 
@@ -24,7 +24,10 @@ import {
     Input
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ signIn, error, history }) => {
+const LoginForm = ({ history }) => {
+
+    const [error, setError] = useState();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -44,7 +47,7 @@ const LoginForm = ({ signIn, error, history }) => {
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
                 }, error => {
-                    console.error(error);
+                    setError(error.response.data.general);
                 })
         },
     });
@@ -88,7 +91,7 @@ const LoginForm = ({ signIn, error, history }) => {
                     </Box>
                     {error ? (
                         <Box pt={3} px={2}>
-                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
+                            <ErrorMessage>{error}</ErrorMessage>
                         </Box>
                     ) : null}
                 </Flex>
@@ -99,7 +102,7 @@ const LoginForm = ({ signIn, error, history }) => {
 
 const Login = ({ history }) => {
     return (
-        <LoginForm signIn={signIn} />
+        <LoginForm />
     );
 };
 
