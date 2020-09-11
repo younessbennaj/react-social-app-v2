@@ -8,6 +8,8 @@ import store from './helpers/store';
 import App from './App';
 import reducers from './reducers';
 
+import "./styles/index.scss";
+
 ReactDOM.render(
     // <Provider store={store}>
     //     <GlobalStyles />
