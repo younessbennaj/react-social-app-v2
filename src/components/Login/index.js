@@ -75,7 +75,7 @@ const Login = ({ history }) => {
                         ) : null}
                     </Box>
                     <Box p={2}>
-                        <Label py={1} htmlFor='name'>Password</Label>
+                        <Label py={1} htmlFor='password'>Password</Label>
                         <Input
                             id='password'
                             name='password'

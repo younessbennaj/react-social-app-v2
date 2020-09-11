@@ -44,27 +44,27 @@ export const signUp = (data, history) => async dispatch => {
     }
 }
 
-export const signIn = (data, history) => async dispatch => {
-    dispatch({ type: actions.AUTH_START })
-    dispatch({ type: actions.LOADING_USER });
+// export const signIn = (data, history) => async dispatch => {
+//     dispatch({ type: actions.AUTH_START })
+//     dispatch({ type: actions.LOADING_USER });
 
-    let [response, responseErr] = await handle(axios.post('/login', data));
+//     let [response, responseErr] = await handle(axios.post('/login', data));
 
-    if (response) {
-        const FBIdToken = `Bearer ${response.data.token}`;
-        localStorage.setItem('FBIdToken', FBIdToken);
-        //Set authorization header with jwt token
-        axios.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData());
-        dispatch({ type: actions.AUTH_SUCCESS });
-        history.push('/');
-    }
+//     if (response) {
+//         const FBIdToken = `Bearer ${response.data.token}`;
+//         localStorage.setItem('FBIdToken', FBIdToken);
+//         //Set authorization header with jwt token
+//         axios.defaults.headers.common['Authorization'] = FBIdToken;
+//         dispatch(getUserData());
+//         dispatch({ type: actions.AUTH_SUCCESS });
+//         history.push('/');
+//     }
 
-    if (responseErr) {
-        dispatch({ type: actions.AUTH_FAIL, payload: responseErr.response.data });
-    }
+//     if (responseErr) {
+//         dispatch({ type: actions.AUTH_FAIL, payload: responseErr.response.data });
+//     }
 
-}
+// }
 
 export const signOut = (history) => {
     localStorage.removeItem('FBIdToken');
