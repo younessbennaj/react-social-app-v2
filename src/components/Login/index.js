@@ -48,7 +48,6 @@ const Login = ({ history }) => {
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
                 }, error => {
-                    console.log(error);
                     setError(error.response.data.general);
                 })
         },

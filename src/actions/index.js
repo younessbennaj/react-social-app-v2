@@ -24,48 +24,6 @@ const handle = (promise) => {
         .catch(error => Promise.resolve([undefined, error]));
 }
 
-//Authentication
-
-export const signUp = (data, history) => async dispatch => {
-    dispatch({ type: actions.AUTH_START })
-    let [response, responseErr] = await handle(axios.post('/signup', data));
-    if (response) {
-        const FBIdToken = `Bearer ${response.data.token}`;
-        localStorage.setItem('FBIdToken', FBIdToken);
-        axios.defaults.headers.common['Authorization'] = FBIdToken;
-        dispatch(getUserData());
-        dispatch({ type: actions.AUTH_SUCCESS });
-        history.push('/');
-    }
-
-    if (responseErr) {
-        console.error(responseErr.response.data);
-        dispatch({ type: actions.AUTH_FAIL, payload: responseErr.response.data });
-    }
-}
-
-// export const signIn = (data, history) => async dispatch => {
-//     dispatch({ type: actions.AUTH_START })
-//     dispatch({ type: actions.LOADING_USER });
-
-//     let [response, responseErr] = await handle(axios.post('/login', data));
-
-//     if (response) {
-//         const FBIdToken = `Bearer ${response.data.token}`;
-//         localStorage.setItem('FBIdToken', FBIdToken);
-//         //Set authorization header with jwt token
-//         axios.defaults.headers.common['Authorization'] = FBIdToken;
-//         dispatch(getUserData());
-//         dispatch({ type: actions.AUTH_SUCCESS });
-//         history.push('/');
-//     }
-
-//     if (responseErr) {
-//         dispatch({ type: actions.AUTH_FAIL, payload: responseErr.response.data });
-//     }
-
-// }
-
 export const signOut = (history) => {
     localStorage.removeItem('FBIdToken');
     window.location.href = '/';
