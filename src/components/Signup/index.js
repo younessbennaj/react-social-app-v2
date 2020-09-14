@@ -1,22 +1,16 @@
-import React from 'react';
-
-//Redux 
-import { connect } from 'react-redux';
-import { signUp } from '../actions';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 //Components
-import { FormContainer } from '../hoc/layout/element';
-import { ErrorMessage } from '../components/ErrorMessage';
+import { FormContainer } from '../../hoc/layout/element';
+import { ErrorMessage } from '../ErrorMessage';
 
 import {
     Box,
-    Card,
-    Image,
-    Heading,
     Text,
     Button,
     Flex
@@ -25,13 +19,12 @@ import {
 import {
     Label,
     Input,
-    Select,
-    Textarea,
-    Radio,
-    Checkbox,
 } from '@rebass/forms/styled-components'
 
-const SignupForm = ({ signUp, history, error }) => {
+const Signup = ({ history }) => {
+
+    const [error, setError] = useState();
+
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -56,7 +49,14 @@ const SignupForm = ({ signUp, history, error }) => {
                 .required('Required'),
         }),
         onSubmit: values => {
-            signUp(values, history);
+            axios.post('/signup', values)
+                .then(response => {
+                    const FBIdToken = `Bearer ${response.data.token}`;
+                    localStorage.setItem('FBIdToken', FBIdToken);
+                    axios.defaults.headers.common['Authorization'] = FBIdToken;
+                }, error => {
+                    setError(error.response.data.general);
+                })
         },
     });
     return (
@@ -133,7 +133,7 @@ const SignupForm = ({ signUp, history, error }) => {
                     </Box>
                     {error ? (
                         <Box pt={3} px={2}>
-                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
+                            <ErrorMessage>{error}</ErrorMessage>
                         </Box>
                     ) : null}
                 </Flex>
@@ -142,16 +142,4 @@ const SignupForm = ({ signUp, history, error }) => {
     );
 };
 
-const Signup = ({ users, signUp, history, auth }) => {
-    return (
-        <SignupForm history={history} signUp={signUp} error={auth.error} />
-    );
-};
-
-function mapStateToProps(state) {
-    const { users, auth } = state;
-    return { users, auth };
-}
-export default connect(mapStateToProps, {
-    signUp
-})(Signup);
+export default Signup;

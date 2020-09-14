@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
-//Redux
-import { connect } from 'react-redux';
-import { signIn } from '../actions';
+import axios from "axios";
 
 //Formik
 import { useFormik } from 'formik';
@@ -11,31 +9,26 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 
 //Components
-import { FormContainer } from '../hoc/layout/element';
-import { ErrorMessage } from '../components/ErrorMessage';
+import { FormContainer } from '../../hoc/layout/element';
+import { ErrorMessage } from '../ErrorMessage';
 
 import {
     Box,
-    Card,
-    Image,
-    Heading,
-    Text,
     Button,
-    Flex
+    Flex,
+    Text
 } from 'rebass/styled-components'
 
 import {
     Label,
-    Input,
-    Select,
-    Textarea,
-    Radio,
-    Checkbox,
+    Input
 } from '@rebass/forms/styled-components'
 
-const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
-    useEffect(() => {
-    }, [loading])
+const Login = ({ history }) => {
+
+    //UI State
+    const [error, setError] = useState();
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -49,7 +42,14 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
                 .required('Required'),
         }),
         onSubmit: values => {
-            signIn(values, history);
+            axios.post('/login', values)
+                .then(response => {
+                    const FBIdToken = `Bearer ${response.data.token}`;
+                    localStorage.setItem('FBIdToken', FBIdToken);
+                    axios.defaults.headers.common['Authorization'] = FBIdToken;
+                }, error => {
+                    setError(error.response.data.general);
+                })
         },
     });
     return (
@@ -74,7 +74,7 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
                         ) : null}
                     </Box>
                     <Box p={2}>
-                        <Label py={1} htmlFor='name'>Password</Label>
+                        <Label py={1} htmlFor='password'>Password</Label>
                         <Input
                             id='password'
                             name='password'
@@ -92,30 +92,13 @@ const LoginForm = ({ signIn, error, auth: { loading }, history }) => {
                     </Box>
                     {error ? (
                         <Box pt={3} px={2}>
-                            <ErrorMessage>{error[Object.keys(error)[0]]}</ErrorMessage>
+                            <ErrorMessage>{error}</ErrorMessage>
                         </Box>
                     ) : null}
                 </Flex>
-                {loading ? (<Text>Loading...</Text>) : null}
             </Box>
         </FormContainer>
     );
 };
 
-const Login = ({ user, signIn, auth, history }) => {
-    useEffect(() => {
-    }, [user, auth]);
-    return (
-        <LoginForm history={history} auth={auth} signIn={signIn} error={auth.error} />
-    );
-};
-
-function mapStateToProps(state) {
-    const { user, auth } = state;
-    //expected to return an object
-    return { user, auth };
-}
-
-export default connect(mapStateToProps, {
-    signIn
-})(Login);
+export default Login;

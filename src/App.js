@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link as RouteLink, Switch } from "react-router-dom";
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 //Containers
-import Signup from './containers/Signup';
-import Login from './containers/Login';
+import Signup from './components/Signup';
+import Login from './components/Login';
 import Home from './containers/Home';
 import Profile from './containers/Profile';
 import Post from './containers/Post';
@@ -39,25 +39,33 @@ import { getUserData, signOut } from './actions';
 
 //axios 
 
-axios.defaults.baseURL =
-    'https://europe-west1-my-tcc-project-66a43.cloudfunctions.net/api';
-
-const token = localStorage.getItem('FBIdToken');
-
-//Persisting login state
-if (token) {
-    const decodedToken = jwtDecode(token);
-    if (decodedToken.exp * 1000 < Date.now()) {
-        store.dispatch(signOut());
-    } else {
-        //On dispatch directement une action en utilisant store.dispatch
-        store.dispatch({ type: actions.AUTH_SUCCESS });
-        axios.defaults.headers.common['Authorization'] = token;
-        store.dispatch(getUserData());
-    }
+if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL =
+        'https://europe-west1-my-tcc-project-66a43.cloudfunctions.net/api';
 }
 
+// const token = localStorage.getItem('FBIdToken');
+
+// //Persisting login state
+// if (token) {
+//     const decodedToken = jwtDecode(token);
+//     if (decodedToken.exp * 1000 < Date.now()) {
+//         store.dispatch(signOut());
+//     } else {
+//         //On dispatch directement une action en utilisant store.dispatch
+//         store.dispatch({ type: actions.AUTH_SUCCESS });
+//         axios.defaults.headers.common['Authorization'] = token;
+//         store.dispatch(getUserData());
+//     }
+// }
+
 const App = () => {
+
+    useEffect(() => {
+        axios.get('/test')
+            .then(data => {
+            })
+    }, [])
     return (
         <ThemeProvider theme={theme}>
             <Router>
