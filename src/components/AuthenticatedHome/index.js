@@ -16,7 +16,7 @@ import {
     Text,
 } from 'rebass/styled-components'
 
-const AuthenticatedHome = ({ user, data: { loading }, getPosts }) => {
+const AuthenticatedHome = () => {
 
     //UI State
     const [show, setShow] = useState(false);
@@ -54,35 +54,19 @@ const AuthenticatedHome = ({ user, data: { loading }, getPosts }) => {
                 <Box pb={3}>
                     <PostBox />
                 </Box>
-                {loading ? (
-                    <Box>
-                        <ul>
-                            <li>
-                                <PostSkeleton />
-                            </li>
-                            <li>
-                                <PostSkeleton />
-                            </li>
-                            <li>
-                                <PostSkeleton />
-                            </li>
-                        </ul>
-                    </Box>
-                ) : (
-                        <Box>
-                            <ul>
-                                {posts.map(post => {
-                                    return (
-                                        <li key={post.postId}>
-                                            <Box mb={2}>
-                                                <PostDetails show={show} openModal={childRef} setPostId={setPostId} post={post} />
-                                            </Box>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </Box>
-                    )}
+                <Box>
+                    <ul>
+                        {posts.map(post => {
+                            return (
+                                <li key={post.postId}>
+                                    <Box mb={2}>
+                                        <PostDetails show={show} openModal={childRef} setPostId={setPostId} post={post} />
+                                    </Box>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </Box>
             </ContentContainer>
 
         </Fragment>

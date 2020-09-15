@@ -27,27 +27,14 @@ import UnauthenticatedHome from '../components/UnauthenticatedHome';
 //Layout
 import { Container } from '../hoc/layout/element';
 
-const Home = ({ user, auth, data, getPosts }) => {
-
+const Home = ({ authenticated }) => {
     return (
-        // <Container
-        //     p={3}
-        // >
-        //     {auth.authenticated ? (
-        //         <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
-        //     ) : (
-        //             <UnauthenticatedHome />
-        //         )}
-        // </Container>
-        <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
+        <Container p={3}>
+            {authenticated ? <AuthenticatedHome /> : <UnauthenticatedHome />}
+        </Container>
     );
 }
 
-function mapStateToProps(state) {
-    const { user, auth, data } = state;
-    return { user, auth, data };
-}
 
-export default connect(mapStateToProps, {
-    getPosts
-})(Home);
+
+export default Home;

@@ -31,17 +31,17 @@ NavbarWrapper.defaultProps = {
     alignItems: 'center'
 }
 
-const Navbar = ({ authenticated, test }) => {
+const Navbar = ({ authenticated, setAuthenticated }) => {
 
     const signOut = () => {
-        console.log("log out");
+        localStorage.removeItem('FBIdToken');
+        setAuthenticated(false);
     }
 
     return (
         <NavbarWrapper as="header">
             <Text p={2} fontWeight='bold'>Social App</Text>
             <Box mx='auto' />
-            <Link>Test</Link>
             <Link as={RouteLink} variant='nav' to="/" color="white" pr={2}>Home</Link>
             {/* <AuthenticatedNavbar signOut={signOut} authenticated={auth.authenticated} /> */}
             {(() => {
