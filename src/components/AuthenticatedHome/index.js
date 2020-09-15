@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
-
+import axios from "axios";
 //Components
 import PostDetails from '../PostDetails';
 import CommentBox from '../CommentBox';
@@ -16,10 +16,14 @@ import {
     Text,
 } from 'rebass/styled-components'
 
-const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
+const AuthenticatedHome = ({ user, data: { loading }, getPosts }) => {
 
+    //UI State
     const [show, setShow] = useState(false);
     const [currentPostId, setCurrentPostId] = useState('');
+
+    //Server State 
+    const [posts, setPosts] = useState([]);
     const closeModal = () => {
         setShow(false);
     }
@@ -32,7 +36,10 @@ const AuthenticatedHome = ({ user, data: { posts, loading }, getPosts }) => {
     }, [posts]);
 
     useEffect(() => {
-        getPosts();
+        axios.get('/posts')
+            .then(response => {
+                setPosts(response.data);
+            })
     }, []);
 
     const childRef = useRef();

@@ -30,16 +30,16 @@ import { Container } from '../hoc/layout/element';
 const Home = ({ user, auth, data, getPosts }) => {
 
     return (
-        <Container
-            p={3}
-        >
-            {auth.authenticated ? (
-                <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
-            ) : (
-                    <UnauthenticatedHome />
-                )}
-        </Container>
-
+        // <Container
+        //     p={3}
+        // >
+        //     {auth.authenticated ? (
+        //         <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
+        //     ) : (
+        //             <UnauthenticatedHome />
+        //         )}
+        // </Container>
+        <AuthenticatedHome user={user} data={data} getPosts={getPosts} />
     );
 }
 
