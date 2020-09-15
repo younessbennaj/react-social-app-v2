@@ -22,15 +22,10 @@ import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme';
 import preset from '@rebass/preset'
 import {
-    Box,
-    Card,
-    Image,
-    Heading,
-    Text,
-    Button,
-    Flex,
     Link
 } from 'rebass/styled-components'
+
+import Navbar from "./containers/Navbar";
 
 //Redux
 import store from './helpers/store';
@@ -64,18 +59,24 @@ if (process.env.NODE_ENV === 'development') {
 
 const App = () => {
 
+    //user credentials => Server Cache
     const [user, setUser] = useState({});
+
+    //boolean, true if the user is authenticated => Client State
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         axios.get('/user')
             .then(response => {
                 setUser(response.data.credentials);
+                setAuthenticated(true);
             })
     }, [])
     return (
         <ThemeProvider theme={theme}>
             <Router>
                 <Layout>
+                    <Navbar test="test" authenticated={authenticated} />
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/login" exact component={Login} />
