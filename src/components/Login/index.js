@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-
 import axios from "axios";
 
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//Helper
+import { history } from "../../helpers/history";
+
+//Style
 import styled from 'styled-components';
 
 //Components
 import { FormContainer } from '../../hoc/layout/element';
 import { ErrorMessage } from '../ErrorMessage';
+
 
 import {
     Box,
@@ -44,9 +48,13 @@ const Login = ({ history }) => {
         onSubmit: values => {
             axios.post('/login', values)
                 .then(response => {
+                    //Store the token inside the localstorage 
                     const FBIdToken = `Bearer ${response.data.token}`;
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
+
+                    //Redirect user to the home page
+                    history.push("/");
                 }, error => {
                     setError(error.response.data.general);
                 })

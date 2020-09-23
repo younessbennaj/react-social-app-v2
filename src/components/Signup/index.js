@@ -5,6 +5,9 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//Helper
+import { history } from "../../helpers/history";
+
 //Components
 import { FormContainer } from '../../hoc/layout/element';
 import { ErrorMessage } from '../ErrorMessage';
@@ -51,9 +54,13 @@ const Signup = ({ history }) => {
         onSubmit: values => {
             axios.post('/signup', values)
                 .then(response => {
+                    //Store token inside the localstorage
                     const FBIdToken = `Bearer ${response.data.token}`;
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
+
+                    //Redirect user to the home page
+                    history.push("/");
                 }, error => {
                     setError(error.response.data.general);
                 })

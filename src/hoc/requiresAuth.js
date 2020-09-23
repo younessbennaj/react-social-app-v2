@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-// import { push } from 'react-router-redux';
+import { history } from "../helpers/history";
 
 export default function (ComposedComponent, authenticated) {
     class Authenticate extends React.Component {
@@ -13,12 +13,9 @@ export default function (ComposedComponent, authenticated) {
             this._checkAndRedirect();
         }
 
+        //If the user isn't authentified, redirect him to the login page
         _checkAndRedirect() {
-
-            if (!authenticated) {
-                console.log('fix here');
-                //history.push('/login');
-            }
+            if (!authenticated) history.push('/login');
         }
 
         render() {
