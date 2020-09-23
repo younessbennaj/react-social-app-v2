@@ -11,13 +11,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarker, faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 
 import {
-    Box,
     Card,
     Image,
     Heading,
     Text,
     Button,
-    Flex,
     Link
 } from 'rebass/styled-components'
 
@@ -30,8 +28,13 @@ const StyledLink = styled(Link)`
 const ProfileDetails = ({ user, openModal }) => {
 
     const getDate = (date) => {
-        let someday = parseISO(date);
-        return format(someday, 'LLLL yyyy');
+
+        if (date) {
+            let someday = parseISO(date);
+            return format(someday, 'LLLL yyyy');
+        }
+
+        return null;
     }
 
     const handleClick = () => {

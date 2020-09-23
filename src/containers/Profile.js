@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import axios from "axios";
 //Redux
 import { connect } from 'react-redux';
 import { signOut } from '../actions'
@@ -31,8 +31,22 @@ const ProfileContainer = styled(Box)`
 
 `;
 
-const Profile = ({ user: { credentials, loading }, auth }) => {
+const Profile = ({ user: { loading }, auth }) => {
 
+    //Server State 
+    const [credentials, setCredentials] = useState({});
+
+    //Side effect code - Http request to fetch user data credentials
+    useEffect(() => {
+
+        axios.get('/user')
+            .then(response => {
+                setCredentials(response.data.credentials);
+            })
+
+    }, []);
+
+    //UI State
     const [show, setShow] = useState(false);
 
     const closeModal = () => {
@@ -47,19 +61,15 @@ const Profile = ({ user: { credentials, loading }, auth }) => {
 
     return (
         <Container p={3}>
+            <ContentContainer>
+                {/* <ProfileSkeleton /> */}
+                <Box>
+                    <ProfileDetails openModal={childRef} user={credentials} />
+                </Box>
+            </ContentContainer>
             <Modal show={show} ref={childRef}>
                 <EditProfile closeModal={childRef} />
             </Modal>
-
-            <ContentContainer>
-                {loading ? (
-                    <ProfileSkeleton />
-                ) : (
-                        <Box>
-                            <ProfileDetails openModal={childRef} user={credentials} />
-                        </Box>
-                    )}
-            </ContentContainer>
         </Container >
     );
 }

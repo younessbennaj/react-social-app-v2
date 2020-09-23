@@ -5,6 +5,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
+        historyApiFallback: true
     },
     entry: "./src/index.js",
     output: {
@@ -17,10 +18,10 @@ module.exports = {
                 test: /\.m?js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ['@babel/preset-env', '@babel/preset-react']
-                  }
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
                 }
             },
             {
@@ -32,9 +33,9 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 use: [
-                  'style-loader',
-                  'css-loader',
-                  'sass-loader'
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
                 ],
             }
         ]

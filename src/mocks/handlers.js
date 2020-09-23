@@ -11,6 +11,12 @@ export const handlers = [
             ctx.json({ message: 'OK' })
         )
     }),
+    rest.get('http://localhost:8080/profile', (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({ message: "WTFFFFFF" })
+        )
+    }),
     rest.get('/user', (req, res, ctx) => {
         return res(
             ctx.status(200),

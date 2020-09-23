@@ -15,19 +15,16 @@ export default function (ComposedComponent, authenticated) {
 
         _checkAndRedirect() {
 
-            console.log(authenticated);
-
-            // if (!authenticated) {
-            //     console.log('fix here');
-            //     history.push('/login');
-            // }
+            if (!authenticated) {
+                console.log('fix here');
+                //history.push('/login');
+            }
         }
 
         render() {
             return (
                 <>
-                    {/* {authenticated ? <ComposedComponent {...this.props} /> : null} */}
-                    <h1>Hello World !</h1>
+                    {authenticated ? <ComposedComponent {...this.props} /> : null}
                 </>
             );
         }

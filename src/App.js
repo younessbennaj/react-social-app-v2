@@ -58,6 +58,8 @@ if (process.env.NODE_ENV === 'production') {
 
 const App = () => {
 
+    console.log("test");
+
     let token = localStorage.getItem('FBIdToken');
 
     //user credentials => Server Cache
@@ -92,7 +94,7 @@ const App = () => {
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
                         <Route path="/profile" exact component={requireAuth(Profile, authenticated)} />
-                        <Route path="/post/:id" exact component={requireAuth(Post)} />
+                        <Route path="/post/:id" exact component={requireAuth(Post, authenticated)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
                 </Layout>

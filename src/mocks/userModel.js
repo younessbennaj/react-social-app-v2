@@ -9,7 +9,7 @@ export const user = {
         "imageUrl": avatar,
         "email": "john.doe@email.com",
         "phone": "1-770-736-8031 x56442",
-        "createdAt": "2020-01-10T17:17:28.162Z",
+        "createdAt": "2020-01-16T18:52:04.943Z",
         "userId": "5jxhzRaFYUP3TruuOnTykTnMDaA3",
         "address": {
             "street": "Kulas Light",
