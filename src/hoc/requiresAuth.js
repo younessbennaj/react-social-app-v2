@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
 
-export default function (ComposedComponent) {
+export default function (ComposedComponent, authenticated) {
     class Authenticate extends React.Component {
 
         componentDidMount() {
@@ -14,35 +14,24 @@ export default function (ComposedComponent) {
         }
 
         _checkAndRedirect() {
-            const { authenticated, history } = this.props;
 
-            if (!authenticated) {
-                history.push('/login');
-            }
+            console.log(authenticated);
+
+            // if (!authenticated) {
+            //     console.log('fix here');
+            //     history.push('/login');
+            // }
         }
 
         render() {
             return (
                 <>
-                    {this.props.authenticated ? <ComposedComponent {...this.props} /> : null}
+                    {/* {authenticated ? <ComposedComponent {...this.props} /> : null} */}
+                    <h1>Hello World !</h1>
                 </>
             );
         }
     }
 
-    const mapStateToProps = (state) => {
-        const { auth } = state;
-        return {
-            authenticated: auth.authenticated
-        };
-    };
-
-    // const mapDispatchToProps = dispatch => bindActionCreators({
-    //     redirect: () => push('/login')
-    // }, dispatch)
-
-    return connect(
-        mapStateToProps,
-        // mapDispatchToProps
-    )(Authenticate);
+    return Authenticate;
 }

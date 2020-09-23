@@ -14,7 +14,6 @@ const MainWrapper = styled.main`
 const Layout = ({ children }) => {
     return (
         <>
-            <Navbar></Navbar>
             <MainWrapper>
                 {children}
             </MainWrapper>

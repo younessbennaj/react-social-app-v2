@@ -91,7 +91,7 @@ const App = () => {
                         <Route path="/" exact component={() => <Home authenticated={authenticated} />} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
-                        <Route path="/profile" exact component={requireAuth(Profile)} />
+                        <Route path="/profile" exact component={requireAuth(Profile, authenticated)} />
                         <Route path="/post/:id" exact component={requireAuth(Post)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
