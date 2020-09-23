@@ -21,7 +21,7 @@ import {
     Input,
 } from '@rebass/forms/styled-components'
 
-const Signup = ({ history }) => {
+const Signup = ({ history, setAuthenticated }) => {
 
     const [error, setError] = useState();
 
@@ -51,9 +51,14 @@ const Signup = ({ history }) => {
         onSubmit: values => {
             axios.post('/signup', values)
                 .then(response => {
+                    //Store token inside the localstorage
                     const FBIdToken = `Bearer ${response.data.token}`;
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
+                    setAuthenticated(true);
+
+                    //Redirect user to the home page
+                    history.push("/");
                 }, error => {
                     setError(error.response.data.general);
                 })

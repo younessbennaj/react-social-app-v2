@@ -28,6 +28,7 @@ import UnauthenticatedHome from '../components/UnauthenticatedHome';
 import { Container } from '../hoc/layout/element';
 
 const Home = ({ authenticated }) => {
+
     return (
         <Container p={3}>
             {authenticated ? <AuthenticatedHome /> : <UnauthenticatedHome />}

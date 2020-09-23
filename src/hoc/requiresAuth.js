@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-// import { push } from 'react-router-redux';
+import { history } from "../helpers/history";
 
-export default function (ComposedComponent) {
+export default function (ComposedComponent, authenticated) {
     class Authenticate extends React.Component {
 
         componentDidMount() {
@@ -13,36 +13,19 @@ export default function (ComposedComponent) {
             this._checkAndRedirect();
         }
 
+        //If the user isn't authentified, redirect him to the login page
         _checkAndRedirect() {
-            const { authenticated, history } = this.props;
-
-            if (!authenticated) {
-                history.push('/login');
-            }
+            if (!authenticated) history.push('/login');
         }
 
         render() {
             return (
                 <>
-                    {this.props.authenticated ? <ComposedComponent {...this.props} /> : null}
+                    {authenticated ? <ComposedComponent {...this.props} /> : null}
                 </>
             );
         }
     }
 
-    const mapStateToProps = (state) => {
-        const { auth } = state;
-        return {
-            authenticated: auth.authenticated
-        };
-    };
-
-    // const mapDispatchToProps = dispatch => bindActionCreators({
-    //     redirect: () => push('/login')
-    // }, dispatch)
-
-    return connect(
-        mapStateToProps,
-        // mapDispatchToProps
-    )(Authenticate);
+    return Authenticate;
 }
