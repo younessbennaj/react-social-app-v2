@@ -5,9 +5,6 @@ import axios from "axios";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-//Helper
-import { history } from "../../helpers/history";
-
 //Style
 import styled from 'styled-components';
 
@@ -28,8 +25,7 @@ import {
     Input
 } from '@rebass/forms/styled-components'
 
-const Login = ({ history }) => {
-
+const Login = ({ setAuthenticated, history }) => {
     //UI State
     const [error, setError] = useState();
 
@@ -52,6 +48,7 @@ const Login = ({ history }) => {
                     const FBIdToken = `Bearer ${response.data.token}`;
                     localStorage.setItem('FBIdToken', FBIdToken);
                     axios.defaults.headers.common['Authorization'] = FBIdToken;
+                    setAuthenticated(true);
 
                     //Redirect user to the home page
                     history.push("/");

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Link as RouteLink } from "react-router-dom";
-import { history } from '../helpers/history'
+import { Link as RouteLink, useHistory } from "react-router-dom";
 
 //Redux
 import { signOut } from '../actions'
@@ -33,7 +32,10 @@ NavbarWrapper.defaultProps = {
 
 const Navbar = ({ authenticated, setAuthenticated }) => {
 
+    let history = useHistory();
+
     const signOut = () => {
+        history.push("/");
         localStorage.removeItem('FBIdToken');
         setAuthenticated(false);
     }
