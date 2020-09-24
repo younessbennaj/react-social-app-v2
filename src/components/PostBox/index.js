@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-//Redux 
-import { connect } from 'react-redux';
-import { addPost } from '../../actions';
+//Context
+import { useUserState } from '../../user-context';
 
 //Formik
 import { useFormik } from 'formik';
@@ -13,21 +12,14 @@ import styled from 'styled-components';
 
 import {
     Box,
-    Card,
     Image,
-    Heading,
     Text,
     Button,
     Flex
 } from 'rebass/styled-components'
 
 import {
-    Label,
     Input,
-    Select,
-    Textarea,
-    Radio,
-    Checkbox,
 } from '@rebass/forms/styled-components'
 
 const PostInput = styled(Input)` 
@@ -40,7 +32,9 @@ const PostButton = styled(Button)`
     height: 40px;
     padding: 0px 15px;
 `
-const PostBox = ({ addPost, user: { credentials }, posts, setPosts }) => {
+const PostBox = ({ posts, setPosts }) => {
+
+    const { credentials } = useUserState();
 
     const formik = useFormik({
         initialValues: {
@@ -90,11 +84,5 @@ const PostBox = ({ addPost, user: { credentials }, posts, setPosts }) => {
     );
 };
 
-function mapStateToProps(state) {
-    const { user } = state
-    return { user };
-}
 
-export default connect(mapStateToProps, {
-    addPost
-})(PostBox);
+export default PostBox;

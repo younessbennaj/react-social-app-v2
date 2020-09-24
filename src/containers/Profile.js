@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from "axios";
-//Redux
-import { connect } from 'react-redux';
-import { signOut } from '../actions'
+
+//Context 
+import { useUserState } from "../user-context";
 
 //Style
 import {
@@ -31,20 +31,10 @@ const ProfileContainer = styled(Box)`
 
 `;
 
-const Profile = ({ user: { loading }, auth }) => {
+const Profile = () => {
 
-    //Server State 
-    const [credentials, setCredentials] = useState({});
-
-    //Side effect code - Http request to fetch user data credentials
-    useEffect(() => {
-
-        axios.get('/user')
-            .then(response => {
-                setCredentials(response.data.credentials);
-            })
-
-    }, []);
+    //Server state
+    const { credentials } = useUserState();
 
     //UI State
     const [show, setShow] = useState(false);
@@ -74,11 +64,4 @@ const Profile = ({ user: { loading }, auth }) => {
     );
 }
 
-function mapStateToProps(state) {
-    const { user, auth } = state;
-    return { user, auth };
-}
-
-export default connect(mapStateToProps, {
-    signOut
-})(Profile);
+export default Profile;
