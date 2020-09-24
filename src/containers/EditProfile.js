@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 //Context
-import { useUserState } from '../user-context';
+import { useUserState, useUserSetState } from '../user-context';
 
 //Formik
 import { useFormik } from 'formik';
@@ -27,6 +28,7 @@ import {
 const EditProfile = ({ closeModal }) => {
 
     const { credentials } = useUserState();
+    const setUser = useUserSetState();
 
     //During the first rendering bio, location and website of credentials will
     //be undefined.
@@ -51,17 +53,24 @@ const EditProfile = ({ closeModal }) => {
                 .max(100, 'Must be 100 characters or less')
         }),
         onSubmit: values => {
-            // 
 
             //Edit profile image 
             if (file) {
                 const formData = new FormData();
                 formData.append('image', file, file.name);
                 // editUserImage(formData);
+                axios.post("user/image")
+                    .then(response => {
+                        //update user from server
+                    })
             }
 
             //Edit profile details
-            // editUserDetails(values);
+            axios.post("/user")
+                .then(response => {
+                    setUser(response.data);
+                    //update user from server
+                })
             closeModal.current.closeModal();
         }
     });
