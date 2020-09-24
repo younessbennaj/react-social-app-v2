@@ -24,6 +24,7 @@ const AuthenticatedHome = () => {
 
     //Server State 
     const [posts, setPosts] = useState([]);
+
     const closeModal = () => {
         setShow(false);
     }
@@ -52,7 +53,7 @@ const AuthenticatedHome = () => {
             </Modal>
             <ContentContainer>
                 <Box pb={3}>
-                    <PostBox />
+                    <PostBox posts={posts} setPosts={setPosts} />
                 </Box>
                 <Box>
                     <ul>
