@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 
-//Redux
-import { editUserDetails, editUserImage } from '../actions'
+//Context
+import { useUserState } from '../user-context';
+
 //Formik
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
 
 //Style
 import styled from 'styled-components';
 
 import {
     Box,
-    Card,
     Image,
-    Heading,
     Text,
     Button,
     Flex,
@@ -24,20 +21,18 @@ import {
 
 import {
     Label,
-    Input,
-    Select,
-    Textarea,
-    Radio,
-    Checkbox,
+    Input
 } from '@rebass/forms/styled-components'
 
-const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editUserImage }) => {
+const EditProfile = ({ closeModal }) => {
+
+    const { credentials } = useUserState();
 
     //During the first rendering bio, location and website of credentials will
     //be undefined.
     //Because of that, the input field will become uncontrolled.
     //Once we receive this property (async api call), our state will be updated 
-    //and credentials in our props too. 
+    //and credentials in our context too. 
     //And at that time the input field gets converted into a controlled component;
     // that's why you are getting the error: 'A component is changing an uncontrolled input of type text 
     //to be controlled.
@@ -62,11 +57,11 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
             if (file) {
                 const formData = new FormData();
                 formData.append('image', file, file.name);
-                editUserImage(formData);
+                // editUserImage(formData);
             }
 
             //Edit profile details
-            editUserDetails(values);
+            // editUserDetails(values);
             closeModal.current.closeModal();
         }
     });
@@ -170,13 +165,6 @@ const EditProfile = ({ user: { credentials }, editUserDetails, closeModal, editU
     );
 }
 
-const mapStateToProps = (state) => {
-    const { user } = state;
-    return { user };
-}
 
 
-export default connect(mapStateToProps, {
-    editUserDetails,
-    editUserImage
-})(EditProfile);
+export default EditProfile;

@@ -4,6 +4,7 @@ export const user = {
     "credentials": {
         "website": "http://www.johndoe.com",
         "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris porttitor eros vitae elit pulvinar suscipit.",
+        "location": "Neverland",
         "firstName": "john",
         "lastName": "doe",
         "imageUrl": avatar,
