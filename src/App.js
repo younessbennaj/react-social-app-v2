@@ -13,6 +13,9 @@ import Post from './containers/Post';
 //Hoc 
 import requireAuth from './hoc/requiresAuth';
 
+//Context Provider
+import { UserProvider } from './user-context';
+
 //Layout
 import Layout from './hoc/layout/Layout';
 
@@ -63,11 +66,13 @@ const App = () => {
                 <Layout>
                     <Navbar authenticated={authenticated} setAuthenticated={setAuthenticated} />
                     <Switch>
-                        <Route path="/" exact component={() => <Home authenticated={authenticated} />} />
+                        <UserProvider>
+                            <Route path="/" exact component={() => <Home authenticated={authenticated} />} />
+                            <Route path="/profile" exact component={requireAuth(Profile, authenticated)} />
+                            <Route path="/post/:id" exact component={requireAuth(Post, authenticated)} />
+                        </UserProvider>
                         <Route path="/login" exact render={routeProps => <Login {...routeProps} setAuthenticated={setAuthenticated} />} />
                         <Route path="/signup" exact render={routeProps => <Signup {...routeProps} setAuthenticated={setAuthenticated} />} component={Signup} />
-                        <Route path="/profile" exact component={requireAuth(Profile, authenticated)} />
-                        <Route path="/post/:id" exact component={requireAuth(Post, authenticated)} />
                         <Route path="*" component={() => "404 not found"} />
                     </Switch>
                 </Layout>

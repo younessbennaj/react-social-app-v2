@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
+//Context
+import { useUserState } from '../../user-context';
+
 //Redux 
 import { connect } from 'react-redux';
 import { addPost } from '../../actions';
@@ -40,7 +43,9 @@ const PostButton = styled(Button)`
     height: 40px;
     padding: 0px 15px;
 `
-const PostBox = ({ addPost, user: { credentials }, posts, setPosts }) => {
+const PostBox = ({ addPost, posts, setPosts }) => {
+
+    const { credentials } = useUserState();
 
     const formik = useFormik({
         initialValues: {
