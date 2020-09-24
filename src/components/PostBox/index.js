@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 
 //Redux 
 import { connect } from 'react-redux';
@@ -39,7 +40,7 @@ const PostButton = styled(Button)`
     height: 40px;
     padding: 0px 15px;
 `
-const PostBox = ({ addPost, user: { credentials } }) => {
+const PostBox = ({ addPost, user: { credentials }, posts, setPosts }) => {
 
     const formik = useFormik({
         initialValues: {
@@ -50,8 +51,12 @@ const PostBox = ({ addPost, user: { credentials } }) => {
                 .max(145, 'Must be 145 characters or less')
         }),
         onSubmit: (values, { resetForm }) => {
-            addPost(values)
-            resetForm();
+            axios.post("/post")
+                .then(response => {
+                    let newPosts = [response.data, ...posts];
+                    setPosts(newPosts);
+                    resetForm();
+                })
         },
     });
     return (
