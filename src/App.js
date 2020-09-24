@@ -65,16 +65,17 @@ const App = () => {
             <Router history={history}>
                 <Layout>
                     <Navbar authenticated={authenticated} setAuthenticated={setAuthenticated} />
-                    <Switch>
-                        <UserProvider>
+
+                    <UserProvider>
+                        <Switch>
                             <Route path="/" exact component={() => <Home authenticated={authenticated} />} />
                             <Route path="/profile" exact component={requireAuth(Profile, authenticated)} />
                             <Route path="/post/:id" exact component={requireAuth(Post, authenticated)} />
-                        </UserProvider>
-                        <Route path="/login" exact render={routeProps => <Login {...routeProps} setAuthenticated={setAuthenticated} />} />
-                        <Route path="/signup" exact render={routeProps => <Signup {...routeProps} setAuthenticated={setAuthenticated} />} component={Signup} />
-                        <Route path="*" component={() => "404 not found"} />
-                    </Switch>
+                            <Route path="/login" exact render={routeProps => <Login {...routeProps} setAuthenticated={setAuthenticated} />} />
+                            <Route path="/signup" exact render={routeProps => <Signup {...routeProps} setAuthenticated={setAuthenticated} />} component={Signup} />
+                            {/* <Route path="*" component={() => "404 not found"} /> */}
+                        </Switch>
+                    </UserProvider>
                 </Layout>
             </Router>
         </ThemeProvider >
