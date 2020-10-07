@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from "axios";
-//redux
-import { connect } from 'react-redux';
-import { addLike, addUnlike } from '../../actions'
+
+//Context 
+import { useUserState, UserStateContext } from "../../user-context";
 
 //Style
 import styled from 'styled-components';
@@ -18,25 +18,32 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 // import { unwatchFile } from 'fs';
-const LikeButton = ({ post, user, addLike, addUnlike }) => {
+const LikeButton = ({ post, addLike, addUnlike }) => {
 
-    //UI State
+
+    //Server State
+
+    //User data from context 
+    let user = useUserState();
+    //UI State here
     //True if the current authentified user has already liked the post
     const [liked, setLiked] = useState(false);
+    //Like count UI representation state
+    const [likeCount, setLikeCount] = useState(post.likeCount);
 
     const handleLike = (e) => {
         e.preventDefault();
         // addLike(post.postId);
-
-        console.log(liked);
 
         if (liked) {
 
             //The user has already liked the post 
             //Therefore, we need to set liked to false
             //Else the UI couldn't update its state
-
             setLiked(false);
+
+            //Decrement the like count (UI purpose)
+            setLikeCount(likeCount - 1);
 
         } else {
 
@@ -48,54 +55,36 @@ const LikeButton = ({ post, user, addLike, addUnlike }) => {
 
             axios.post(`/post/${postId}/like`)
                 .then(response => {
-                    console.log(response.data);
                     setLiked(true);
+                    //Increment like button count (UI purpose)
+                    setLikeCount(likeCount + 1);
                 })
 
         }
 
     }
 
-    const handleUnlike = (e) => {
-        e.preventDefault();
-        addUnlike(post.postId);
-    }
-
-    const isLiked = (like, post) => {
-        if (like.postId == post.postId) {
-            return true;
-        } else {
-            setLiked(false);
-        }
-    }
-
     useEffect(() => {
-        if (user.likes.find(
-            (like) => like.postId === post.postId
-        )) {
-            setLiked(true)
-        } else {
-            setLiked(false)
+
+        //Find in the user data if he has already liked the post 
+        if (user.likes) {
+            let isLiked = !!user.likes.find((like) => like.postId === post.postId);
+            //Then, set liked to true
+            if (isLiked) setLiked(true);
         }
-    }, [user, post]);
+
+    }, [user]);
 
 
     return (
         <Link pr={3} onClick={handleLike} href="#">
             <Flex alignItems="center" fontSize={2}>
                 <FontAwesomeIcon color={liked ? "red" : "black"} icon={faHeart} />
-                <Text px={2}>{post.likeCount}</Text>
+                <Text px={2}>{likeCount}</Text>
             </Flex>
         </Link>
     );
 }
 
-const mapStateToProps = (state) => {
-    const { user } = state;
-    return { user };
-}
 
-export default connect(mapStateToProps, {
-    addLike,
-    addUnlike
-})(LikeButton);
+export default LikeButton;

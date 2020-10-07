@@ -25,9 +25,9 @@ export const user = {
     },
     "likes": [
         {
-            "userLastName": "black",
-            "userFirstName": "jack",
-            "postId": "bVBNXYsfFef5N6xE5EP4"
+            "userLastName": "John",
+            "userFirstName": "Doe",
+            "postId": "yuTDba3KSC6QWxtnjuKs"
         },
         {
             "userLastName": "black",
@@ -40,9 +40,9 @@ export const user = {
             "userLastName": "black"
         },
         {
-            "postId": "vOSjj7VFfFpzzDA6tDVN",
-            "userFirstName": "jack",
-            "userLastName": "black"
+            "postId": "yuTDba3KSC6KOxtnjuKs",
+            "userFirstName": "John",
+            "userLastName": "Doe"
         },
         {
             "userFirstName": "jack",
@@ -55,9 +55,9 @@ export const user = {
             "userFirstName": "jack"
         },
         {
-            "userLastName": "black",
-            "postId": "VyumyXYpZBqYjDvX8WNH",
-            "userFirstName": "jack"
+            "userLastName": "Doe",
+            "postId": "yuTDby3KSC6QWxtnjuKs",
+            "userFirstName": "John"
         },
         {
             "userFirstName": "jack",
