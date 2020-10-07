@@ -66,5 +66,11 @@ export const handlers = [
             ctx.status(200),
             ctx.json(comment)
         )
+    }),
+    rest.post('/post/:postId/like', (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({ message: "OK!!" })
+        )
     })
 ]

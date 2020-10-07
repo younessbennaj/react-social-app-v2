@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
-import { addLike, addUnlike } from '../../actions'
+import { addUnlike } from '../../actions'
 //Date helper
 import { getDifferenceDate } from '../../helpers/date'
 //Icon 
@@ -32,7 +32,7 @@ const ContentContainer = styled(Box)`
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
-const PostDetails = ({ post, openModal, setPostId, addLike, addUnlike, user }) => {
+const PostDetails = ({ post, openModal, setPostId, addUnlike, user }) => {
 
     const handleComment = (postId) => {
         setPostId(postId);
@@ -90,6 +90,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    addLike,
     addUnlike
 })(PostDetails);
