@@ -1,0 +1,37 @@
+// //MODAL STYLE
+// .modal-container {
+//     bottom: 0;
+//     left: 0;
+//     position: fixed;
+//     height: 100vh;
+//     width: 100vw;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #0000009e;
+//     overflow: hidden;
+
+//     &-open {
+//         display: flex;
+//     }
+
+//     &-closed {
+//         display: none;
+//     }
+// }
+
+.modal {
+    background: #FFFFFF;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    border-radius: 8px;
+    width: 50%;
+    padding: 40px 30px;
+}
+
+//APP 
+
+.app-container {
+    width: 100vw;
+    min-height: calc(100vh - 5rem);
+    padding-top: 5em;
+    overflow-y: scroll;
+}

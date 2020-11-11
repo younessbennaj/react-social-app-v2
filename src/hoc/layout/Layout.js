@@ -14,9 +14,9 @@ const MainWrapper = styled.main`
 const Layout = ({ children }) => {
     return (
         <>
-            <MainWrapper>
+            <div className="app-container">
                 {children}
-            </MainWrapper>
+            </div>
         </>
     )
 }

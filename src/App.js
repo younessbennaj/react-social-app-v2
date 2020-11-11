@@ -20,6 +20,7 @@ import { UserProvider } from './user-context';
 import Layout from './hoc/layout/Layout';
 
 //Style
+import "./App.scss";
 import styled from 'styled-components'
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme';

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 
 //Redux
 import { connect } from 'react-redux';
-import { getPost, addLike, addUnlike } from '../actions'
+import { getPost, addUnlike } from '../actions'
 
 //React Router
 import { Link as RouterLink } from 'react-router-dom';
@@ -52,7 +52,7 @@ const ReturnButton = styled(Link)`
     }
 `
 
-const Post = ({ match, getPost, post, loading, user, addLike, addUnlike }) => {
+const Post = ({ match, getPost, post, loading, user, addUnlike }) => {
 
     const [show, setShow] = useState(false);
     const [currentPostId, setCurrentPostId] = useState('');
@@ -172,6 +172,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getPost,
-    addLike,
     addUnlike
 })(Post);

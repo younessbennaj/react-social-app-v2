@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 //Redux 
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ import {
     Checkbox,
 } from '@rebass/forms/styled-components'
 
-const CommentBox = ({ closeModal, addComment, postId }) => {
+const CommentBox = ({ closeModal, postId }) => {
     const formik = useFormik({
         initialValues: {
             body: ''
@@ -35,7 +36,11 @@ const CommentBox = ({ closeModal, addComment, postId }) => {
         }),
         onSubmit: (values, { resetForm }) => {
 
-            addComment(values, postId);
+            axios.post(`/post/${postId}/comment`, values)
+                .then(response => {
+                    //Increment 
+                    console.log("increment comment count");
+                })
             resetForm();
             closeModal.current.closeModal();
         },
@@ -71,6 +76,4 @@ const CommentBox = ({ closeModal, addComment, postId }) => {
     );
 }
 
-export default connect(null, {
-    addComment
-})(CommentBox);
+export default CommentBox;

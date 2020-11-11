@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
+import ReactDOM from "react-dom";
 import axios from "axios";
 //Components
 import PostDetails from '../PostDetails';
 import CommentBox from '../CommentBox';
-import Modal from '../UI/Modal';
+import Modal from '../Modal';
 import PostBox from '../PostBox';
 import PostSkeleton from '../PostSkeleton';
 
@@ -19,8 +20,9 @@ import {
 const AuthenticatedHome = () => {
 
     //UI State
-    const [show, setShow] = useState(false);
     const [currentPostId, setCurrentPostId] = useState('');
+    //UI state that represents the comment count 
+    const [commentCount, setCommentCount] = useState(0);
 
     //Server State 
     const [posts, setPosts] = useState([]);
@@ -45,13 +47,21 @@ const AuthenticatedHome = () => {
 
     const childRef = useRef();
 
+    function modalHandler() {
+        setModalState(false);
+    }
+
+    const [modalState, setModalState] = useState(false);
 
     return (
         <Fragment>
-            <Modal show={show} ref={childRef}>
-                <CommentBox postId={currentPostId} closeModal={childRef} />
-            </Modal>
+            {/* <ModalPortal>
+                <Modal modalState='true' />
+            </ModalPortal> */}
             <ContentContainer>
+                <Modal modalState={modalState} setModalState={setModalState} modalHandler={modalHandler}>
+                    <CommentBox />
+                </Modal>
                 <Box pb={3}>
                     <PostBox posts={posts} setPosts={setPosts} />
                 </Box>
@@ -61,7 +71,7 @@ const AuthenticatedHome = () => {
                             return (
                                 <li key={post.postId}>
                                     <Box mb={2}>
-                                        <PostDetails show={show} openModal={childRef} setPostId={setPostId} post={post} />
+                                        <PostDetails setModalState={setModalState} setPostId={setPostId} post={post} commentCount={commentCount} setCommentCount={setCommentCount} />
                                     </Box>
                                 </li>
                             )
