@@ -41,7 +41,8 @@ const PostDetails = ({ post, setPostId, setModalState }) => {
 
     const [commentCount, setCommentCount] = useState(0);
 
-    const handleComment = (postId) => {
+    const handleComment = (postId, e) => {
+        e.preventDefault();
         //Set the current postId in the parent component that is targeted
         setPostId(postId);
 
@@ -88,7 +89,7 @@ const PostDetails = ({ post, setPostId, setModalState }) => {
                     <Flex py={2} >
                         <LikeButton post={post} />
                         {/* <Link pr={3} onClick={() => handleComment(post.postId)} href="#"> */}
-                        <button onClick={() => handleComment(post.postId)}>Comment <span>{typeof commentCount === 'number' ? commentCount.toString() : null}</span></button>
+                        <button onClick={(e) => handleComment(post.postId, e)}>Comment <span>{typeof commentCount === 'number' ? commentCount.toString() : null}</span></button>
                         {/* <Link pr={3} onClick={handleComment} href="#">
                         <Flex alignItems="center" fontSize={[1, 2]}>
                             <FontAwesomeIcon icon={faComment} />
