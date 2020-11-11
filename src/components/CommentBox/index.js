@@ -36,12 +36,10 @@ const CommentBox = ({ closeModal, postId }) => {
         }),
         onSubmit: (values, { resetForm }) => {
 
-            console.log("add comment!");
-            console.log(postId);
-
             axios.post(`/post/${postId}/comment`, values)
                 .then(response => {
-                    console.log(response.data);
+                    //Increment 
+                    console.log("increment comment count");
                 })
             resetForm();
             closeModal.current.closeModal();

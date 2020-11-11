@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-//Redux
-import { connect } from 'react-redux';
-import { addUnlike } from '../../actions'
+//User Context
+import { useUserState } from "../../user-context";
+
 //Date helper
 import { getDifferenceDate } from '../../helpers/date'
 //Icon 
@@ -32,12 +32,37 @@ const ContentContainer = styled(Box)`
     box-shadow: 0px 3px 20px -15px rgba(0,0,0,0.5);
 `
 
-const PostDetails = ({ post, openModal, setPostId, addUnlike, user }) => {
+const CommentButton = () => {
+
+    const [commentCount, setCommentCount] = useState(0);
 
     const handleComment = (postId) => {
-        setPostId(postId);
-        openModal.current.openModal()
+        // setPostId(postId);
+        setCommentCount(commentCount + 1);
+        // openModal.current.openModal();
+        console.log("comment");
     }
+
+    return (
+        // <Link pr={3} onClick={handleComment} href="#">
+        //     <Flex alignItems="center" fontSize={[1, 2]}>
+        //         <FontAwesomeIcon icon={faComment} />
+        //         <Text px={2}>{typeof commentCount === 'number' ? commentCount.toString() : null}</Text>
+        //     </Flex>
+        // </Link>
+        <button onClick={handleComment}>Comment <span>{typeof commentCount === 'number' ? commentCount.toString() : null}</span></button>
+    );
+}
+
+const PostDetails = ({ post, setPostId }) => {
+
+    const user = useUserState();
+
+    // const handleComment = (postId) => {
+    //     // setPostId(postId);
+    //     // setCommentCount(commentCount + 1);
+    //     // openModal.current.openModal();
+    // }
 
     return (
         <Flex p={3} flexDirection={["column", "row"]}>
@@ -72,23 +97,18 @@ const PostDetails = ({ post, openModal, setPostId, addUnlike, user }) => {
                 </RouterLink>
                 <Flex py={2} >
                     <LikeButton post={post} />
-                    <Link pr={3} onClick={() => handleComment(post.postId)} href="#">
+                    {/* <Link pr={3} onClick={() => handleComment(post.postId)} href="#"> */}
+                    <CommentButton />
+                    {/* <Link pr={3} onClick={handleComment} href="#">
                         <Flex alignItems="center" fontSize={[1, 2]}>
                             <FontAwesomeIcon icon={faComment} />
-                            <Text px={2}>{typeof post.commentCount === 'number' ? post.commentCount.toString() : null}</Text>
+                            <Text px={2}>{typeof commentCount === 'number' ? commentCount.toString() : null}</Text>
                         </Flex>
-                    </Link>
+                    </Link> */}
                 </Flex>
             </ContentContainer>
         </Flex>
     );
 }
 
-const mapStateToProps = (state) => {
-    const { user } = state;
-    return { user };
-}
-
-export default connect(mapStateToProps, {
-    addUnlike
-})(PostDetails);
+export default PostDetails;
