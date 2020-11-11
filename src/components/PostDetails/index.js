@@ -14,6 +14,7 @@ import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
 //Component 
 import CommentBox from "../CommentBox";
 import LikeButton from '../LikeButton';
+
 //Style 
 import styled from "styled-components";
 import {
@@ -35,8 +36,9 @@ const ContentContainer = styled(Box)`
 `
 
 
-const PostDetails = ({ post, setPostId, setModalState }) => {
+const PostDetails = ({ post, setPostId, toggleModal }) => {
 
+    //Get the value of context passed to User.Provider
     const user = useUserState();
 
     const [commentCount, setCommentCount] = useState(0);
@@ -44,12 +46,12 @@ const PostDetails = ({ post, setPostId, setModalState }) => {
     const handleComment = (postId, e) => {
         e.preventDefault();
         //Set the current postId in the parent component that is targeted
-        setPostId(postId);
+        // setPostId(postId);
 
         //Set modal state to true in the parent component to display the Modal Component 
-        setModalState(true);
+        toggleModal(true);
 
-        setCommentCount(commentCount + 1);
+        //setCommentCount(commentCount + 1);
         // openModal.current.openModal();
         console.log("comment");
     }

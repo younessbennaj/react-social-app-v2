@@ -8,6 +8,9 @@ import Modal from '../Modal';
 import PostBox from '../PostBox';
 import PostSkeleton from '../PostSkeleton';
 
+//Custom hook 
+import { useModal } from '../Modal';
+
 //Layout
 import { ContentContainer } from '../../hoc/layout/element';
 
@@ -42,13 +45,7 @@ const AuthenticatedHome = () => {
             })
     }, []);
 
-    const childRef = useRef();
-
-    function modalHandler() {
-        setModalState(false);
-    }
-
-    const [modalState, setModalState] = useState(false);
+    const { modalState, setModalState, toggleModal } = useModal();
 
     return (
         <Fragment>
@@ -56,7 +53,7 @@ const AuthenticatedHome = () => {
                 <Modal modalState='true' />
             </ModalPortal> */}
             <ContentContainer>
-                <Modal modalState={modalState} setModalState={setModalState} modalHandler={modalHandler}>
+                <Modal modalState={modalState} setModalState={setModalState} toggleModal={toggleModal}>
                     <CommentBox />
                 </Modal>
                 <Box pb={3}>
@@ -68,7 +65,7 @@ const AuthenticatedHome = () => {
                             return (
                                 <li key={post.postId}>
                                     <Box mb={2}>
-                                        <PostDetails setModalState={setModalState} setPostId={setPostId} post={post} commentCount={commentCount} setCommentCount={setCommentCount} />
+                                        <PostDetails toggleModal={toggleModal} setModalState={setModalState} setPostId={setPostId} post={post} commentCount={commentCount} setCommentCount={setCommentCount} />
                                     </Box>
                                 </li>
                             )
