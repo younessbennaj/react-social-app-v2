@@ -26,28 +26,13 @@ const ModalPortal = ({ children }) => {
     )
 }
 
-const Modal = ({ children, modalState, setModalState }) => {
-    //UI state to handle modal diplay state
-    // const [isOpen, setIsOpen] = useState(modalState);
-
-    //Event handler to close the modal
-    function toggleModal(e) {
-        e.preventDefault();
-        setModalState(false);
-        // modalHandler(setIsOpen);
-        // setIsOpen(false);
-    }
-
-    // useEffect(() => {
-    //     setIsOpen(modalState);
-    // }, [modalState]);
-
+const Modal = ({ children, toggleModal, modalState }) => {
 
     return (
         <ModalPortal>
             <div className={`modal-container modal-container-${modalState ? 'open' : 'closed'}`}>
                 <div className="modal">
-                    <button onClick={toggleModal}><a href="/">close</a></button>
+                    <button onClick={() => toggleModal(false)}>close</button>
                     <div className="modal__content">
                         {children}
                     </div>
@@ -55,6 +40,19 @@ const Modal = ({ children, modalState, setModalState }) => {
             </div>
         </ModalPortal>
     )
+}
+
+export function useModal(state) {
+    const [modalState, setModalState] = useState(state);
+
+    return {
+        modalState,
+        setModalState,
+        toggleModal: (isOpen) => {
+            console.log(isOpen);
+            setModalState(isOpen);
+        }
+    }
 }
 
 export default Modal;
