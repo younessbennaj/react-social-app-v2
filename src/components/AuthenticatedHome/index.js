@@ -36,9 +36,6 @@ const AuthenticatedHome = () => {
     }
 
     useEffect(() => {
-    }, [posts]);
-
-    useEffect(() => {
         axios.get('/posts')
             .then(response => {
                 setPosts(response.data);
