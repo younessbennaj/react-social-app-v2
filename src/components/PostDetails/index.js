@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import ReactDOM from "react-dom";
 import { Link as RouterLink } from 'react-router-dom';
 
 //User Context
@@ -11,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faComment, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 //Component 
+import CommentBox from "../CommentBox";
 import LikeButton from '../LikeButton';
 //Style 
 import styled from "styled-components";
@@ -53,6 +55,7 @@ const CommentButton = () => {
         <button onClick={handleComment}>Comment <span>{typeof commentCount === 'number' ? commentCount.toString() : null}</span></button>
     );
 }
+
 
 const PostDetails = ({ post, setPostId }) => {
 
